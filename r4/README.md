@@ -1,0 +1,5 @@
+# r4
+
+All needed models for R4 resources and datatypes are housed here.
+This includes Java models for all R4 supported resources (CoverageEligibilityResponse and Patient), and all needed datatypes.
+Also includes the appropriate tests for each Java model.

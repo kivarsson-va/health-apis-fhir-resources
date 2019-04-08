@@ -11,4 +11,7 @@
   <artifactId>fhir-resources-parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <modules>
+    <module>r4</module>
+  </modules>
 </project>
