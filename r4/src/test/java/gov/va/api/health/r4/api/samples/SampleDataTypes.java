@@ -2,6 +2,11 @@ package gov.va.api.health.r4.api.samples;
 
 import static java.util.Collections.singletonList;
 
+import gov.va.api.health.r4.api.bundle.AbstractEntry.HttpVerb;
+import gov.va.api.health.r4.api.bundle.AbstractEntry.Request;
+import gov.va.api.health.r4.api.bundle.AbstractEntry.Response;
+import gov.va.api.health.r4.api.bundle.AbstractEntry.Search;
+import gov.va.api.health.r4.api.bundle.AbstractEntry.SearchMode;
 import gov.va.api.health.r4.api.datatypes.Address;
 import gov.va.api.health.r4.api.datatypes.Address.AddressType;
 import gov.va.api.health.r4.api.datatypes.Address.AddressUse;
@@ -30,6 +35,8 @@ import gov.va.api.health.r4.api.elements.Meta;
 import gov.va.api.health.r4.api.elements.Narrative;
 import gov.va.api.health.r4.api.elements.Narrative.NarrativeStatus;
 import gov.va.api.health.r4.api.elements.Reference;
+import gov.va.api.health.r4.api.resources.OperationOutcome.Issue;
+import gov.va.api.health.r4.api.resources.OperationOutcome.Issue.IssueSeverity;
 import java.util.Arrays;
 import lombok.NoArgsConstructor;
 
@@ -153,6 +160,17 @@ public class SampleDataTypes {
         .build();
   }
 
+  public Issue issue() {
+    return Issue.builder()
+        .severity(IssueSeverity.error)
+        .code("HelloCode")
+        .details(details())
+        .diagnostics("HelloDiagnostics")
+        .location(singletonList("HelloLocation"))
+        .expression(singletonList("HelloExpression"))
+        .build();
+  }
+
   public Meta meta() {
     return Meta.builder()
         .versionId("1111")
@@ -193,12 +211,48 @@ public class SampleDataTypes {
     return Reference.builder().reference("HelloReference").display("HelloDisplay").build();
   }
 
+  public Request request() {
+    return Request.builder()
+        .id("request1")
+        .extension(singletonList(extension()))
+        .modifierExtension(singletonList(extension()))
+        .method(HttpVerb.GET)
+        .url("http://example.com")
+        .ifNoneMatch("ok")
+        .ifModifiedSince("also ok")
+        .ifMatch("really ok")
+        .ifNoneExist("meh, ok.")
+        .build();
+  }
+
   public SimpleResource resource() {
     return SimpleResource.builder()
         .id("1111")
         .meta(meta())
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
+        .build();
+  }
+
+  public Response response() {
+    return Response.builder()
+        .id("response1")
+        .extension(singletonList(extension()))
+        .modifierExtension(singletonList(extension()))
+        .status("single")
+        .location("http://example.com")
+        .etag("you're it")
+        .lastModified("2005-01-21T07:57:00Z")
+        .build();
+  }
+
+  public Search search() {
+    return Search.builder()
+        .id("search1")
+        .mode(SearchMode.match)
+        .extension(singletonList(extension()))
+        .modifierExtension(singletonList(extension()))
+        .score("0.5")
         .build();
   }
 
