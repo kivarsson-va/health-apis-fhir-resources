@@ -5,7 +5,7 @@ import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Reference;
-import gov.va.api.health.r4.api.validation.ExactlyOneOf;
+import gov.va.api.health.validation.api.ExactlyOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;

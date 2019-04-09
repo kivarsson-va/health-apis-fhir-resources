@@ -1,4 +1,4 @@
-package gov.va.api.health.r4.api.validation;
+package gov.va.api.health.validation.api;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;

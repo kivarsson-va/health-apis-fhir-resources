@@ -1,4 +1,4 @@
-package gov.va.api.health.r4.api.validation;
+package gov.va.api.health.validation.api;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * <p>Consider the following example.
  *
  * <ul>
- *   <li>a and b , c and d are separate groups that are looked at for ZeroOrOneOf validation
+ *   <li>a and b , c and d are seperate groups that are looked at for ZeroOrOneOf validation
  * </ul>
  *
  * <pre>
@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Documented
-public @interface ExactlyOneOfs {
-  /** Collections of related field annotations. */
-  ExactlyOneOf[] value();
+public @interface ZeroOrOneOfs {
+  /** Collections of related field annotions. */
+  ZeroOrOneOf[] value();
 }
