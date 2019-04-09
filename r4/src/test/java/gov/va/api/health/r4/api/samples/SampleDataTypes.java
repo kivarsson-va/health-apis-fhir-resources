@@ -112,6 +112,10 @@ public class SampleDataTypes {
     return Extension.builder().url("http://HelloUrl.com").valueCoding(coding()).build();
   }
 
+  public Extension extensionWithContactDetail() {
+    return Extension.builder().valueContactDetail(contactDetail()).build();
+  }
+
   public Extension extensionWithQuantity() {
     return Extension.builder()
         .url("http://HelloUrl.com")
@@ -137,6 +141,10 @@ public class SampleDataTypes {
                 .numerator(Quantity.builder().value("2.0").build())
                 .build())
         .build();
+  }
+
+  public Extension extensionWithUsageContext() {
+    return Extension.builder().valueUsageContext(usageContext()).build();
   }
 
   public HumanName humanName() {
