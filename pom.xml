@@ -3,11 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>gov.va.api.health</groupId>
-    <artifactId>service-starter</artifactId>
+    <artifactId>health-apis-parent</artifactId>
     <version>2.0.0</version>
-    <relativePath/>
   </parent>
-  <groupId>gov.va.api.health</groupId>
   <artifactId>fhir-resources-parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
