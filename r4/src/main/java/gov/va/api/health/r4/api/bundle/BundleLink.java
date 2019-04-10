@@ -30,6 +30,10 @@ public class BundleLink implements BackboneElement {
   @Pattern(regexp = Fhir.URI)
   String url;
 
+  /**
+   * Link relations referenced from:
+   * http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1.
+   */
   @SuppressWarnings("unused")
   public enum LinkRelation {
     about,
