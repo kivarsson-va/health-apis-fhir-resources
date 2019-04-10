@@ -1,4 +1,4 @@
-package gov.va.api.health.r4.api.validation;
+package gov.va.api.health.validation.api;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
@@ -11,13 +11,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Constraint that indicates a class must have one of a collection of fields sets. This requires
- * exactly one of the fields in the group to be set.
+ * Constraint that indicates a class can have at most one of a collection of fields sets. The this
+ * allows all fields in this group to be null, but disallows two or more to be set.
  *
  * <p>Consider the following example.
  *
  * <ul>
- *   <li>either a or b must be set, but not both
+ *   <li>a and b may both be null
+ *   <li>a or b may be set, but not both
  *   <li>x is not considered by this validation
  * </ul>
  *
@@ -32,9 +33,9 @@ import javax.validation.Payload;
  */
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = ExactlyOneOfValidator.class)
+@Constraint(validatedBy = ZeroOrOneOfValidator.class)
 @Documented
-public @interface ExactlyOneOf {
+public @interface ZeroOrOneOf {
   /** @return The fields */
   String[] fields();
 
@@ -42,7 +43,7 @@ public @interface ExactlyOneOf {
   Class<?>[] groups() default {};
 
   /** Assigns message for when validation fails. */
-  String message() default "Exactly one value in this group must be specified";
+  String message() default "Only one value in this group may be specified";
 
   /** Assigns default payload to constraints */
   Class<? extends Payload>[] payload() default {};

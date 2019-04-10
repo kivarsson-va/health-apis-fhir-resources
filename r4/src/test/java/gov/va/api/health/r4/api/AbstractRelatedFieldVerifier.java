@@ -4,9 +4,22 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import gov.va.api.health.autoconfig.configuration.JacksonConfig;
+import gov.va.api.health.r4.api.datatypes.Address;
+import gov.va.api.health.r4.api.datatypes.CodeableConcept;
+import gov.va.api.health.r4.api.datatypes.Coding;
+import gov.va.api.health.r4.api.datatypes.ContactDetail;
+import gov.va.api.health.r4.api.datatypes.ContactPoint;
+import gov.va.api.health.r4.api.datatypes.HumanName;
+import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.datatypes.Money;
 import gov.va.api.health.r4.api.datatypes.Period;
+import gov.va.api.health.r4.api.datatypes.Quantity;
+import gov.va.api.health.r4.api.datatypes.Range;
+import gov.va.api.health.r4.api.datatypes.Ratio;
+import gov.va.api.health.r4.api.datatypes.Signature;
 import gov.va.api.health.r4.api.datatypes.SimpleQuantity;
+import gov.va.api.health.r4.api.datatypes.SimpleResource;
+import gov.va.api.health.r4.api.datatypes.UsageContext;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.samples.SampleDataTypes;
 import java.beans.PropertyDescriptor;
@@ -85,10 +98,23 @@ public abstract class AbstractRelatedFieldVerifier<T> {
   private static Map<Class<?>, Supplier<?>> createKnownTypes() {
     SampleDataTypes dataTypes = SampleDataTypes.get();
     Map<Class<?>, Supplier<?>> suppliers = new HashMap<>();
+    suppliers.put(Address.class, dataTypes::address);
+    suppliers.put(CodeableConcept.class, dataTypes::codeableConcept);
+    suppliers.put(Coding.class, dataTypes::coding);
+    suppliers.put(ContactDetail.class, dataTypes::contactDetail);
+    suppliers.put(ContactPoint.class, dataTypes::contactPoint);
     suppliers.put(Extension.class, dataTypes::extension);
-    suppliers.put(Period.class, dataTypes::period);
+    suppliers.put(HumanName.class, dataTypes::humanName);
+    suppliers.put(Identifier.class, dataTypes::identifier);
     suppliers.put(Money.class, dataTypes::money);
+    suppliers.put(Period.class, dataTypes::period);
+    suppliers.put(Quantity.class, dataTypes::quantity);
+    suppliers.put(Range.class, dataTypes::range);
+    suppliers.put(Ratio.class, dataTypes::extensionWithRatio);
+    suppliers.put(Signature.class, dataTypes::signature);
     suppliers.put(SimpleQuantity.class, dataTypes::simpleQuantity);
+    suppliers.put(SimpleResource.class, dataTypes::resource);
+    suppliers.put(UsageContext.class, dataTypes::usageContext);
     return suppliers;
   }
 

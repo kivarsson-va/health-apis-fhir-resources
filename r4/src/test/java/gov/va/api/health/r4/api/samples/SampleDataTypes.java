@@ -132,15 +132,7 @@ public class SampleDataTypes {
   }
 
   public Extension extensionWithRatio() {
-    return Extension.builder()
-        .url("http://HelloUrl.com")
-        .valueRatio(
-            Ratio.builder()
-                .id("R1")
-                .denominator(Quantity.builder().value("1.0").build())
-                .numerator(Quantity.builder().value("2.0").build())
-                .build())
-        .build();
+    return Extension.builder().url("http://HelloUrl.com").valueRatio(ratio()).build();
   }
 
   public Extension extensionWithUsageContext() {
@@ -213,6 +205,14 @@ public class SampleDataTypes {
 
   public Range range() {
     return Range.builder().high(simpleQuantity()).low(simpleQuantity()).build();
+  }
+
+  public Ratio ratio() {
+    return Ratio.builder()
+        .id("R1")
+        .denominator(Quantity.builder().value("1.0").build())
+        .numerator(Quantity.builder().value("2.0").build())
+        .build();
   }
 
   public Reference reference() {

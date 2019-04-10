@@ -17,7 +17,7 @@ import gov.va.api.health.r4.api.datatypes.Range;
 import gov.va.api.health.r4.api.datatypes.Ratio;
 import gov.va.api.health.r4.api.datatypes.Signature;
 import gov.va.api.health.r4.api.datatypes.UsageContext;
-import gov.va.api.health.r4.api.validation.ZeroOrOneOf;
+import gov.va.api.health.validation.api.ZeroOrOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
