@@ -4,6 +4,7 @@ import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
 import static gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType.searchset;
 import static java.util.Collections.singletonList;
 
+import gov.va.api.health.r4.api.ExactlyOneOfExtensionVerifier;
 import gov.va.api.health.r4.api.ZeroOrOneOfVerifier;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.bundle.BundleLink.LinkRelation;
@@ -54,6 +55,7 @@ public class CoverageEligibilityResponseTest {
   @Test
   public void coverageEligibilityResponse() {
     assertRoundTrip(data.coverageEligibilityResponse());
+    assertRoundTrip(data.coverageEligibilityResponseWithDataAbsentReason());
   }
 
   @Test
@@ -65,5 +67,25 @@ public class CoverageEligibilityResponseTest {
         .verify();
     ZeroOrOneOfVerifier.builder().sample(data.benefit()).fieldPrefix("allowed").build().verify();
     ZeroOrOneOfVerifier.builder().sample(data.benefit()).fieldPrefix("used").build().verify();
+    ExactlyOneOfExtensionVerifier.builder()
+        .sample(data.coverageEligibilityResponse())
+        .field("request")
+        .build()
+        .verify();
+    ExactlyOneOfExtensionVerifier.builder()
+        .sample(data.coverageEligibilityResponseWithDataAbsentReason())
+        .field("request")
+        .build()
+        .verify();
+    ExactlyOneOfExtensionVerifier.builder()
+        .sample(data.insurance())
+        .field("coverage")
+        .build()
+        .verify();
+    ExactlyOneOfExtensionVerifier.builder()
+        .sample(data.insuranceWithDataAbsentReason())
+        .field("coverage")
+        .build()
+        .verify();
   }
 }

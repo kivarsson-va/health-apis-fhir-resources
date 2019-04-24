@@ -21,6 +21,7 @@ import gov.va.api.health.r4.api.datatypes.SimpleQuantity;
 import gov.va.api.health.r4.api.datatypes.SimpleResource;
 import gov.va.api.health.r4.api.datatypes.UsageContext;
 import gov.va.api.health.r4.api.elements.Extension;
+import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.samples.SampleDataTypes;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -113,6 +114,7 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     suppliers.put(Ratio.class, dataTypes::extensionWithRatio);
     suppliers.put(Signature.class, dataTypes::signature);
     suppliers.put(SimpleQuantity.class, dataTypes::simpleQuantity);
+    suppliers.put(Reference.class, dataTypes::reference);
     suppliers.put(SimpleResource.class, dataTypes::resource);
     suppliers.put(UsageContext.class, dataTypes::usageContext);
     return suppliers;
