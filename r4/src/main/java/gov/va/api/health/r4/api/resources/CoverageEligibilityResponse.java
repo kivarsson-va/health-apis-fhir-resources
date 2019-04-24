@@ -18,6 +18,7 @@ import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Meta;
 import gov.va.api.health.r4.api.elements.Narrative;
 import gov.va.api.health.r4.api.elements.Reference;
+import gov.va.api.health.validation.api.ExactlyOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -48,7 +49,11 @@ import lombok.NoArgsConstructor;
 )
 @ZeroOrOneOf(
   fields = {"servicedDate", "servicedPeriod"},
-  message = "Only one serviced value may be specified"
+  message = "Only one serviced value may be specified."
+)
+@ExactlyOneOf(
+  fields = {"request", "_request"},
+  message = "Exactly one request value must be specified."
 )
 public class CoverageEligibilityResponse implements Resource {
   // Anscestor -- Resource
@@ -88,7 +93,8 @@ public class CoverageEligibilityResponse implements Resource {
 
   @Valid Reference requestor;
 
-  @NotNull @Valid Reference request;
+  @Valid Reference request;
+  @Valid Extension _request;
 
   @NotNull Outcome outcome;
 
@@ -199,6 +205,10 @@ public class CoverageEligibilityResponse implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "Insurance")
+  @ExactlyOneOf(
+    fields = {"coverage", "_coverage"},
+    message = "Exactly one coverage value must be specified."
+  )
   public static class Insurance implements BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
@@ -207,7 +217,8 @@ public class CoverageEligibilityResponse implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
-    @NotNull @Valid Reference coverage;
+    @Valid Reference coverage;
+    @Valid Extension _coverage;
 
     @Pattern(regexp = Fhir.BOOLEAN)
     String inforce;

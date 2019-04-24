@@ -3,6 +3,8 @@ package gov.va.api.health.r4.api.samples;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
+import gov.va.api.health.r4.api.DataAbsentReason;
+import gov.va.api.health.r4.api.DataAbsentReason.Reason;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse.Benefit;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse.CoverageEligibilityResponseError;
@@ -56,6 +58,12 @@ public class SampleCoverageEligibilityResponses {
         .build();
   }
 
+  public CoverageEligibilityResponse coverageEligibilityResponseWithDataAbsentReason() {
+    return coverageEligibilityResponse()
+        ._request(DataAbsentReason.of(Reason.unsupported))
+        .request(null);
+  }
+
   public CoverageEligibilityResponseError error() {
     return CoverageEligibilityResponseError.builder().code(codeableConcept()).build();
   }
@@ -67,6 +75,10 @@ public class SampleCoverageEligibilityResponses {
         .benefitPeriod(period())
         .item(singletonList(item()))
         .build();
+  }
+
+  public Insurance insuranceWithDataAbsentReason() {
+    return insurance().coverage(null)._coverage(DataAbsentReason.of(Reason.unsupported));
   }
 
   public Item item() {
