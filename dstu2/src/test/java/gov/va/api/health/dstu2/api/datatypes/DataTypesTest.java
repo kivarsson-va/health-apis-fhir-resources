@@ -10,7 +10,16 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class DataTypesTest {
+
   private final SampleDataTypes data = SampleDataTypes.get();
+
+  @Test
+  public void dataTypes() {
+    assertRoundTrip(data.age());
+    assertRoundTrip(data.annotation());
+    assertRoundTrip(data.sampledData());
+    assertRoundTrip(data.range());
+  }
 
   @Test
   public void extension() {
@@ -36,10 +45,5 @@ public class DataTypesTest {
                     data.extension(), data.extensionWithQuantity(), data.extensionWithRatio()))
             .issue(singletonList(data.issue()))
             .build());
-  }
-
-  @Test
-  public void range() {
-    assertRoundTrip(data.range());
   }
 }
