@@ -13,5 +13,6 @@
     <module>r4</module>
     <module>validation</module>
     <module>dstu2</module>
+    <module>argonaut</module>
   </modules>
 </project>
