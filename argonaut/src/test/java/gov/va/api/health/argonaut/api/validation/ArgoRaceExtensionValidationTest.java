@@ -2,6 +2,7 @@ package gov.va.api.health.argonaut.api.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import gov.va.api.health.argonaut.api.samples.SampleExtensions;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

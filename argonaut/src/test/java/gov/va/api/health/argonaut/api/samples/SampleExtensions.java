@@ -1,4 +1,4 @@
-package gov.va.api.health.argonaut.api.validation;
+package gov.va.api.health.argonaut.api.samples;
 
 import gov.va.api.health.argonaut.api.resources.Patient;
 import gov.va.api.health.dstu2.api.datatypes.CodeableConcept;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 @SuppressWarnings("WeakerAccess")
 @NoArgsConstructor(staticName = "get")
-class SampleExtensions {
+public class SampleExtensions {
   List<Identifier> identifier() {
     List<Identifier> identifiers = new LinkedList<>();
     identifiers.add(
@@ -35,7 +35,7 @@ class SampleExtensions {
     return identifiers;
   }
 
-  List<Extension> multipleOptionalEthnicityExtension() {
+  public List<Extension> multipleOptionalEthnicityExtension() {
     List<Extension> extensions = new ArrayList<>(3);
 
     List<Extension> ethnicityExtensions = new LinkedList<>();
@@ -89,7 +89,7 @@ class SampleExtensions {
     return extensions;
   }
 
-  List<Extension> multipleOptionalRaceExtension() {
+  public List<Extension> multipleOptionalRaceExtension() {
     List<Extension> extensions = new ArrayList<>(3);
 
     List<Extension> raceExtensions = new LinkedList<>();
@@ -163,7 +163,7 @@ class SampleExtensions {
     return extensions;
   }
 
-  List<HumanName> name() {
+  public List<HumanName> name() {
     return Collections.singletonList(
         HumanName.builder()
             .use(HumanName.NameUse.usual)
@@ -173,7 +173,7 @@ class SampleExtensions {
             .build());
   }
 
-  List<Extension> noRequiredEthnicityExtension() {
+  public List<Extension> noRequiredEthnicityExtension() {
     List<Extension> extensions = new ArrayList<>(3);
 
     List<Extension> ethnicityExtensions = new LinkedList<>();
@@ -185,7 +185,7 @@ class SampleExtensions {
     return extensions;
   }
 
-  List<Extension> noRequiredRaceExtension() {
+  public List<Extension> noRequiredRaceExtension() {
     List<Extension> extensions = new ArrayList<>(3);
 
     List<Extension> raceExtensions = new LinkedList<>();
@@ -197,7 +197,7 @@ class SampleExtensions {
     return extensions;
   }
 
-  List<Extension> nullEthnicityExtension() {
+  public List<Extension> nullEthnicityExtension() {
     List<Extension> extensions = new ArrayList<>(3);
 
     List<Extension> raceExtensions = new LinkedList<>();
@@ -217,7 +217,7 @@ class SampleExtensions {
     return extensions;
   }
 
-  List<Extension> nullRaceExtension() {
+  public List<Extension> nullRaceExtension() {
     List<Extension> extensions = new ArrayList<>(3);
 
     List<Extension> ethnicityExtensions = new LinkedList<>();
@@ -251,59 +251,59 @@ class SampleExtensions {
         .build();
   }
 
-  Patient patientWithMultipleOptionalEthnicityExtension() {
+  public Patient patientWithMultipleOptionalEthnicityExtension() {
     return patientWith(multipleOptionalEthnicityExtension());
   }
 
-  Patient patientWithMultipleOptionalRaceExtension() {
+  public Patient patientWithMultipleOptionalRaceExtension() {
     return patientWith(multipleOptionalRaceExtension());
   }
 
-  Patient patientWithNoRequiredEthnicityExtension() {
+  public Patient patientWithNoRequiredEthnicityExtension() {
     return patientWith(noRequiredEthnicityExtension());
   }
 
-  Patient patientWithNoRequiredRaceExtension() {
+  public Patient patientWithNoRequiredRaceExtension() {
     return patientWith(noRequiredRaceExtension());
   }
 
-  Patient patientWithNullEthnicityExtension() {
+  public Patient patientWithNullEthnicityExtension() {
     return patientWith(nullEthnicityExtension());
   }
 
-  Patient patientWithNullRaceExtension() {
+  public Patient patientWithNullRaceExtension() {
     return patientWith(nullRaceExtension());
   }
 
-  Patient patientWithSingleOptionalEthnicityExtension() {
+  public Patient patientWithSingleOptionalEthnicityExtension() {
     return patientWith(singleOptionalEthnicityExtension());
   }
 
-  Patient patientWithSingleOptionalRaceExtension() {
+  public Patient patientWithSingleOptionalRaceExtension() {
     return patientWith(singleOptionalRaceExtension());
   }
 
-  Patient patientWithSingleRequiredEthnicityExtension() {
+  public Patient patientWithSingleRequiredEthnicityExtension() {
     return patientWith(singleRequiredEthnicityExtension());
   }
 
-  Patient patientWithSingleRequiredRaceExtension() {
+  public Patient patientWithSingleRequiredRaceExtension() {
     return patientWith(singleRequiredRaceExtension());
   }
 
-  Patient patientWithTooManyOptionalEthnicityExtension() {
+  public Patient patientWithTooManyOptionalEthnicityExtension() {
     return patientWith(tooManyOptionalEthnicityExtension());
   }
 
-  Patient patientWithTooManyOptionalRaceExtension() {
+  public Patient patientWithTooManyOptionalRaceExtension() {
     return patientWith(tooManyOptionalRaceExtension());
   }
 
-  Patient patientWithTooManyRequiredEthnicityExtension() {
+  public Patient patientWithTooManyRequiredEthnicityExtension() {
     return patientWith(tooManyRequiredEthnicityExtension());
   }
 
-  Patient patientWithTooManyRequiredRaceExtension() {
+  public Patient patientWithTooManyRequiredRaceExtension() {
     return patientWith(tooManyRequiredRaceExtension());
   }
 
