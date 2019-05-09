@@ -4,7 +4,7 @@
   <parent>
     <groupId>gov.va.api.health</groupId>
     <artifactId>health-apis-parent</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
   </parent>
   <artifactId>fhir-resources-parent</artifactId>
   <version>1.0.4-SNAPSHOT</version>
@@ -12,5 +12,7 @@
   <modules>
     <module>r4</module>
     <module>validation</module>
+    <module>dstu2</module>
+    <module>argonaut</module>
   </modules>
 </project>
