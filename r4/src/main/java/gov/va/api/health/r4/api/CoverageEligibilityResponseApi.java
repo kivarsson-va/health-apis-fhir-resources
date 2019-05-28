@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 public interface CoverageEligibilityResponseApi {
 
   @Operation(
-    summary = "Coverage Eligibility Response Search",
+    summary = "Get detailed Coverage Eligibility for a Veteran",
     description = "https://www.hl7.org/fhir/R4/coverageeligibilityresponse.html",
     tags = {"CoverageEligibilityResponse"}
   )
