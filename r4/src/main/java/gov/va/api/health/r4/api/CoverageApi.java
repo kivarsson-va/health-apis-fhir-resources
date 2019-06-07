@@ -17,12 +17,7 @@ public interface CoverageApi {
   @Operation(
     summary = "Coverage Search",
     description =
-        "https://www.hl7.org/fhir/R4/coverage.html \n" 
-        + "The CoverageEligibilityResponse resource provides eligibility and plan details. "
-        + "It combines key information from a payor as to whether a Coverage is in-force, "
-        + "and optionally the nature of the Policy benefit details as well as the ability "
-        + "for the insurer to indicate whether the insurance provides benefits for requested "
-        + "types of services.",
+        "https://www.hl7.org/fhir/R4/coverage.html",
     tags = {"Coverage"}
   )
   @GET
