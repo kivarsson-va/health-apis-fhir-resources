@@ -16,7 +16,15 @@ public interface CoverageEligibilityResponseApi {
 
   @Operation(
     summary = "Get detailed Coverage Eligibility for a Veteran",
-    description = "https://www.hl7.org/fhir/R4/coverageeligibilityresponse.html",
+    description =
+        "The CoverageEligibilityResponse resource provides eligibility and plan details. "
+            + "It combines key information from a payor as to whether a Coverage is in-force, "
+            + "and optionally the nature of the Policy benefit details as well as the ability "
+            + "for the insurer to indicate whether the insurance provides benefits for requested "
+            + "types of services."
+            + "<br><br>"
+            + "**FOR MORE INFO:** [https://www.hl7.org/fhir/R4/coverageeligibilityresponse.html]"
+            + "(https://www.hl7.org/fhir/R4/coverageeligibilityresponse.html)",
     tags = {"CoverageEligibilityResponse"}
   )
   @GET
