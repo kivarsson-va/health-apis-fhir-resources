@@ -16,8 +16,7 @@ public interface CoverageApi {
 
   @Operation(
     summary = "Coverage Search",
-    description =
-        "https://www.hl7.org/fhir/R4/coverage.html",
+    description = "https://www.hl7.org/fhir/R4/coverage.html",
     tags = {"Coverage"}
   )
   @GET
