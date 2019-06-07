@@ -20,8 +20,7 @@ public interface CoverageEligibilityResponseApi {
         + "It combines key information from a payor as to whether a Coverage is in-force, "
         + "and optionally the nature of the Policy benefit details as well as the ability "
         + "for the insurer to indicate whether the insurance provides benefits for requested "
-        + "types of services."
-        + "<br><br>"
+        + "types of services.  "
         + "**FOR MORE INFO: ** [https://www.hl7.org/fhir/R4/coverageeligibilityresponse.html]"
         + "(https://www.hl7.org/fhir/R4/coverageeligibilityresponse.html)",
     tags = {"CoverageEligibilityResponse"}
