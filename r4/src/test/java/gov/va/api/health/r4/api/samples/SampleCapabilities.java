@@ -105,7 +105,7 @@ public class SampleCapabilities {
   }
 
   public MessagingEndpoint endpoint() {
-    return MessagingEndpoint.builder().protocol(coding()).address("").build();
+    return MessagingEndpoint.builder().protocol(coding()).address("http://example.com").build();
   }
 
   public Implementation implementation() {
