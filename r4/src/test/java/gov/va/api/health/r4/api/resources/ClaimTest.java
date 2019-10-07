@@ -12,7 +12,12 @@ public class ClaimTest {
   private final SampleClaims data = SampleClaims.get();
 
   @Test
-  public void testRelatedGroups() {
+  public void claim() {
+    assertRoundTrip(data.claim());
+  }
+
+  @Test
+  public void relatedGroups() {
     ZeroOrOneOfVerifier.builder()
         .sample(data.accidentWithLocationAddress())
         .fieldPrefix("location")
@@ -103,10 +108,5 @@ public class ClaimTest {
         .fieldPrefix("location")
         .build()
         .verify();
-  }
-
-  @Test
-  public void testRoundTrip() {
-    assertRoundTrip(data.claim());
   }
 }

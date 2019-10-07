@@ -11,7 +11,7 @@ public class CoverageEligibilityRequestTest {
   private final SampleCoverageEligibilityRequests data = SampleCoverageEligibilityRequests.get();
 
   @Test
-  public void coverageEligibilityResponse() {
+  public void coverageEligibilityRequest() {
     assertRoundTrip(data.coverageEligibilityRequest());
   }
 
