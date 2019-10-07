@@ -7,7 +7,9 @@ Also includes the appropriate tests for each Java model.
 Because validation logic is shared among all FHIR versions, it has been pulled out into its own module.
 
 Current Supported Resources:
+  * Claim
   * Coverage
+  * CoverageEligibilityRequest
   * CoverageEligibilityResponse
   * Patient
 
