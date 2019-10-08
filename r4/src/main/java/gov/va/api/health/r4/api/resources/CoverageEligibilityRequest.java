@@ -183,7 +183,7 @@ public class CoverageEligibilityRequest implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
-    @Valid List<@Pattern(regexp = Fhir.POSITIVE_INT) String> supportingInfoSequence;
+    List<@Pattern(regexp = Fhir.POSITIVE_INT) String> supportingInfoSequence;
 
     @Valid CodeableConcept category;
 

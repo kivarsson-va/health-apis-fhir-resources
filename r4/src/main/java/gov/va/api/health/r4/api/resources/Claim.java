@@ -367,7 +367,7 @@ public class Claim implements Resource {
     @Pattern(regexp = Fhir.STRING)
     String businessArrangement;
 
-    @Valid List<@Pattern(regexp = Fhir.STRING) String> preAuthRef;
+    List<@Pattern(regexp = Fhir.STRING) String> preAuthRef;
 
     @Valid Reference claimResponse;
   }
@@ -431,13 +431,13 @@ public class Claim implements Resource {
     @Pattern(regexp = Fhir.POSITIVE_INT)
     String sequence;
 
-    @Valid List<@Pattern(regexp = Fhir.POSITIVE_INT) String> careTeamSequence;
+    List<@Pattern(regexp = Fhir.POSITIVE_INT) String> careTeamSequence;
 
-    @Valid List<@Pattern(regexp = Fhir.POSITIVE_INT) String> diagnosisSequence;
+    List<@Pattern(regexp = Fhir.POSITIVE_INT) String> diagnosisSequence;
 
-    @Valid List<@Pattern(regexp = Fhir.POSITIVE_INT) String> procedureSequence;
+    List<@Pattern(regexp = Fhir.POSITIVE_INT) String> procedureSequence;
 
-    @Valid List<@Pattern(regexp = Fhir.POSITIVE_INT) String> informationSequence;
+    List<@Pattern(regexp = Fhir.POSITIVE_INT) String> informationSequence;
 
     @Valid CodeableConcept revenue;
 
