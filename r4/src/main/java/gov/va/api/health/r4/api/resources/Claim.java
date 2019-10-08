@@ -325,7 +325,7 @@ public class Claim implements Resource {
     @Pattern(regexp = Fhir.POSITIVE_INT)
     String sequence;
 
-    @Valid CodeableConcept type;
+    @Valid List<CodeableConcept> type;
 
     @Pattern(regexp = Fhir.DATETIME)
     String date;

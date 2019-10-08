@@ -157,7 +157,7 @@ public class SampleClaims {
   private Procedure incompleteProcedure() {
     return Procedure.builder()
         .sequence("1")
-        .type(codeableConcept())
+        .type(singletonList(codeableConcept()))
         .date("2017-01-01T00:00:00.000Z")
         .udi(singletonList(reference()))
         .build();
