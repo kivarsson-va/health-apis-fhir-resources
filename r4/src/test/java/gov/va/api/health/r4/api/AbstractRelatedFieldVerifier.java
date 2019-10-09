@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import gov.va.api.health.autoconfig.configuration.JacksonConfig;
 import gov.va.api.health.r4.api.datatypes.Address;
+import gov.va.api.health.r4.api.datatypes.Attachment;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.datatypes.ContactDetail;
@@ -100,6 +101,7 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     SampleDataTypes dataTypes = SampleDataTypes.get();
     Map<Class<?>, Supplier<?>> suppliers = new HashMap<>();
     suppliers.put(Address.class, dataTypes::address);
+    suppliers.put(Attachment.class, dataTypes::attachment);
     suppliers.put(CodeableConcept.class, dataTypes::codeableConcept);
     suppliers.put(Coding.class, dataTypes::coding);
     suppliers.put(ContactDetail.class, dataTypes::contactDetail);
