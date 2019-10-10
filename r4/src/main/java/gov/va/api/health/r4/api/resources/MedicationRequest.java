@@ -166,6 +166,10 @@ public class MedicationRequest implements Resource {
     order,
     @JsonProperty("original-order")
     original_order,
+    @JsonProperty("reflex-order")
+    reflex_order,
+    @JsonProperty("filler-order")
+    filler_order,
     @JsonProperty("instance-order")
     instance_order,
     option;
