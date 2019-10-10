@@ -19,6 +19,9 @@ public class Fhir {
   @Schema(description = "https://www.hl7.org/fhir/R4/datatypes.html#uri")
   public static final String URI = "\\S*";
 
+  @Schema(description = "https://www.hl7.org/fhir/datatypes.html#canonical")
+  public static final String CANONICAL = URI;
+
   @Schema(description = "https://www.hl7.org/fhir/R4/datatypes.html#base64binary")
   public static final String BASE64 = "(\\s*([0-9a-zA-Z\\+\\=]){4}\\s*)+";
 
