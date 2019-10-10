@@ -6,10 +6,8 @@ import static java.util.Collections.singletonList;
 import gov.va.api.health.r4.api.resources.OperationOutcome;
 import gov.va.api.health.r4.api.samples.SampleDataTypes;
 import java.util.Arrays;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-@Slf4j
 public class DataTypesTest {
 
   private final SampleDataTypes data = SampleDataTypes.get();
@@ -33,5 +31,20 @@ public class DataTypesTest {
                     data.extensionWithContactDetail()))
             .issue(singletonList(data.issue()))
             .build());
+  }
+
+  @Test
+  public void relatedGroups() {
+    ZeroOrOneOfVerifier.builder()
+        .sample(data.annotation().authorReference(null).authorString("string"))
+        .fieldPrefix("author")
+        .build()
+        .verify();
+
+    ZeroOrOneOfVerifier.builder()
+        .sample(data.annotation().authorReference(data.reference()).authorString(null))
+        .fieldPrefix("author")
+        .build()
+        .verify();
   }
 }

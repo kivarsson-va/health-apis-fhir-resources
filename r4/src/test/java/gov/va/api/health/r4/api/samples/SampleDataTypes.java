@@ -10,6 +10,7 @@ import gov.va.api.health.r4.api.bundle.AbstractEntry.SearchMode;
 import gov.va.api.health.r4.api.datatypes.Address;
 import gov.va.api.health.r4.api.datatypes.Address.AddressType;
 import gov.va.api.health.r4.api.datatypes.Address.AddressUse;
+import gov.va.api.health.r4.api.datatypes.Annotation;
 import gov.va.api.health.r4.api.datatypes.Attachment;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
@@ -17,6 +18,7 @@ import gov.va.api.health.r4.api.datatypes.ContactDetail;
 import gov.va.api.health.r4.api.datatypes.ContactPoint;
 import gov.va.api.health.r4.api.datatypes.ContactPoint.ContactPointSystem;
 import gov.va.api.health.r4.api.datatypes.ContactPoint.ContactPointUse;
+import gov.va.api.health.r4.api.datatypes.Duration;
 import gov.va.api.health.r4.api.datatypes.HumanName;
 import gov.va.api.health.r4.api.datatypes.HumanName.NameUse;
 import gov.va.api.health.r4.api.datatypes.Identifier;
@@ -29,6 +31,10 @@ import gov.va.api.health.r4.api.datatypes.Ratio;
 import gov.va.api.health.r4.api.datatypes.Signature;
 import gov.va.api.health.r4.api.datatypes.SimpleQuantity;
 import gov.va.api.health.r4.api.datatypes.SimpleResource;
+import gov.va.api.health.r4.api.datatypes.Timing;
+import gov.va.api.health.r4.api.datatypes.Timing.Repeat;
+import gov.va.api.health.r4.api.datatypes.Timing.Repeat.EventTime;
+import gov.va.api.health.r4.api.datatypes.Timing.Repeat.UnitOfTime;
 import gov.va.api.health.r4.api.datatypes.UsageContext;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Meta;
@@ -57,6 +63,14 @@ public class SampleDataTypes {
         .postalCode("12345")
         .country("Hello Country")
         .period(period())
+        .build();
+  }
+
+  public Annotation annotation() {
+    return Annotation.builder()
+        .authorReference(reference())
+        .time("2017-01-01T00:00:00.000Z")
+        .text("# annotation")
         .build();
   }
 
@@ -106,6 +120,10 @@ public class SampleDataTypes {
 
   public CodeableConcept details() {
     return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+  }
+
+  public Duration duration() {
+    return Duration.builder().value("1.0").code("code").unit("a").build();
   }
 
   public Extension extension() {
@@ -281,6 +299,30 @@ public class SampleDataTypes {
         .value("11.11")
         .unit("HelloUnit")
         .system("http://example.com")
+        .build();
+  }
+
+  public Timing timing() {
+    return Timing.builder()
+        .event(singletonList("2017-01-01T00:00:00.000Z"))
+        .repeat(
+            Repeat.builder()
+                .boundsPeriod(period())
+                .count("1")
+                .countMax("10")
+                .duration("0.5")
+                .durationMax("1.0")
+                .durationUnit(UnitOfTime.a)
+                .frequency("1")
+                .frequencyMax("10")
+                .period("0.5")
+                .periodMax("1.0")
+                .periodUnit(UnitOfTime.wk)
+                .timeOfDay(singletonList("11:00:00"))
+                .when(singletonList(EventTime.AC))
+                .offset("1")
+                .build())
+        .code(codeableConcept())
         .build();
   }
 

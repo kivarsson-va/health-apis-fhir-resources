@@ -10,6 +10,7 @@ import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.datatypes.ContactDetail;
 import gov.va.api.health.r4.api.datatypes.ContactPoint;
+import gov.va.api.health.r4.api.datatypes.Duration;
 import gov.va.api.health.r4.api.datatypes.HumanName;
 import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.datatypes.Money;
@@ -20,6 +21,7 @@ import gov.va.api.health.r4.api.datatypes.Ratio;
 import gov.va.api.health.r4.api.datatypes.Signature;
 import gov.va.api.health.r4.api.datatypes.SimpleQuantity;
 import gov.va.api.health.r4.api.datatypes.SimpleResource;
+import gov.va.api.health.r4.api.datatypes.Timing;
 import gov.va.api.health.r4.api.datatypes.UsageContext;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Reference;
@@ -106,6 +108,7 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     suppliers.put(Coding.class, dataTypes::coding);
     suppliers.put(ContactDetail.class, dataTypes::contactDetail);
     suppliers.put(ContactPoint.class, dataTypes::contactPoint);
+    suppliers.put(Duration.class, dataTypes::duration);
     suppliers.put(Extension.class, dataTypes::extension);
     suppliers.put(HumanName.class, dataTypes::humanName);
     suppliers.put(Identifier.class, dataTypes::identifier);
@@ -113,11 +116,12 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     suppliers.put(Period.class, dataTypes::period);
     suppliers.put(Quantity.class, dataTypes::quantity);
     suppliers.put(Range.class, dataTypes::range);
-    suppliers.put(Ratio.class, dataTypes::extensionWithRatio);
+    suppliers.put(Ratio.class, dataTypes::ratio);
     suppliers.put(Signature.class, dataTypes::signature);
     suppliers.put(SimpleQuantity.class, dataTypes::simpleQuantity);
     suppliers.put(Reference.class, dataTypes::reference);
     suppliers.put(SimpleResource.class, dataTypes::resource);
+    suppliers.put(Timing.class, dataTypes::timing);
     suppliers.put(UsageContext.class, dataTypes::usageContext);
     return suppliers;
   }
@@ -147,7 +151,7 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     return field;
   }
 
-  /** Set the field to an automatically deterined value based on it's type. */
+  /** Set the field to an automatically determined value based on it's type. */
   protected void setField(String name) {
     Field field = field(name);
     Supplier<?> supplier;
