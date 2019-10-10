@@ -36,6 +36,8 @@ import gov.va.api.health.r4.api.datatypes.Timing.Repeat;
 import gov.va.api.health.r4.api.datatypes.Timing.Repeat.EventTime;
 import gov.va.api.health.r4.api.datatypes.Timing.Repeat.UnitOfTime;
 import gov.va.api.health.r4.api.datatypes.UsageContext;
+import gov.va.api.health.r4.api.elements.Dosage;
+import gov.va.api.health.r4.api.elements.Dosage.DoseAndRate;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Meta;
 import gov.va.api.health.r4.api.elements.Narrative;
@@ -120,6 +122,32 @@ public class SampleDataTypes {
 
   public CodeableConcept details() {
     return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+  }
+
+  public Dosage dosage() {
+    return Dosage.builder()
+        .sequence("1")
+        .text("text")
+        .additionalInstruction(singletonList(codeableConcept()))
+        .patientInstruction("patient instruction")
+        .timing(timing())
+        .asNeededCodeableConcept(codeableConcept())
+        .site(codeableConcept())
+        .route(codeableConcept())
+        .method(codeableConcept())
+        .doseAndRate(singletonList(doseAndRate()))
+        .maxDosePerPeriod(ratio())
+        .maxDosePerAdministration(simpleQuantity())
+        .maxDosePerLifetime(simpleQuantity())
+        .build();
+  }
+
+  public DoseAndRate doseAndRate() {
+    return DoseAndRate.builder()
+        .type(codeableConcept())
+        .doseRange(range())
+        .rateRange(range())
+        .build();
   }
 
   public Duration duration() {
