@@ -42,6 +42,8 @@ public class SampleHealthcareServices {
         .modifierExtension(
             Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
         .identifier(singletonList(identifier()))
+        .active("true")
+        .providedBy(reference())
         .category(singletonList(codeableConcept()))
         .type(singletonList(codeableConcept()))
         .specialty(singletonList(codeableConcept()))
