@@ -176,7 +176,17 @@ public class ServiceRequest implements Resource {
   public enum Intent {
     proposal,
     plan,
-    order;
+    directive,
+    order,
+    @JsonProperty("original-order")
+    original_order,
+    @JsonProperty("reflex-order")
+    reflex_order,
+    @JsonProperty("filler-order")
+    filler_order,
+    @JsonProperty("instance-order")
+    instance_order,
+    option;
   }
 
   public enum Priority {
