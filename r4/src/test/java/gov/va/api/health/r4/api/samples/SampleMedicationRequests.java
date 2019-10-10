@@ -20,7 +20,7 @@ public class SampleMedicationRequests {
 
   public DispenseRequest dispenseRequest() {
     return DispenseRequest.builder()
-        .initialFill(InitialFill.builder().quantity(simpleQuantity()).build())
+        .initialFill(InitialFill.builder().quantity(simpleQuantity()).duration(duration()).build())
         .dispenseInterval(duration())
         .validityPeriod(period())
         .numberOfRepeatsAllowed("1")
