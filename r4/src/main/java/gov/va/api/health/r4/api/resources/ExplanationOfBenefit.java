@@ -42,7 +42,7 @@ import lombok.NoArgsConstructor;
   fieldVisibility = JsonAutoDetect.Visibility.ANY,
   isGetterVisibility = JsonAutoDetect.Visibility.NONE
 )
-@Schema(description = "https://www.hl7.org/fhir/R4/claim.html", example = "SWAGGER_EXAMPLE_CLAIM")
+@Schema(description = "https://www.hl7.org/fhir/R4/explanationofbenefit.html", example = "SWAGGER_EXAMPLE_EXPLANATIONOFBENEFIT")
 public class ExplanationOfBenefit {
 
   // Ancestor -- Resource
