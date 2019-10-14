@@ -4,6 +4,7 @@ import gov.va.api.health.r4.api.resources.Capability;
 import gov.va.api.health.r4.api.resources.OperationOutcome;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import javax.ws.rs.GET;
@@ -23,7 +24,8 @@ public interface MetadataApi {
     content =
         @Content(
           mediaType = "application/json+fhir",
-          schema = @Schema(implementation = Capability.class)
+          schema = @Schema(implementation = Capability.class),
+          examples = @ExampleObject(value = "SWAGGER_EXAMPLE_METADATA")
         )
   )
   @ApiResponse(
