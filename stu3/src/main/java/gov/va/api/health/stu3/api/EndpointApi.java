@@ -31,7 +31,7 @@ public interface EndpointApi {
   )
   @ApiResponse(
     responseCode = "404",
-    description = "Not found",
+    description = "Bad request",
     content =
         @Content(
           mediaType = "application/json+fhir",
@@ -40,7 +40,7 @@ public interface EndpointApi {
   )
   @ApiResponse(
     responseCode = "400",
-    description = "Bad request",
+    description = "Not found",
     content =
         @Content(
           mediaType = "application/json+fhir",
@@ -67,7 +67,7 @@ public interface EndpointApi {
   )
   @ApiResponse(
     responseCode = "404",
-    description = "Not found",
+    description = "Bad request",
     content =
         @Content(
           mediaType = "application/json+fhir",
@@ -76,7 +76,7 @@ public interface EndpointApi {
   )
   @ApiResponse(
     responseCode = "400",
-    description = "Bad request",
+    description = "Not found",
     content =
         @Content(
           mediaType = "application/json+fhir",

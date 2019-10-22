@@ -30,7 +30,7 @@ public interface MetadataApi {
   )
   @ApiResponse(
     responseCode = "400",
-    description = "Not found",
+    description = "Bad request",
     content =
         @Content(
           mediaType = "application/json+fhir",
@@ -39,7 +39,7 @@ public interface MetadataApi {
   )
   @ApiResponse(
     responseCode = "404",
-    description = "Bad request",
+    description = "Not found",
     content =
         @Content(
           mediaType = "application/json+fhir",
