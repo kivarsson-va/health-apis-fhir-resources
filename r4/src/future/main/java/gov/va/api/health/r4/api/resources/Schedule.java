@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 )
 @Schema(
   description = "https://www.hl7.org/fhir/R4/schedule.html",
-  example = "SWAGGER_EXAMPLE_SCHEDULE"
+  example = "${r4.schedule:com.example.Example#example}"
 )
 public class Schedule {
 

@@ -45,7 +45,7 @@ import lombok.NoArgsConstructor;
 )
 @Schema(
   description = "https://www.hl7.org/fhir/R4/coverage.html",
-  example = "SWAGGER_EXAMPLE_COVERAGE"
+  example = "${r4.coverage:gov.va.api.health.r4.api.swaggerexamples.SwaggerCoverage#coverage}"
 )
 public class Coverage implements Resource {
   // Anscestor -- Resource
@@ -117,7 +117,11 @@ public class Coverage implements Resource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Coverage.Bundle.BundleBuilder.class)
-  @Schema(name = "CoverageBundle", example = "SWAGGER_EXAMPLE_COVERAGE_BUNDLE")
+  @Schema(
+    name = "CoverageBundle",
+    example =
+        "${r4.coverageBundle:gov.va.api.health.r4.api.swaggerexamples.SwaggerCoverage#coverageBundle}"
+  )
   public static class Bundle extends AbstractBundle<Entry> {
 
     /** Coverage bundle builder. */

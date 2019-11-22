@@ -30,7 +30,10 @@ import lombok.NoArgsConstructor;
   fieldVisibility = JsonAutoDetect.Visibility.ANY,
   isGetterVisibility = JsonAutoDetect.Visibility.NONE
 )
-@Schema(description = "https://www.hl7.org/fhir/R4/slot.html", example = "SWAGGER_EXAMPLE_SLOT")
+@Schema(
+  description = "https://www.hl7.org/fhir/R4/slot.html", 
+  example = "${r4.slot:com.example.Example#example}"
+)
 public class Slot {
 
   // Ancestor -- Resource

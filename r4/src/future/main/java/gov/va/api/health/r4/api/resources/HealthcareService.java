@@ -1,13 +1,10 @@
 package gov.va.api.health.r4.api.resources;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import gov.va.api.health.r4.api.Fhir;
-import gov.va.api.health.r4.api.datatypes.Address;
 import gov.va.api.health.r4.api.datatypes.Attachment;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.ContactPoint;
-import gov.va.api.health.r4.api.datatypes.HumanName;
 import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.datatypes.Period;
 import gov.va.api.health.r4.api.datatypes.SimpleResource;
@@ -16,8 +13,6 @@ import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Meta;
 import gov.va.api.health.r4.api.elements.Narrative;
 import gov.va.api.health.r4.api.elements.Reference;
-import gov.va.api.health.validation.api.ZeroOrOneOf;
-import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -28,7 +23,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @Builder
@@ -39,21 +33,12 @@ import lombok.NonNull;
   isGetterVisibility = JsonAutoDetect.Visibility.NONE
 )
 @Schema(
-  description = "https://www.hl7.org/fhir/R4/patient.html",
-  example = "SWAGGER_EXAMPLE_PATIENT"
+  description = "https://www.hl7.org/fhir/R4/healthcareservice.html",
+  example = "${r4.healthcareService:com.example.Example#example}"
 )
-@ZeroOrOneOfs({
-  @ZeroOrOneOf(
-    fields = {"deceasedBoolean", "deceasedDateTime"},
-    message = "Only one deceased field may be specified"
-  ),
-  @ZeroOrOneOf(
-    fields = {"multipleBirthBoolean", "multipleBirthInteger"},
-    message = "Only one deceased field may be specified"
-  )
-})
-public class Patient implements Resource {
-  // Anscestor -- Resource
+public class HealthcareService {
+
+  // Ancestor -- Resource
   @Pattern(regexp = Fhir.ID)
   String id;
 
@@ -69,67 +54,76 @@ public class Patient implements Resource {
 
   // Ancestor -- DomainResource
   @Valid Narrative text;
+
   @Valid List<SimpleResource> contained;
+
   @Valid List<Extension> extension;
+
   @Valid List<Extension> modifierExtension;
 
-  // R4 Patient Resource
+  // Claim Resource
   @Valid List<Identifier> identifier;
 
   @Pattern(regexp = Fhir.BOOLEAN)
   String active;
 
-  @Valid List<HumanName> name;
+  @Valid Reference providedBy;
+
+  @Valid List<CodeableConcept> category;
+
+  @Valid List<CodeableConcept> type;
+
+  @Valid List<CodeableConcept> specialty;
+
+  @Valid List<Reference> location;
+
+  @Pattern(regexp = Fhir.STRING)
+  String name;
+
+  @Pattern(regexp = Fhir.STRING)
+  String comment;
+
+  @Pattern(regexp = Fhir.MARKDOWN)
+  String extraDetails;
+
+  @Valid Attachment photo;
+
   @Valid List<ContactPoint> telecom;
-  Gender gender;
 
-  @Pattern(regexp = Fhir.DATE)
-  String birthDate;
+  @Valid List<Reference> coverageArea;
+
+  @Valid List<CodeableConcept> serviceProvisionCode;
+
+  @Valid List<Eligibility> eligibility;
+
+  @Valid List<CodeableConcept> program;
+
+  @Valid List<CodeableConcept> characteristic;
+
+  @Valid List<CodeableConcept> communication;
+
+  @Valid List<CodeableConcept> referralMethod;
 
   @Pattern(regexp = Fhir.BOOLEAN)
-  String deceasedBoolean;
+  String appointmentRequired;
 
-  @Pattern(regexp = Fhir.DATETIME)
-  String deceasedDateTime;
+  @Valid List<AvailableTime> availableTime;
 
-  @Valid List<Address> address;
-  @Valid CodeableConcept maritalStatus;
+  @Valid List<NotAvailable> notAvailable;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String multipleBirthBoolean;
+  @Pattern(regexp = Fhir.STRING)
+  String availabilityExceptions;
 
-  @Pattern(regexp = Fhir.INTEGER)
-  String multipleBirthInteger;
-
-  @Valid List<Attachment> photo;
-  @Valid List<PatientContact> contact;
-  @Valid List<Communication> communication;
-  @Valid List<Reference> generalPractitioner;
-  @Valid Reference managingOrganization;
-  @Valid List<Link> link;
-
-  public enum Gender {
-    male,
-    female,
-    other,
-    unknown
-  }
-
-  public enum Type {
-    @JsonProperty("replaced-by")
-    replaced_by,
-    replaces,
-    refer,
-    seealso
-  }
+  @Valid List<Reference> endpoint;
 
   @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @Schema(name = "Communication")
-  public static class Communication implements BackboneElement {
+  @Schema(name = "HealthcareServiceEligibility")
+  public static class Eligibility implements BackboneElement {
+
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -137,10 +131,47 @@ public class Patient implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
-    @Valid @NonNull CodeableConcept language;
+    @Valid CodeableConcept code;
+
+    @Pattern(regexp = Fhir.MARKDOWN)
+    String comment;
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @Schema(name = "HealthcareServiceAvailableTime")
+  public static class AvailableTime implements BackboneElement {
+
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid List<DaysOfWeek> daysOfWeek;
 
     @Pattern(regexp = Fhir.BOOLEAN)
-    String preferred;
+    String allDay;
+
+    @Pattern(regexp = Fhir.TIME)
+    String availableStartTime;
+
+    @Pattern(regexp = Fhir.TIME)
+    String availableEndTime;
+
+    public enum DaysOfWeek {
+      mon,
+      tue,
+      wed,
+      thu,
+      fri,
+      sat,
+      sun
+    }
   }
 
   @Data
@@ -148,8 +179,9 @@ public class Patient implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @Schema(name = "Link")
-  public static class Link implements BackboneElement {
+  @Schema(name = "HealthcareServiceNotAvailable")
+  public static class NotAvailable implements BackboneElement {
+
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -157,31 +189,12 @@ public class Patient implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
-    @NonNull @Valid Reference other;
+    @Valid CodeableConcept code;
 
-    @NonNull Type type;
-  }
+    @NotBlank
+    @Pattern(regexp = Fhir.STRING)
+    String description;
 
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @Schema(name = "PatientContact")
-  public static class PatientContact implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid List<CodeableConcept> relationship;
-    @Valid HumanName name;
-    @Valid List<ContactPoint> telecom;
-    @Valid Address address;
-    Gender gender;
-    @Valid Reference organization;
-    @Valid Period period;
+    @Valid Period during;
   }
 }
