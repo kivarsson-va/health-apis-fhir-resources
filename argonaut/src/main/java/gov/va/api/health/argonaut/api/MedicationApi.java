@@ -47,5 +47,11 @@ public interface MedicationApi {
         )
   )
   Medication medicationRead(
-      @Parameter(in = ParameterIn.PATH, name = "id", required = true) String id);
+      @Parameter(
+            in = ParameterIn.PATH,
+            name = "id",
+            required = true,
+            description = "The logical id of the resource. Once assigned, this value never changes."
+          )
+          String id);
 }
