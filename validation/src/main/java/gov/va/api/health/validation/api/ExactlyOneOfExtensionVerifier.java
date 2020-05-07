@@ -1,8 +1,9 @@
-package gov.va.api.health.r4.api;
+package gov.va.api.health.validation.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import gov.va.api.health.r4.api.elements.Extension;
+import com.google.common.base.Preconditions;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,32 +17,41 @@ public class ExactlyOneOfExtensionVerifier<T> extends AbstractRelatedFieldVerifi
   /** The base of the related fields, e.g. status vs _status. */
   private String baseField;
 
+  /** The extension class being used to verify. */
+  private Class<?> extensionClass;
+
+  /**
+   * Creates a customizable verifier with different prefixes, known types, and class needed to
+   * verify.
+   */
   @Builder
-  public ExactlyOneOfExtensionVerifier(T sample, String field) {
-    super(sample, name -> name.equals(field) || name.equals("_" + field));
+  public ExactlyOneOfExtensionVerifier(
+      T sample,
+      String field,
+      Class<?> extensionClass,
+      Map<Class<?>, Supplier<?>> knownTypes,
+      Map<String, Supplier<?>> stringTypes) {
+    super(sample, name -> name.equals(field) || name.equals("_" + field), knownTypes, stringTypes);
     baseField = field;
+    this.extensionClass = extensionClass;
   }
 
   @Override
   public void verify() {
     log.info("Verifying {}", sample.getClass());
     String extensionField = "_" + baseField;
-    assertThat(fields()).containsExactlyInAnyOrder(baseField, extensionField);
-
+    Preconditions.checkState(
+        fields().containsAll(List.of(baseField, extensionField)) && fields().size() == 2);
     /* Make sure the sample is valid before we mess it up. */
     assertProblems(0);
-
     /* Make sure we are valid if no fields are set. */
     unsetFields();
     assertProblems(1);
-
     setField(baseField);
     assertProblems(0);
-
     unsetFields();
     setField(extensionField);
     assertProblems(0);
-
-    assertThat(field(extensionField).getType()).isEqualTo(Extension.class);
+    Preconditions.checkState(field(extensionField).getType() == extensionClass);
   }
 }

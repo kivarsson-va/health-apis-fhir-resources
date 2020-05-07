@@ -1,32 +1,13 @@
-package gov.va.api.health.stu3.api;
+package gov.va.api.health.validation.api;
 
 import static java.util.stream.Collectors.toList;
-import static org.assertj.core.api.Assertions.assertThat;
 
-import gov.va.api.health.autoconfig.configuration.JacksonConfig;
-import gov.va.api.health.stu3.api.datatypes.Address;
-import gov.va.api.health.stu3.api.datatypes.Attachment;
-import gov.va.api.health.stu3.api.datatypes.CodeableConcept;
-import gov.va.api.health.stu3.api.datatypes.Coding;
-import gov.va.api.health.stu3.api.datatypes.ContactPoint;
-import gov.va.api.health.stu3.api.datatypes.HumanName;
-import gov.va.api.health.stu3.api.datatypes.Identifier;
-import gov.va.api.health.stu3.api.datatypes.Period;
-import gov.va.api.health.stu3.api.datatypes.Quantity;
-import gov.va.api.health.stu3.api.datatypes.Range;
-import gov.va.api.health.stu3.api.datatypes.Ratio;
-import gov.va.api.health.stu3.api.datatypes.SampledData;
-import gov.va.api.health.stu3.api.datatypes.Signature;
-import gov.va.api.health.stu3.api.datatypes.SimpleQuantity;
-import gov.va.api.health.stu3.api.datatypes.Timing;
-import gov.va.api.health.stu3.api.elements.Extension;
-import gov.va.api.health.stu3.api.elements.Reference;
-import gov.va.api.health.stu3.api.samples.SampleDataTypes;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Preconditions;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,67 +34,30 @@ public abstract class AbstractRelatedFieldVerifier<T> {
   /** The determined list of related fields based on the prefix. */
   @Getter private final List<String> fields;
   /** Used to create sample values for fields based on the field type. */
-  @Getter private final Map<Class<?>, Supplier<?>> knownTypes = createKnownTypes();
+  @Getter private final Map<Class<?>, Supplier<?>> knownTypes;
   /**
    * Used to create sample String values for fields based on the Pattern regex constraint on the
    * field.
    */
-  @Getter private final Map<String, Supplier<?>> stringTypes = createKnownStringTypes();
+  @Getter private final Map<String, Supplier<?>> stringTypes;
 
   /**
    * The fieldSelector predicate will be checked for each field declared in the sample's class. A
    * true return value will include the field in the group, so setting and unsetting.
    */
-  protected AbstractRelatedFieldVerifier(T sample, Predicate<String> fieldSelector) {
+  protected AbstractRelatedFieldVerifier(
+      T sample,
+      Predicate<String> fieldSelector,
+      Map<Class<?>, Supplier<?>> knownTypes,
+      Map<String, Supplier<?>> stringTypes) {
     this.sample = sample;
     fields =
         Arrays.stream(sample.getClass().getDeclaredFields())
             .map(Field::getName)
             .filter(fieldSelector)
             .collect(toList());
-  }
-
-  private static Map<String, Supplier<?>> createKnownStringTypes() {
-    Map<String, Supplier<?>> suppliers = new HashMap<>();
-    suppliers.put("", () -> "hello");
-    suppliers.put(Fhir.ID, () -> "id");
-    suppliers.put(Fhir.CODE, () -> "code");
-    suppliers.put(Fhir.URI, () -> "http://example.com");
-    suppliers.put(Fhir.BASE64, () -> "SSBqdXN0IGF0ZSBhIHBlYW51dAo=");
-    suppliers.put(Fhir.DATE, () -> "2005-01-21");
-    suppliers.put(Fhir.DATETIME, () -> "2005-01-21T07:57:00Z");
-    suppliers.put(Fhir.TIME, () -> "07:57:00.000");
-    suppliers.put(Fhir.INSTANT, () -> "2005-01-21T07:57:00.000Z");
-    suppliers.put(Fhir.OID, () -> "urn:oid:0.1");
-    suppliers.put(Fhir.XHTML, () -> "<div>html</div>");
-    return suppliers;
-  }
-
-  private static Map<Class<?>, Supplier<?>> createKnownTypes() {
-    SampleDataTypes dataTypes = SampleDataTypes.get();
-    Map<Class<?>, Supplier<?>> suppliers = new HashMap<>();
-    suppliers.put(String.class, () -> "hello");
-    suppliers.put(Integer.class, () -> 1);
-    suppliers.put(Boolean.class, () -> true);
-    suppliers.put(Double.class, () -> 1.0);
-    suppliers.put(Extension.class, dataTypes::extension);
-    suppliers.put(Coding.class, dataTypes::coding);
-    suppliers.put(CodeableConcept.class, dataTypes::codeableConcept);
-    suppliers.put(Identifier.class, dataTypes::identifier);
-    suppliers.put(Quantity.class, dataTypes::quantity);
-    suppliers.put(Attachment.class, dataTypes::attachment);
-    suppliers.put(Range.class, dataTypes::range);
-    suppliers.put(Period.class, dataTypes::period);
-    suppliers.put(Ratio.class, dataTypes::ratio);
-    suppliers.put(HumanName.class, dataTypes::humanName);
-    suppliers.put(Address.class, dataTypes::address);
-    suppliers.put(ContactPoint.class, dataTypes::contactPoint);
-    suppliers.put(Reference.class, dataTypes::reference);
-    suppliers.put(SampledData.class, dataTypes::sampledData);
-    suppliers.put(SimpleQuantity.class, dataTypes::simpleQuantity);
-    suppliers.put(Timing.class, dataTypes::timing);
-    suppliers.put(Signature.class, dataTypes::signature);
-    return suppliers;
+    this.knownTypes = knownTypes;
+    this.stringTypes = stringTypes;
   }
 
   /** Validate and verify the given number of problems are reported. */
@@ -124,10 +68,9 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     if (problems.size() == count) {
       return;
     }
-    log.info(
-        JacksonConfig.createMapper().writerWithDefaultPrettyPrinter().writeValueAsString(sample));
+    log.info(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(sample));
     problems.forEach(p -> log.error("{}", p));
-    assertThat(problems.size()).isEqualTo(count);
+    Preconditions.checkState(problems.size() == count);
   }
 
   private Supplier<?> enumSupplier(Class<? extends Enum<?>> type) {
@@ -137,11 +80,11 @@ public abstract class AbstractRelatedFieldVerifier<T> {
   @SneakyThrows
   protected Field field(String name) {
     Field field = sample.getClass().getDeclaredField(name);
-    assertThat(field).withFailMessage("Cannot determine field type: " + name).isNotNull();
+    Preconditions.checkState(field != null, "Cannot determine field type: " + name);
     return field;
   }
 
-  /** Set the field to an automatically deterined value based on it's type. */
+  /** Set the field to an automatically determined value based on it's type. */
   @SuppressWarnings("unchecked")
   protected void setField(String name) {
     Field field = field(name);
@@ -158,9 +101,8 @@ public abstract class AbstractRelatedFieldVerifier<T> {
     } else {
       supplier = knownTypes().get(field.getType());
     }
-    assertThat(supplier)
-        .withFailMessage("Unknown value type for field: " + name + " type: " + field.getType())
-        .isNotNull();
+    Preconditions.checkState(
+        supplier != null, "Unknown value type for field: " + name + " type: " + field.getType());
     setField(name, supplier.get());
   }
 
