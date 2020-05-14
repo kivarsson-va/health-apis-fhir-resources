@@ -15,4 +15,5 @@ Because validation logic is shared among all FHIR versions, it has been pulled o
   * [AllergyIntolerance](https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-allergyintolerance.html)
   * [Condition](https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-condition.html)
   * [Immunization](https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-immunization.html)
+  * [Medication](https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-medication.html)
   * [Patient](https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-patient.html)
