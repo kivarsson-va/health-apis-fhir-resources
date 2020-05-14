@@ -52,7 +52,8 @@ import lombok.NoArgsConstructor;
 @Schema(
     description =
         "https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-patient.html",
-    example = "${uscorer4.patient:gov.va.api.health.uscorer4.api.swaggerexamples.SwaggerPatient#patient}")
+    example =
+        "${uscorer4.patient:gov.va.api.health.uscorer4.api.swaggerexamples.SwaggerPatient#patient}")
 @ZeroOrOneOfs({
   @ZeroOrOneOf(
       fields = {"deceasedBoolean", "deceasedDateTime"},
