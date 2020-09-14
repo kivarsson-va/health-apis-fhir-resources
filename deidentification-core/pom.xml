@@ -4,10 +4,10 @@
   <parent>
     <artifactId>fhir-resources-parent</artifactId>
     <groupId>gov.va.api.health</groupId>
-    <version>4.0.17-SNAPSHOT</version>
+    <version>4.0.17</version>
   </parent>
   <artifactId>deidentification-core</artifactId>
-  <version>4.0.17-SNAPSHOT</version>
+  <version>4.0.17</version>
   <packaging>jar</packaging>
   <properties>
     <logback-classic.version>1.2.3</logback-classic.version>
