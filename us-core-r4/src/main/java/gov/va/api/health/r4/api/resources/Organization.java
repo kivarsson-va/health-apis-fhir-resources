@@ -3,6 +3,7 @@ package gov.va.api.health.r4.api.resources;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.r4.api.CarinBlueButton;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -76,7 +77,16 @@ public class Organization implements Resource {
   but at most there can be one Identifier NPI slice,
   and at most there can be one Identifier CLIA slice.
   */
-  @Valid List<Identifier> identifier;
+  @CarinBlueButton(
+      note =
+          "Carin includes an additional slice definition for Identifier:TIN with cardinality 0..*."
+              + "The Identifier:TIN slice's Type.Coding changes cardinality to 1..*. "
+              + "The Identifier:TIN slice's Type.Coding.Code changes cardinality to 1..1."
+              + "The Identifier.type field's cardinality changes cardinality to 1..1. "
+              + "The Identifier:NPI slice's Type.Coding changes cardinality to 1..*. "
+              + "The Identifier:NPI slice's Type.Coding.Code changes cardinality to 1..1.")
+  @Valid
+  List<Identifier> identifier;
 
   @NotNull Boolean active;
 
