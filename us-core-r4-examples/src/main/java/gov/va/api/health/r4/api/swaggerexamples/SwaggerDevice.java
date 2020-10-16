@@ -23,8 +23,7 @@ public class SwaggerDevice {
         .id("I2-526QWVIAZHOZHCMERY7CQDV7UEAYPJXR4SASZH2FJNN3OUGOZ3QA0000")
         .patient(
             Reference.builder()
-                .reference(
-                    "https://sandbox-api.va.gov/services/fhir/v0/r4/Patient/2000163")
+                .reference("https://sandbox-api.va.gov/services/fhir/v0/r4/Patient/2000163")
                 .display("Mr. Aurelio227 Cruickshank494")
                 .build())
         .owner(
@@ -86,7 +85,8 @@ public class SwaggerDevice {
         .entry(
             asList(
                 Device.Entry.builder()
-                    .fullUrl("https://sandbox-api.va.gov/services/fhir/v0/r4/Device/I2-526QWVIAZHOZHCMERY7CQDV7UEAYPJXR4SASZH2FJNN3OUGOZ3QA0000")
+                    .fullUrl(
+                        "https://sandbox-api.va.gov/services/fhir/v0/r4/Device/I2-526QWVIAZHOZHCMERY7CQDV7UEAYPJXR4SASZH2FJNN3OUGOZ3QA0000")
                     .resource(device())
                     .build()))
         .build();
