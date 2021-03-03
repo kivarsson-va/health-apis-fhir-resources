@@ -29,6 +29,7 @@ import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Min;
@@ -63,6 +64,12 @@ import lombok.NoArgsConstructor;
       message = "Only one multipleBirth field may be specified")
 })
 public class Patient implements Resource {
+
+  public static final AtomicInteger IDENTIFIER_MIN_SIZE =
+      new AtomicInteger(
+          Integer.parseInt(
+              System.getProperty(Patient.class.getName() + ".identifier.min-size", "1")));
+
   // Anscestor -- Resource
   @NotBlank @Builder.Default String resourceType = "Patient";
 
@@ -96,7 +103,6 @@ public class Patient implements Resource {
               + "- identifier.type.coding[].code field cardinality=1..1"
               + "All other slices identifier.type field cardinality=1..1")
   @Valid
-  @NotEmpty
   List<Identifier> identifier;
 
   Boolean active;
@@ -141,6 +147,16 @@ public class Patient implements Resource {
   private boolean isValidEthnicityExtension() {
     return isValidUsCoreExtensionCount(
         "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity", 1);
+  }
+
+  @JsonIgnore
+  @AssertTrue(message = "identifier size is not valid")
+  @SuppressWarnings("unused")
+  private boolean isValidIdentifier() {
+    if (IDENTIFIER_MIN_SIZE.get() > 0) {
+      return identifier != null && identifier.size() >= IDENTIFIER_MIN_SIZE.get();
+    }
+    return true;
   }
 
   @JsonIgnore
