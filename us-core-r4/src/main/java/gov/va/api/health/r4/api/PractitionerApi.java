@@ -86,6 +86,11 @@ public interface PractitionerApi {
                   "The logical id of the resource. Once assigned, this value never changes.")
           String id,
       @Parameter(
+              in = ParameterIn.PATH,
+              name = "identifier",
+              description = "A unique identifier for a practitioner within a given system.")
+          String identifier,
+      @Parameter(
               in = ParameterIn.QUERY,
               name = "page",
               description = "The page number of the search result.")
