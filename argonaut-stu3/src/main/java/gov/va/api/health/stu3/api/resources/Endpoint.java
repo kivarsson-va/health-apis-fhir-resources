@@ -72,7 +72,7 @@ public class Endpoint implements DomainResource {
 
   @NotNull String name;
 
-  @NotNull @Valid Reference managingOrganization;
+  @Valid @NotNull Reference managingOrganization;
 
   @Valid List<ContactPoint> contact;
 
@@ -81,7 +81,7 @@ public class Endpoint implements DomainResource {
   @Valid @NotEmpty List<CodeableConcept> payloadType;
 
   @Pattern(regexp = Fhir.CODE)
-  String payloadMimeType;
+  List<String> payloadMimeType;
 
   @NotNull
   @Pattern(regexp = Fhir.URI)
