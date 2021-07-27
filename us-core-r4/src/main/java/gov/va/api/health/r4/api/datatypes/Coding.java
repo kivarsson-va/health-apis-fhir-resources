@@ -1,6 +1,6 @@
 package gov.va.api.health.r4.api.datatypes;
 
-import static org.apache.commons.lang3.StringUtils.defaultIfBlank;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gov.va.api.health.fhir.api.HasDisplay;
@@ -42,11 +42,20 @@ public class Coding implements Element, HasDisplay {
 
   /** All-args builder constructor. */
   @Builder
-  public Coding(String system, String version, String code, String display, Boolean userSelected) {
-    this.system = defaultIfBlank(system, null);
-    this.version = defaultIfBlank(version, null);
-    this.code = defaultIfBlank(code, null);
-    this.display = defaultIfBlank(display, null);
+  public Coding(
+      String id,
+      List<Extension> extension,
+      String system,
+      String version,
+      String code,
+      String display,
+      Boolean userSelected) {
+    this.id = trimToNull(id);
+    this.extension = extension != null && extension.isEmpty() ? null : extension;
+    this.system = trimToNull(system);
+    this.version = trimToNull(version);
+    this.code = trimToNull(code);
+    this.display = trimToNull(display);
     this.userSelected = userSelected;
   }
 }
