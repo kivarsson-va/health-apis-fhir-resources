@@ -90,7 +90,7 @@ public final class AllergyIntolerance implements Resource {
 
   Criticality criticality;
 
-  @Valid CodeableConcept code;
+  @NotNull @Valid CodeableConcept code;
 
   @NotNull @Valid Reference patient;
 
