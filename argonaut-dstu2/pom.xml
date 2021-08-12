@@ -3,12 +3,12 @@
   <parent>
     <artifactId>api-starter</artifactId>
     <groupId>gov.va.api.health</groupId>
-    <version>8.0.24</version>
+    <version>8.0.25</version>
     <relativePath/>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>argonaut-dstu2</artifactId>
-  <version>8.0.7-SNAPSHOT</version>
+  <version>8.0.7</version>
   <packaging>jar</packaging>
   <properties>
     <checkstyle.suppressions.location>${project.basedir}/checkstyle-suppressions.xml</checkstyle.suppressions.location>
