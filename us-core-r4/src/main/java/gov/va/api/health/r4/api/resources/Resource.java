@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
+import gov.va.api.health.fhir.api.IsResource;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.MixedBundle;
 import gov.va.api.health.r4.api.elements.Meta;
@@ -20,9 +21,7 @@ import javax.validation.constraints.Pattern;
 import lombok.SneakyThrows;
 
 @Schema(description = "https://www.hl7.org/fhir/R4/resource.html")
-public interface Resource {
-  @Pattern(regexp = Fhir.STRING)
-  String id();
+public interface Resource extends IsResource {
 
   @Pattern(regexp = Fhir.STRING)
   String implicitRules();

@@ -20,5 +20,6 @@
     <module>us-core-r4-deidentifier</module>
     <module>us-core-r4-examples</module>
     <module>test-support</module>
+    <module>fhir-visitor</module>
   </modules>
 </project>
