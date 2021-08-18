@@ -158,10 +158,11 @@ public class Practitioner implements Resource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Practitioner.Bundle.BundleBuilder.class)
-  @Schema(name = "PractitionerBundle",
-          example =
-                  "${r4.practitionerBundle:gov.va.api.health.r4.api.swaggerexamples"
-                          + ".SwaggerPractitioner#practitionerBundle}")
+  @Schema(
+      name = "PractitionerBundle",
+      example =
+          "${r4.practitionerBundle:gov.va.api.health.r4.api.swaggerexamples"
+              + ".SwaggerPractitioner#practitionerBundle}")
   public static class Bundle extends AbstractBundle<Practitioner.Entry> {
     /** Builder constructor. */
     @Builder
