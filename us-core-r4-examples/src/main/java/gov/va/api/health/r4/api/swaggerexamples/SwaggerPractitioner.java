@@ -16,7 +16,7 @@ import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.resources.Practitioner;
 import java.util.List;
 
-public class SwaggerPractitoner {
+public class SwaggerPractitioner {
   /** An example Practitioner. */
   public static Practitioner practitioner() {
     return Practitioner.builder()

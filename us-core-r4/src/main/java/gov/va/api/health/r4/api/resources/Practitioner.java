@@ -47,7 +47,11 @@ import org.apache.commons.lang3.StringUtils;
 @JsonAutoDetect(
     fieldVisibility = JsonAutoDetect.Visibility.ANY,
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-@Schema(description = " http://hl7.org/fhir/us/core/StructureDefinition-us-core-practitioner.html")
+@Schema(
+    description = " http://hl7.org/fhir/us/core/StructureDefinition-us-core-practitioner.html",
+    example =
+        "${r4.practitioner:gov.va.api.health.r4.api.swaggerexamples"
+            + ".SwaggerPractitioner#practitioner}")
 public class Practitioner implements Resource {
   @NotBlank @Builder.Default String resourceType = "Practitioner";
 
@@ -154,7 +158,10 @@ public class Practitioner implements Resource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Practitioner.Bundle.BundleBuilder.class)
-  @Schema(name = "PractitionerBundle")
+  @Schema(name = "PractitionerBundle",
+          example =
+                  "${r4.practitionerBundle:gov.va.api.health.r4.api.swaggerexamples"
+                          + ".SwaggerPractitioner#practitionerBundle}")
   public static class Bundle extends AbstractBundle<Practitioner.Entry> {
     /** Builder constructor. */
     @Builder
