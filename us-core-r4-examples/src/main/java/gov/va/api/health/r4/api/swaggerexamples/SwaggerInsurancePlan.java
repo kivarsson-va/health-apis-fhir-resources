@@ -7,8 +7,11 @@ import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.datatypes.Identifier;
+import gov.va.api.health.r4.api.datatypes.Quantity;
+import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.InsurancePlan;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class SwaggerInsurancePlan {
@@ -19,50 +22,65 @@ public class SwaggerInsurancePlan {
    */
   public static InsurancePlan insurancePlan() {
     return InsurancePlan.builder()
-        .id("I3-000000000000000000")
-        .status(InsurancePlan.Status.active)
-        .name("BCBS")
+        .id("I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlX")
+        .extension(
+            List.of(
+                Extension.builder()
+                    .valueBoolean(true)
+                    .url(
+                        "http://va.gov/fhir/StructureDefinition/insuranceplan-isUtilizationReviewRequired")
+                    .build(),
+                Extension.builder()
+                    .valueBoolean(true)
+                    .url(
+                        "http://va.gov/fhir/StructureDefinition/insuranceplan-isPreCertificationRequired")
+                    .build(),
+                Extension.builder()
+                    .valueBoolean(false)
+                    .url(
+                        "http://va.gov/fhir/StructureDefinition/insuranceplan-excludePreexistingConditions")
+                    .build(),
+                Extension.builder()
+                    .valueBoolean(true)
+                    .url(
+                        "http://va.gov/fhir/StructureDefinition/insuranceplan-areBenefitsAssignable")
+                    .build(),
+                Extension.builder()
+                    .valueBoolean(true)
+                    .url(
+                        "http://va.gov/fhir/StructureDefinition/insuranceplan-isCertificationRequiredForAmbulatoryCare")
+                    .build(),
+                Extension.builder()
+                    .valueQuantity(
+                        Quantity.builder()
+                            .value(new BigDecimal("365"))
+                            .unit("DAYS")
+                            .system(
+                                "http://va.gov/fhir/StructureDefinition/insuranceplan-planStandardFilingTimeFrame")
+                            .build())
+                    .build()))
+        .identifier(
+            List.of(
+                Identifier.builder()
+                    .value("FEP")
+                    .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.28002")
+                    .build()))
         .type(
             List.of(
                 CodeableConcept.builder()
                     .coding(
                         List.of(
                             Coding.builder()
-                                .code("medical")
-                                .display("Medical")
-                                .system("2.16.840.1.113883.3.8901.3.1.355803.8014")
+                                .code("CI")
+                                .display("COMMERCIAL")
+                                .system("2.16.840.1.113883.3.8901.3.1.355803.8015")
                                 .build()))
-                    .build()))
-        .identifier(
-            List.of(
-                Identifier.builder()
-                    .type(
-                        CodeableConcept.builder()
-                            .coding(
-                                List.of(
-                                    Coding.builder()
-                                        .code("group number")
-                                        .display("Group Number")
-                                        .build()))
-                            .build())
-                    .value("123456")
-                    .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.28002")
-                    .build(),
-                Identifier.builder()
-                    .type(
-                        CodeableConcept.builder()
-                            .coding(
-                                List.of(
-                                    Coding.builder().code("plan id").display("Plan Id").build()))
-                            .build())
-                    .value("ABC000000000")
-                    .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.68001")
+                    .text("COMMERCIAL")
                     .build()))
         .ownedBy(
             Reference.builder()
                 .reference(
-                    "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/Organization/I3-ZJURFG76GQN5LW7WP56TXADUFM000000")
-                .display("Blue Cross Blue Shield")
+                    "https://sandbox-api.va.gov/services/insurance-fhir/v0/site/500/r4/Organization/I3-ZJURFG76GQN5LW7WP56TXADUFM000000")
                 .build())
         .plan(
             List.of(
@@ -72,7 +90,8 @@ public class SwaggerInsurancePlan {
                             .coding(
                                 List.of(
                                     Coding.builder()
-                                        .code("High Deductable")
+                                        .code("40")
+                                        .display("PREFERRED PROVIDER ORGANIZATION (PPO)")
                                         .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.8009")
                                         .build()))
                             .build())
@@ -94,23 +113,23 @@ public class SwaggerInsurancePlan {
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
-                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?status=active&page=1&_count=15")
+                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?_id=I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlXe&page=1&_count=15")
                     .build(),
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.first)
                     .url(
-                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?status=active&page=1&_count=15")
+                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?_id=I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlXee&page=1&_count=15")
                     .build(),
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.last)
                     .url(
-                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?status=active&page=1&_count=15")
+                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?_id=I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlXe&page=1&_count=15")
                     .build()))
         .entry(
             asList(
                 InsurancePlan.Entry.builder()
                     .fullUrl(
-                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan/I3-000000000000000000")
+                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan/I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlX")
                     .resource(insurancePlan())
                     .build()))
         .build();
