@@ -22,8 +22,6 @@ import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.elements.Meta;
 import gov.va.api.health.r4.api.elements.Narrative;
 import gov.va.api.health.r4.api.elements.Reference;
-import gov.va.api.health.validation.api.ZeroOrOneOf;
-import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -52,11 +50,6 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.insurancePlan:gov.va.api.health.r4.api.swaggerexamples."
             + "SwaggerInsurancePlan#insurancePlan}")
-@ZeroOrOneOfs({
-  @ZeroOrOneOf(
-      fields = {"onsetDateTime", "onsetAge", "onsetPeriod", "onsetRange", "onsetString"},
-      message = "Only one onset field may be specified")
-})
 public final class InsurancePlan implements DomainResource {
   @NotBlank @Builder.Default String resourceType = "InsurancePlan";
 
