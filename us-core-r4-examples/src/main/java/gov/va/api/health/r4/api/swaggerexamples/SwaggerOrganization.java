@@ -19,11 +19,11 @@ public class SwaggerOrganization {
     return Organization.builder()
         .id("I2-ZJURFG76GQN5LW7WP56TXADUFM000000")
         .identifier(
-            List.of(
-                Identifier.builder()
-                    .value("1205983228")
-                    .system("http://hl7.org/fhir/sid/us-npi")
-                    .build()))
+            Identifier.builder()
+                .value("1205983228")
+                .system("http://hl7.org/fhir/sid/us-npi")
+                .build()
+                .asList())
         .active(true)
         .name("NEW AMSTERDAM CBOC")
         .telecom(
@@ -37,14 +37,14 @@ public class SwaggerOrganization {
                     .value("800 555-7710")
                     .build()))
         .address(
-            List.of(
-                Address.builder()
-                    .text("10 MONROE AVE, SUITE 6B PO BOX 4160 NEW AMSTERDAM OH 44444-4160")
-                    .line(List.of("10 MONROE AVE, SUITE 6B", "PO BOX 4160"))
-                    .city("NEW AMSTERDAM")
-                    .state("OH")
-                    .postalCode("44444-4160")
-                    .build()))
+            Address.builder()
+                .text("10 MONROE AVE, SUITE 6B PO BOX 4160 NEW AMSTERDAM OH 44444-4160")
+                .line(List.of("10 MONROE AVE, SUITE 6B", "PO BOX 4160"))
+                .city("NEW AMSTERDAM")
+                .state("OH")
+                .postalCode("44444-4160")
+                .build()
+                .asList())
         .build();
   }
 
@@ -78,13 +78,13 @@ public class SwaggerOrganization {
                             + "_id=I2-ZJURFG76GQN5LW7WP56TXADUFM000000&page=1&_count=15")
                     .build()))
         .entry(
-            List.of(
-                Organization.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/"
-                            + "Organization/I2-ZJURFG76GQN5LW7WP56TXADUFM000000")
-                    .resource(organization())
-                    .build()))
+            Organization.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/"
+                        + "Organization/I2-ZJURFG76GQN5LW7WP56TXADUFM000000")
+                .resource(organization())
+                .build()
+                .asList())
         .build();
   }
 }

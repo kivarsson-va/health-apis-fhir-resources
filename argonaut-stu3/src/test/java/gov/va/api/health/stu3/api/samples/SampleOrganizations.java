@@ -1,7 +1,5 @@
 package gov.va.api.health.stu3.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.stu3.api.datatypes.Address;
 import gov.va.api.health.stu3.api.datatypes.Identifier;
 import gov.va.api.health.stu3.api.resources.Organization;
@@ -19,24 +17,24 @@ public class SampleOrganizations {
         .implicitRules("http://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(Identifier.builder().build()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(Identifier.builder().build().asList())
         .active(true)
-        .type(singletonList(codeableConcept()))
+        .type(codeableConcept().asList())
         .name("Hello Name")
-        .telecom(singletonList(contactPoint()))
-        .address(singletonList(Address.builder().build()))
+        .telecom(contactPoint().asList())
+        .address(Address.builder().build().asList())
         .partOf(reference())
         .contact(
-            singletonList(
-                Organization.Contact.builder()
-                    .purpose(codeableConcept())
-                    .name(humanName())
-                    .telecom(singletonList(contactPoint()))
-                    .address(address())
-                    .build()))
+            Organization.Contact.builder()
+                .purpose(codeableConcept())
+                .name(humanName())
+                .telecom(contactPoint().asList())
+                .address(address())
+                .build()
+                .asList())
         .build();
   }
 }

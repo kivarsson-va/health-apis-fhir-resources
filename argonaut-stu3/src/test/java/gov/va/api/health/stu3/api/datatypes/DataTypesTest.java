@@ -1,11 +1,9 @@
 package gov.va.api.health.stu3.api.datatypes;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.stu3.api.RoundTrip;
 import gov.va.api.health.stu3.api.resources.OperationOutcome;
 import gov.va.api.health.stu3.api.samples.SampleDataTypes;
-import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class DataTypesTest {
@@ -28,11 +26,10 @@ public class DataTypesTest {
             .implicitRules("http://HelloRules.com")
             .language("Hello Language")
             .text(data.narrative())
-            .contained(singletonList(data.resource()))
+            .contained(data.resource().asList())
             .modifierExtension(
-                Arrays.asList(
-                    data.extension(), data.extensionWithQuantity(), data.extensionWithRatio()))
-            .issue(singletonList(data.issue()))
+                List.of(data.extension(), data.extensionWithQuantity(), data.extensionWithRatio()))
+            .issue(data.issue().asList())
             .build());
   }
 }

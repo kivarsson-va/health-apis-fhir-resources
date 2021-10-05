@@ -18,8 +18,8 @@ public class SampleInsurancePlans {
   private Coverage.Benefit benefit() {
     return Coverage.Benefit.builder()
         .id("id")
-        .extension(List.of(extension()))
-        .modifierExtension(List.of(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .requirement("requirement")
         .type(codeableConcept())
         .limit(List.of(limit()))
@@ -29,22 +29,22 @@ public class SampleInsurancePlans {
   private Contact contact() {
     return Contact.builder()
         .address(address())
-        .modifierExtension(List.of(extension()))
-        .extension(List.of(extension()))
+        .modifierExtension(extension().asList())
+        .extension(extension().asList())
         .id("id")
         .name(humanName())
         .purpose(codeableConcept())
-        .telecom(List.of(contactPoint()))
+        .telecom(contactPoint().asList())
         .build();
   }
 
   private Benefit.Cost cost() {
     return Benefit.Cost.builder()
         .applicability(codeableConcept())
-        .extension(List.of(extension()))
-        .modifierExtension(List.of(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .id("id")
-        .qualifiers(List.of(codeableConcept()))
+        .qualifiers(codeableConcept().asList())
         .value(quantity())
         .type(codeableConcept())
         .build();
@@ -54,8 +54,8 @@ public class SampleInsurancePlans {
     return InsurancePlan.Coverage.builder()
         .type(codeableConcept())
         .id("id")
-        .network(List.of(reference()))
-        .benefit(List.of(benefit()))
+        .network(reference().asList())
+        .benefit(benefit().asList())
         .build();
   }
 
@@ -65,62 +65,62 @@ public class SampleInsurancePlans {
         .comment("comment")
         .groupSize(1)
         .id("id")
-        .extension(List.of(extension()))
-        .modifierExtension(List.of(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(codeableConcept())
         .build();
   }
 
   public InsurancePlan insurancePlan() {
     return InsurancePlan.builder()
-        .identifier(List.of(identifier()))
+        .identifier(identifier().asList())
         .administeredBy(reference())
         .alias(List.of("alias"))
         .contained(List.of(resource()))
-        .coverageArea(List.of(reference()))
-        .endpoint(List.of(reference()))
-        .extension(List.of(extension()))
+        .coverageArea(reference().asList())
+        .endpoint(reference().asList())
+        .extension(extension().asList())
         .name("name")
         .implicitRules("implicitRules")
         .id("id")
         .status(InsurancePlan.Status.active)
         .language("language")
-        .modifierExtension(List.of(extension()))
+        .modifierExtension(extension().asList())
         .meta(meta())
-        .network(List.of(reference()))
+        .network(reference().asList())
         .ownedBy(reference())
         .period(period())
         .text(narrative())
         .resourceType("InsurancePlan")
-        .plan(List.of(plan()))
-        .contact(List.of(contact()))
-        .coverage(List.of(coverage()))
-        .type(List.of(codeableConcept()))
+        .plan(plan().asList())
+        .contact(contact().asList())
+        .coverage(coverage().asList())
+        .type(codeableConcept().asList())
         .build();
   }
 
   private Coverage.Benefit.Limit limit() {
     return Coverage.Benefit.Limit.builder()
         .code(codeableConcept())
-        .extension(List.of(extension()))
+        .extension(extension().asList())
         .id("id")
         .value(quantity())
-        .modifierExtension(List.of(extension()))
+        .modifierExtension(extension().asList())
         .build();
   }
 
   private Plan plan() {
     return Plan.builder()
-        .coverageArea(List.of(reference()))
-        .extension(List.of(extension()))
+        .coverageArea(reference().asList())
+        .extension(extension().asList())
         .id("id")
-        .identifier(List.of(identifier()))
-        .modifierExtension(List.of(extension()))
-        .network(List.of(reference()))
+        .identifier(identifier().asList())
+        .modifierExtension(extension().asList())
+        .network(reference().asList())
         .type(codeableConcept())
-        .network(List.of(reference()))
-        .generalCost(List.of(generalCost()))
-        .specificCost(List.of(specificCost()))
+        .network(reference().asList())
+        .generalCost(generalCost().asList())
+        .specificCost(specificCost().asList())
         .build();
   }
 
@@ -128,17 +128,17 @@ public class SampleInsurancePlans {
     return SpecificCost.builder()
         .id("id")
         .category(codeableConcept())
-        .extension(List.of(extension()))
-        .benefit(List.of(specificCostBenefit()))
+        .extension(extension().asList())
+        .benefit(specificCostBenefit().asList())
         .build();
   }
 
   private Benefit specificCostBenefit() {
     return Benefit.builder()
-        .cost(List.of(cost()))
+        .cost(cost().asList())
         .id("id")
-        .extension(List.of(extension()))
-        .modifierExtension(List.of(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(codeableConcept())
         .build();
   }

@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.elements.Meta;
 import gov.va.api.health.stu3.api.resources.Resource;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/resource.html")
-public class SimpleResource implements Resource {
+public class SimpleResource implements AsList<SimpleResource>, Resource {
   @Pattern(regexp = Fhir.ID)
   String id;
 

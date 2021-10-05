@@ -12,7 +12,6 @@ import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.dstu2.api.samples.SampleMedicationOrders;
 import gov.va.api.health.validation.api.ExactlyOneOfVerifier;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -24,15 +23,15 @@ public class MedicationOrderTest {
   public void bundlerCanBuildMedicationOrderBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://medicationorder.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://medicationorder/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://medicationorder/1"))
+                    .build()
+                    .asList())
             .resource(data.medicationOrder())
             .search(data.search())
             .request(data.request())
@@ -41,13 +40,13 @@ public class MedicationOrderTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://medicationorder/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://medicationorder/2"))
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
 

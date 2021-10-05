@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -48,7 +49,7 @@ import lombok.NoArgsConstructor;
         "${r4.questionnaireResponse"
             + ":gov.va.api.health.r4.api.swaggerexamples.SwaggerQuestionnaireResponse"
             + "#questionnaireResponse}")
-public class QuestionnaireResponse implements DomainResource {
+public class QuestionnaireResponse implements AsList<QuestionnaireResponse>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "QuestionnaireResponse";
 
   @Pattern(regexp = Fhir.ID)
@@ -126,7 +127,7 @@ public class QuestionnaireResponse implements DomainResource {
         "valueReference"
       },
       message = "Only one value field should be specified")
-  public static class Answer implements BackboneElement {
+  public static class Answer implements AsList<Answer>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -175,7 +176,7 @@ public class QuestionnaireResponse implements DomainResource {
       example =
           "${r4.questionnaireResponseBundle:gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerQuestionnaireResponse#questionnaireResponseBundle}")
-  public static class Bundle extends AbstractBundle<QuestionnaireResponse.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Bundle builder. */
     @Builder
     public Bundle(
@@ -213,7 +214,7 @@ public class QuestionnaireResponse implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = QuestionnaireResponse.Entry.EntryBuilder.class)
   @Schema(name = "QuestionnaireResponseEntry")
-  public static class Entry extends AbstractEntry<QuestionnaireResponse> {
+  public static class Entry extends AbstractEntry<QuestionnaireResponse> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -235,7 +236,7 @@ public class QuestionnaireResponse implements DomainResource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Item implements BackboneElement {
+  public static class Item implements AsList<Item>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

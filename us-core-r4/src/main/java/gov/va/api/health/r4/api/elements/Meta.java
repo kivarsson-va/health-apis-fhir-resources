@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.elements;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/R4/resource.html#meta")
-public class Meta implements Element {
+public class Meta implements AsList<Meta>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

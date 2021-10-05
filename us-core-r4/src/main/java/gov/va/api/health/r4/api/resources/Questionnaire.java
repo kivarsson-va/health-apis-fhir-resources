@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -51,7 +52,7 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.questionnaire"
             + ":gov.va.api.health.r4.api.swaggerexamples.SwaggerQuestionnaire#questionnaire}")
-public class Questionnaire implements DomainResource {
+public class Questionnaire implements AsList<Questionnaire>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Questionnaire";
 
   @Pattern(regexp = Fhir.ID)
@@ -190,7 +191,7 @@ public class Questionnaire implements DomainResource {
         "valueReference"
       },
       message = "Exactly one value field must be specified")
-  public static class AnswerOption implements BackboneElement {
+  public static class AnswerOption implements AsList<AnswerOption>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -225,7 +226,7 @@ public class Questionnaire implements DomainResource {
       example =
           "${r4.questionnaireBundle:gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerQuestionnaire#questionnaireBundle}")
-  public static class Bundle extends AbstractBundle<Questionnaire.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Bundle builder. */
     @Builder
     public Bundle(
@@ -277,7 +278,7 @@ public class Questionnaire implements DomainResource {
         "answerReference"
       },
       message = "Exactly one answer field must be specified")
-  public static class EnableWhen implements BackboneElement {
+  public static class EnableWhen implements AsList<EnableWhen>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -319,7 +320,7 @@ public class Questionnaire implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Questionnaire.Entry.EntryBuilder.class)
   @Schema(name = "QuestionnaireEntry")
-  public static class Entry extends AbstractEntry<Questionnaire> {
+  public static class Entry extends AbstractEntry<Questionnaire> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -357,7 +358,7 @@ public class Questionnaire implements DomainResource {
         "valueReference"
       },
       message = "Exactly one value field must be specified")
-  public static class Initial implements BackboneElement {
+  public static class Initial implements AsList<Initial>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -400,7 +401,7 @@ public class Questionnaire implements DomainResource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "QuestionnaireItem")
-  public static class Item implements BackboneElement {
+  public static class Item implements AsList<Item>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

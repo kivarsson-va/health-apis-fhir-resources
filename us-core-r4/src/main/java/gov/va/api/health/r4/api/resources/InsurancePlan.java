@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -50,7 +51,7 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.insurancePlan:gov.va.api.health.r4.api.swaggerexamples."
             + "SwaggerInsurancePlan#insurancePlan}")
-public final class InsurancePlan implements DomainResource {
+public final class InsurancePlan implements AsList<InsurancePlan>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "InsurancePlan";
 
   @Pattern(regexp = Fhir.ID)
@@ -108,192 +109,6 @@ public final class InsurancePlan implements DomainResource {
   }
 
   @Data
-  @Builder
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Contact implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid CodeableConcept purpose;
-
-    @Valid HumanName name;
-
-    @Valid List<ContactPoint> telecom;
-
-    @Valid Address address;
-  }
-
-  @Data
-  @Builder
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Coverage implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid @NotNull CodeableConcept type;
-
-    @Valid List<Reference> network;
-
-    @Valid @NotEmpty List<Benefit> benefit;
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    public static class Benefit implements BackboneElement {
-      @Pattern(regexp = Fhir.ID)
-      String id;
-
-      @Valid List<Extension> extension;
-
-      @Valid List<Extension> modifierExtension;
-
-      @Valid @NotNull CodeableConcept type;
-
-      String requirement;
-
-      @Valid List<Limit> limit;
-
-      @Data
-      @Builder
-      @AllArgsConstructor
-      @NoArgsConstructor(access = AccessLevel.PRIVATE)
-      @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-      public static class Limit implements BackboneElement {
-        @Pattern(regexp = Fhir.ID)
-        String id;
-
-        @Valid List<Extension> extension;
-
-        @Valid List<Extension> modifierExtension;
-
-        @Valid Quantity value;
-
-        @Valid CodeableConcept code;
-      }
-    }
-  }
-
-  @Data
-  @Builder
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Plan implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid List<Identifier> identifier;
-
-    @Valid CodeableConcept type;
-
-    @Valid List<Reference> coverageArea;
-
-    @Valid List<Reference> network;
-
-    @Valid List<GeneralCost> generalCost;
-
-    @Valid List<SpecificCost> specificCost;
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    public static class SpecificCost implements BackboneElement {
-      @Pattern(regexp = Fhir.ID)
-      String id;
-
-      @Valid List<Extension> extension;
-
-      @Valid List<Extension> modifierExtension;
-
-      @Valid @NotNull CodeableConcept category;
-
-      @Valid List<Benefit> benefit;
-
-      @Data
-      @Builder
-      @AllArgsConstructor
-      @NoArgsConstructor(access = AccessLevel.PRIVATE)
-      @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-      public static class Benefit implements BackboneElement {
-        @Pattern(regexp = Fhir.ID)
-        String id;
-
-        @Valid List<Extension> extension;
-
-        @Valid List<Extension> modifierExtension;
-
-        @Valid @NotNull CodeableConcept type;
-
-        @Valid List<Cost> cost;
-
-        @Data
-        @Builder
-        @AllArgsConstructor
-        @NoArgsConstructor(access = AccessLevel.PRIVATE)
-        @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-        public static class Cost implements BackboneElement {
-          @Pattern(regexp = Fhir.ID)
-          String id;
-
-          @Valid List<Extension> extension;
-
-          @Valid List<Extension> modifierExtension;
-
-          @Valid @NotNull CodeableConcept type;
-
-          @Valid CodeableConcept applicability;
-
-          @Valid List<CodeableConcept> qualifiers;
-
-          @Valid Quantity value;
-        }
-      }
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    public static class GeneralCost implements BackboneElement {
-      @Pattern(regexp = Fhir.ID)
-      String id;
-
-      @Valid List<Extension> extension;
-
-      @Valid List<Extension> modifierExtension;
-
-      @Valid CodeableConcept type;
-
-      @Positive Integer groupSize;
-
-      @Valid Money cost;
-
-      String comment;
-    }
-  }
-
-  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -303,7 +118,7 @@ public final class InsurancePlan implements DomainResource {
       example =
           "${r4.insurancePlanBundle:gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerInsurancePlan#insurancePlanBundle}")
-  public static final class Bundle extends AbstractBundle<Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -336,12 +151,92 @@ public final class InsurancePlan implements DomainResource {
   }
 
   @Data
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Contact implements AsList<Contact>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid CodeableConcept purpose;
+
+    @Valid HumanName name;
+
+    @Valid List<ContactPoint> telecom;
+
+    @Valid Address address;
+  }
+
+  @Data
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Coverage implements AsList<Coverage>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid @NotNull CodeableConcept type;
+
+    @Valid List<Reference> network;
+
+    @Valid @NotEmpty List<Benefit> benefit;
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+    public static class Benefit implements AsList<Benefit>, BackboneElement {
+      @Pattern(regexp = Fhir.ID)
+      String id;
+
+      @Valid List<Extension> extension;
+
+      @Valid List<Extension> modifierExtension;
+
+      @Valid @NotNull CodeableConcept type;
+
+      String requirement;
+
+      @Valid List<Limit> limit;
+
+      @Data
+      @Builder
+      @AllArgsConstructor
+      @NoArgsConstructor(access = AccessLevel.PRIVATE)
+      @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+      public static class Limit implements AsList<Limit>, BackboneElement {
+        @Pattern(regexp = Fhir.ID)
+        String id;
+
+        @Valid List<Extension> extension;
+
+        @Valid List<Extension> modifierExtension;
+
+        @Valid Quantity value;
+
+        @Valid CodeableConcept code;
+      }
+    }
+  }
+
+  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @Schema(name = "InsurancePlanEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = InsurancePlan.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<InsurancePlan> {
+  public static final class Entry extends AbstractEntry<InsurancePlan> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -354,6 +249,112 @@ public final class InsurancePlan implements DomainResource {
         @Valid Request request,
         @Valid Response response) {
       super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
+  }
+
+  @Data
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Plan implements AsList<Plan>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid List<Identifier> identifier;
+
+    @Valid CodeableConcept type;
+
+    @Valid List<Reference> coverageArea;
+
+    @Valid List<Reference> network;
+
+    @Valid List<GeneralCost> generalCost;
+
+    @Valid List<SpecificCost> specificCost;
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+    public static class GeneralCost implements AsList<GeneralCost>, BackboneElement {
+      @Pattern(regexp = Fhir.ID)
+      String id;
+
+      @Valid List<Extension> extension;
+
+      @Valid List<Extension> modifierExtension;
+
+      @Valid CodeableConcept type;
+
+      @Positive Integer groupSize;
+
+      @Valid Money cost;
+
+      String comment;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+    public static class SpecificCost implements AsList<SpecificCost>, BackboneElement {
+      @Pattern(regexp = Fhir.ID)
+      String id;
+
+      @Valid List<Extension> extension;
+
+      @Valid List<Extension> modifierExtension;
+
+      @Valid @NotNull CodeableConcept category;
+
+      @Valid List<Benefit> benefit;
+
+      @Data
+      @Builder
+      @AllArgsConstructor
+      @NoArgsConstructor(access = AccessLevel.PRIVATE)
+      @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+      public static class Benefit implements AsList<Benefit>, BackboneElement {
+        @Pattern(regexp = Fhir.ID)
+        String id;
+
+        @Valid List<Extension> extension;
+
+        @Valid List<Extension> modifierExtension;
+
+        @Valid @NotNull CodeableConcept type;
+
+        @Valid List<Cost> cost;
+
+        @Data
+        @Builder
+        @AllArgsConstructor
+        @NoArgsConstructor(access = AccessLevel.PRIVATE)
+        @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+        public static class Cost implements AsList<Cost>, BackboneElement {
+          @Pattern(regexp = Fhir.ID)
+          String id;
+
+          @Valid List<Extension> extension;
+
+          @Valid List<Extension> modifierExtension;
+
+          @Valid @NotNull CodeableConcept type;
+
+          @Valid CodeableConcept applicability;
+
+          @Valid List<CodeableConcept> qualifiers;
+
+          @Valid Quantity value;
+        }
+      }
     }
   }
 }

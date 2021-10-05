@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -65,7 +66,7 @@ import lombok.NoArgsConstructor;
       fields = {"requester", "_requester"},
       message = "Exactly one requester field must be specified")
 })
-public class MedicationRequest implements Resource {
+public class MedicationRequest implements AsList<MedicationRequest>, Resource {
   // Ancestors
   @NotBlank @Builder.Default String resourceType = "MedicationRequest";
 
@@ -205,7 +206,7 @@ public class MedicationRequest implements Resource {
       example =
           "${r4.medicationRequestBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerMedicationRequest#medicationRequestBundle}")
-  public static class Bundle extends AbstractBundle<MedicationRequest.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Build a Medication Request bundle. */
     @Builder
     public Bundle(
@@ -238,34 +239,12 @@ public class MedicationRequest implements Resource {
   }
 
   @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = MedicationRequest.Entry.EntryBuilder.class)
-  @Schema(name = "MedicationRequestEntry")
-  public static class Entry extends AbstractEntry<MedicationRequest> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid MedicationRequest resource,
-        @Valid AbstractEntry.Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "MedicationRequestDispenseRequest")
-  public static class DispenseRequest implements BackboneElement {
+  public static class DispenseRequest implements AsList<DispenseRequest>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -294,7 +273,7 @@ public class MedicationRequest implements Resource {
     @AllArgsConstructor
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @Schema(name = "MedicationRequestDispenseRequestInitialFill")
-    public static class InitialFill implements BackboneElement {
+    public static class InitialFill implements AsList<InitialFill>, BackboneElement {
       @Pattern(regexp = Fhir.ID)
       String id;
 
@@ -309,6 +288,28 @@ public class MedicationRequest implements Resource {
   }
 
   @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @JsonDeserialize(builder = MedicationRequest.Entry.EntryBuilder.class)
+  @Schema(name = "MedicationRequestEntry")
+  public static class Entry extends AbstractEntry<MedicationRequest> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid MedicationRequest resource,
+        @Valid AbstractEntry.Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
+  }
+
+  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
@@ -317,7 +318,7 @@ public class MedicationRequest implements Resource {
   @ExactlyOneOf(
       fields = {"allowedBoolean", "allowedCodeableConcept"},
       message = "allowedBoolean or allowedCodeableConcept, but not both")
-  public static class Substitution implements BackboneElement {
+  public static class Substitution implements AsList<Substitution>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -5,7 +5,6 @@ import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.samples.SampleLocations;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class LocationTest {
@@ -15,15 +14,15 @@ public class LocationTest {
   public void bundlerCanBuildLocationBundles() {
     Location.Entry entry =
         Location.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://location.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://location.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://location.com/1")
+                    .build()
+                    .asList())
             .resource(data.location())
             .search(data.search())
             .request(data.request())
@@ -32,13 +31,13 @@ public class LocationTest {
 
     Location.Bundle bundle =
         Location.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://location.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://location.com/2")
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
 

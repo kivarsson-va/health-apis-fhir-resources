@@ -19,6 +19,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -42,7 +43,7 @@ import lombok.NoArgsConstructor;
     description = "https://www.hl7.org/fhir/DSTU2/location.html",
     example =
         "${dstu2.location:gov.va.api.health.dstu2.api.swaggerexamples.SwaggerLocation#location}")
-public class Location implements DomainResource {
+public class Location implements AsList<Location>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Location";
 
   @Pattern(regexp = Fhir.ID)
@@ -109,7 +110,7 @@ public class Location implements DomainResource {
       example =
           "${dstu2.locationBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerLocation#locationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -143,7 +144,7 @@ public class Location implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Location.Entry.EntryBuilder.class)
   @Schema(name = "LocationEntry")
-  public static class Entry extends AbstractEntry<Location> {
+  public static class Entry extends AbstractEntry<Location> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -164,7 +165,7 @@ public class Location implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Position implements BackboneElement {
+  public static class Position implements AsList<Position>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -11,7 +11,6 @@ import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.dstu2.api.samples.SampleMedicationStatements;
 import gov.va.api.health.validation.api.ExactlyOneOfVerifier;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class MedicationStatementTest {
@@ -22,15 +21,15 @@ public class MedicationStatementTest {
   public void bundlerCanBuildMedicationStatementBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://medicationstatement.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://medicationstatement.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://medicationstatement.com/1"))
+                    .build()
+                    .asList())
             .resource(data.medicationStatement())
             .search(data.search())
             .request(data.request())
@@ -39,13 +38,13 @@ public class MedicationStatementTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://medicationstatement.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://medicationstatement.com/2"))
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
 

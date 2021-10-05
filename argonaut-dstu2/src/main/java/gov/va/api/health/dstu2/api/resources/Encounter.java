@@ -20,6 +20,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ import lombok.NoArgsConstructor;
     example =
         "${dstu2.encounter:gov.va.api.health.dstu2.api.swaggerexamples"
             + ".SwaggerEncounter#encounter}")
-public class Encounter implements DomainResource {
+public class Encounter implements AsList<Encounter>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Encounter";
 
   @Pattern(regexp = Fhir.ID)
@@ -120,7 +121,7 @@ public class Encounter implements DomainResource {
       example =
           "${dstu2.encounterBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerEncounter#encounterBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -149,12 +150,35 @@ public class Encounter implements DomainResource {
   }
 
   @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class EncounterLocation implements AsList<EncounterLocation>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> modifierExtension;
+    @Valid List<Extension> extension;
+    @Valid @NotNull Reference location;
+    Encounter.EncounterLocation.Status status;
+    @Valid Period period;
+
+    public enum Status {
+      planned,
+      active,
+      reserved,
+      completed
+    }
+  }
+
+  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Encounter.Entry.EntryBuilder.class)
   @Schema(name = "EncounterEntry")
-  public static class Entry extends AbstractEntry<Encounter> {
+  public static class Entry extends AbstractEntry<Encounter> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -175,7 +199,7 @@ public class Encounter implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Hospitalization implements BackboneElement {
+  public static class Hospitalization implements AsList<Hospitalization>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -199,30 +223,7 @@ public class Encounter implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class EncounterLocation implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> modifierExtension;
-    @Valid List<Extension> extension;
-    @Valid @NotNull Reference location;
-    Encounter.EncounterLocation.Status status;
-    @Valid Period period;
-
-    public enum Status {
-      planned,
-      active,
-      reserved,
-      completed
-    }
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Participant implements BackboneElement {
+  public static class Participant implements AsList<Participant>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -238,7 +239,7 @@ public class Encounter implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class StatusHistory implements BackboneElement {
+  public static class StatusHistory implements AsList<StatusHistory>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

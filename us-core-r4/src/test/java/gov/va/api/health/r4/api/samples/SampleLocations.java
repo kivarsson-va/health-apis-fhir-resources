@@ -6,7 +6,6 @@ import gov.va.api.health.r4.api.resources.Location.Mode;
 import gov.va.api.health.r4.api.resources.Location.Position;
 import gov.va.api.health.r4.api.resources.Location.Status;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -31,7 +30,7 @@ public class SampleLocations {
         .availabilityExceptions("Closed every other monday")
         .mode(Mode.instance)
         .type(List.of(dataTypes.codeableConcept()))
-        .telecom(Collections.singletonList(dataTypes.contactPoint()))
+        .telecom(dataTypes.contactPoint().asList())
         .address(dataTypes.address())
         .physicalType(dataTypes.codeableConcept())
         .position(

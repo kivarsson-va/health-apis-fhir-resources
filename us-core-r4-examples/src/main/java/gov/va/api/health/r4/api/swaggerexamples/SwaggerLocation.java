@@ -24,16 +24,16 @@ public class SwaggerLocation {
         .description("VISUAL IMPAIRMENT SVCS OUTPATIENT REHAB (VISOR)")
         .mode(Location.Mode.instance)
         .type(
-            List.of(
-                CodeableConcept.builder()
-                    .coding(List.of(Coding.builder().display("OUTPATIENT CLINIC").build()))
-                    .build()))
+            CodeableConcept.builder()
+                .coding(Coding.builder().display("OUTPATIENT CLINIC").build().asList())
+                .build()
+                .asList())
         .telecom(
-            List.of(
-                ContactPoint.builder()
-                    .system(ContactPoint.ContactPointSystem.phone)
-                    .value("908-647-0180 EXT 4437")
-                    .build()))
+            ContactPoint.builder()
+                .system(ContactPoint.ContactPointSystem.phone)
+                .value("908-647-0180 EXT 4437")
+                .build()
+                .asList())
         .address(
             Address.builder()
                 .line(List.of("151 KNOLLCROFT ROAD"))
@@ -44,7 +44,7 @@ public class SwaggerLocation {
                 .build())
         .physicalType(
             CodeableConcept.builder()
-                .coding(List.of(Coding.builder().display("BUILDING 7").build()))
+                .coding(Coding.builder().display("BUILDING 7").build().asList())
                 .build())
         .managingOrganization(
             Reference.builder()
@@ -85,13 +85,13 @@ public class SwaggerLocation {
                             + "_id=I2-4KG3N5YUSPTWD3DAFMLMRL5V5U000000&page=1&_count=15")
                     .build()))
         .entry(
-            List.of(
-                Location.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/"
-                            + "Location/I2-4KG3N5YUSPTWD3DAFMLMRL5V5U000000")
-                    .resource(location())
-                    .build()))
+            Location.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/"
+                        + "Location/I2-4KG3N5YUSPTWD3DAFMLMRL5V5U000000")
+                .resource(location())
+                .build()
+                .asList())
         .build();
   }
 }

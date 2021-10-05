@@ -12,7 +12,6 @@ import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.dstu2.api.samples.SampleMedicationDispenses;
 import gov.va.api.health.validation.api.ExactlyOneOfVerifier;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -27,15 +26,15 @@ public class MedicationDispenseTest {
   public void bundlerCanBuildMedicationDispenseBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://medicationdispense.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url("http://medicationdispense/123")
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("http://medicationdispense/123")
+                    .build()
+                    .asList())
             .resource(data.medicationDispense())
             .search(data.search())
             .request(data.request())
@@ -43,13 +42,13 @@ public class MedicationDispenseTest {
             .build();
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url("https://medicationdispense?patient=456")
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("https://medicationdispense?patient=456")
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
     assertRoundTrip(bundle);

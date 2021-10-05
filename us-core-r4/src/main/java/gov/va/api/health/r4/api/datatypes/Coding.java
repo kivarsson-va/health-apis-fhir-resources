@@ -3,6 +3,7 @@ package gov.va.api.health.r4.api.datatypes;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.fhir.api.HasDisplay;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://hl7.org/fhir/R4/datatypes.html#Coding")
-public class Coding implements Element, HasDisplay {
+public class Coding implements AsList<Coding>, Element, HasDisplay {
   @Pattern(regexp = Fhir.ID)
   String id;
 

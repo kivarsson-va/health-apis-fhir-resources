@@ -24,6 +24,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ExactlyOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOfs;
@@ -63,7 +64,7 @@ import lombok.NoArgsConstructor;
 @ExactlyOneOf(
     fields = {"medicationCodeableConcept", "medicationReference"},
     message = "Exactly one medication value must be specified")
-public class MedicationStatement implements Resource {
+public class MedicationStatement implements AsList<MedicationStatement>, Resource {
   @NotBlank @Builder.Default String resourceType = "MedicationStatement";
 
   @Pattern(regexp = Fhir.ID)
@@ -127,7 +128,7 @@ public class MedicationStatement implements Resource {
       example =
           "${dstu2.medicationStatementBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerMedicationStatement#medicationStatementBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -174,7 +175,7 @@ public class MedicationStatement implements Resource {
         fields = {"rateRatio", "rateRange"},
         message = "Only one rate field may be specified")
   })
-  public static class Dosage implements BackboneElement {
+  public static class Dosage implements AsList<Dosage>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -202,7 +203,7 @@ public class MedicationStatement implements Resource {
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
   @JsonDeserialize(builder = MedicationStatement.Entry.EntryBuilder.class)
   @Schema(name = "MedicationStatementEntry")
-  public static class Entry extends AbstractEntry<MedicationStatement> {
+  public static class Entry extends AbstractEntry<MedicationStatement> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,

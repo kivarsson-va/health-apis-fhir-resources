@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.samples;
 
 import gov.va.api.health.r4.api.resources.Practitioner;
-import java.util.Collections;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -18,10 +17,10 @@ public class SamplePractitioners {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(Collections.singletonList(resource()))
-        .extensions(Collections.singletonList(extension()))
-        .modifierExtensions(Collections.singletonList(extension()))
-        .identifier(Collections.singletonList(identifier().system("system").value("value")))
+        .contained(List.of(resource()))
+        .extensions(extension().asList())
+        .modifierExtensions(extension().asList())
+        .identifier(identifier().system("system").value("value").asList())
         .active(true)
         .name(List.of(humanName().given(List.of("John")).family("Smith")))
         .telecom(List.of(contactPoint(), contactPoint()))

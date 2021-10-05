@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.resources;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.elements.BackboneElement;
@@ -30,7 +31,7 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.operationOutcome:gov.va.api.health.r4.api.swaggerexamples"
             + ".SwaggerOperationOutcome#operationOutcome}")
-public class OperationOutcome implements DomainResource {
+public class OperationOutcome implements AsList<OperationOutcome>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "OperationOutcome";
 
   @Pattern(regexp = Fhir.ID)
@@ -62,7 +63,7 @@ public class OperationOutcome implements DomainResource {
   @Schema(
       description =
           "https://www.hl7.org/fhir/R4/operationoutcome-definitions.html#OperationOutcome.issue")
-  public static class Issue implements BackboneElement {
+  public static class Issue implements AsList<Issue>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

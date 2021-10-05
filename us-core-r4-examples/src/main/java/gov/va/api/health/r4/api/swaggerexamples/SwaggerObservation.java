@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -11,6 +9,7 @@ import gov.va.api.health.r4.api.datatypes.Quantity;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Observation;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class SwaggerObservation {
   /**
@@ -23,26 +22,25 @@ public class SwaggerObservation {
         .id("I2-RRCTYID4OWJHGGFQ7S7YPH4G6XVBG6D7VORRKERYLTZD7VBQLCJQ0000")
         .status(Observation.ObservationStatus._final)
         .category(
-            asList(
-                CodeableConcept.builder()
-                    .coding(
-                        asList(
-                            Coding.builder()
-                                .system(
-                                    "http://terminology.hl7.org/CodeSystem/observation-category")
-                                .code("laboratory")
-                                .display("Laboratory")
-                                .build()))
-                    .build()))
+            CodeableConcept.builder()
+                .coding(
+                    Coding.builder()
+                        .system("http://terminology.hl7.org/CodeSystem/observation-category")
+                        .code("laboratory")
+                        .display("Laboratory")
+                        .build()
+                        .asList())
+                .build()
+                .asList())
         .code(
             CodeableConcept.builder()
                 .coding(
-                    asList(
-                        Coding.builder()
-                            .system("http://loinc.org")
-                            .code("32623-1")
-                            .display("Platelet mean volume [Entitic volume] in Blood by ")
-                            .build()))
+                    Coding.builder()
+                        .system("http://loinc.org")
+                        .code("32623-1")
+                        .display("Platelet mean volume [Entitic volume] in Blood by ")
+                        .build()
+                        .asList())
                 .build())
         .subject(
             Reference.builder()
@@ -72,7 +70,7 @@ public class SwaggerObservation {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -89,14 +87,13 @@ public class SwaggerObservation {
                         "https://sandbox-api.va.gov/services/argonaut/v0/Observation?patient=1017283148V813263&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Observation.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/argonaut/v0/Observation/I2-RRCTYID4OWJHGGFQ7S7YPH4G6XVBG6D7VORRKERYLTZD7VBQLCJQ0000")
-                    .resource(observation())
-                    .search(
-                        AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
-                    .build()))
+            Observation.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/argonaut/v0/Observation/I2-RRCTYID4OWJHGGFQ7S7YPH4G6XVBG6D7VORRKERYLTZD7VBQLCJQ0000")
+                .resource(observation())
+                .search(AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

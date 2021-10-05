@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.elements;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Range;
@@ -28,7 +29,7 @@ import lombok.NoArgsConstructor;
 @ZeroOrOneOf(
     fields = {"asNeededBoolean", "asNeededCodeableConcept"},
     message = "Only one asNeeded field may be specified")
-public class Dosage implements BackboneElement {
+public class Dosage implements AsList<Dosage>, BackboneElement {
 
   @Pattern(regexp = Fhir.ID)
   String id;
@@ -81,7 +82,7 @@ public class Dosage implements BackboneElement {
         fields = {"rateRatio", "rateRange", "rateQuantity"},
         message = "Only one rate field may be specified")
   })
-  public static class DoseAndRate implements Element {
+  public static class DoseAndRate implements AsList<DoseAndRate>, Element {
 
     @Pattern(regexp = Fhir.ID)
     String id;

@@ -1,10 +1,7 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.CapabilityStatement;
 import gov.va.api.health.r4.api.resources.TerminologyCapabilities;
-import java.util.Arrays;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -14,8 +11,11 @@ public class SampleTerminologyCapabilities {
   @Delegate SampleDataTypes dataTypes = SampleDataTypes.get();
 
   public List<TerminologyCapabilities.CodeSystem> codeSystem() {
-    return singletonList(
-        TerminologyCapabilities.CodeSystem.builder().version(version()).subsumption(true).build());
+    return TerminologyCapabilities.CodeSystem.builder()
+        .version(version())
+        .subsumption(true)
+        .build()
+        .asList();
   }
 
   public TerminologyCapabilities.Implementation implementation() {
@@ -42,10 +42,10 @@ public class SampleTerminologyCapabilities {
         .experimental(true)
         .date("2000-01-01T00:00:00-00:00")
         .publisher("random house")
-        .contact(singletonList(contactDetail()))
+        .contact(contactDetail().asList())
         .description("words words")
-        .useContext(singletonList(usageContext()))
-        .jurisdiction(singletonList(codeableConcept()))
+        .useContext(usageContext().asList())
+        .jurisdiction(codeableConcept().asList())
         .purpose("words words")
         .copyright("Alphonso, Lord of the Mangos")
         .kind(CapabilityStatement.Kind.capability)
@@ -57,11 +57,11 @@ public class SampleTerminologyCapabilities {
   }
 
   public List<TerminologyCapabilities.Version> version() {
-    return singletonList(
+    return List.of(
         TerminologyCapabilities.Version.builder()
             .isDefault(true)
             .compositional(true)
-            .property(Arrays.asList("version_property"))
+            .property(List.of("version_property"))
             .build());
   }
 }

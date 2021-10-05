@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.elements;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.fhir.api.IsReference;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.datatypes.Identifier;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/STU3/references.html")
-public class Reference implements Element, IsReference {
+public class Reference implements AsList<Reference>, Element, IsReference {
   @Pattern(regexp = Fhir.ID)
   String id;
 

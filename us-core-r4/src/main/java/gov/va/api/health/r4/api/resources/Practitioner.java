@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -52,7 +53,7 @@ import org.apache.commons.lang3.StringUtils;
     example =
         "${r4.practitioner:gov.va.api.health.r4.api.swaggerexamples"
             + ".SwaggerPractitioner#practitioner}")
-public class Practitioner implements Resource {
+public class Practitioner implements AsList<Practitioner>, Resource {
   @NotBlank @Builder.Default String resourceType = "Practitioner";
 
   @Pattern(regexp = Fhir.ID)
@@ -131,29 +132,6 @@ public class Practitioner implements Resource {
   }
 
   @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @Schema(name = "PractitionerQualification")
-  public static class Qualification implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid List<Identifier> identifier;
-
-    @Valid @NotNull CodeableConcept code;
-
-    @Valid Period period;
-
-    @Valid Reference issuer;
-  }
-
-  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -163,7 +141,7 @@ public class Practitioner implements Resource {
       example =
           "${r4.practitionerBundle:gov.va.api.health.r4.api.swaggerexamples"
               + ".SwaggerPractitioner#practitionerBundle}")
-  public static class Bundle extends AbstractBundle<Practitioner.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -201,7 +179,7 @@ public class Practitioner implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Practitioner.Entry.EntryBuilder.class)
   @Schema(name = "PractitionerEntry")
-  public static class Entry extends AbstractEntry<Practitioner> {
+  public static class Entry extends AbstractEntry<Practitioner> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -215,5 +193,28 @@ public class Practitioner implements Resource {
         @Valid Response response) {
       super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
     }
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @Schema(name = "PractitionerQualification")
+  public static class Qualification implements AsList<Qualification>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid List<Identifier> identifier;
+
+    @Valid @NotNull CodeableConcept code;
+
+    @Valid Period period;
+
+    @Valid Reference issuer;
   }
 }

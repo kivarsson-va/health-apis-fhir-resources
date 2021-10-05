@@ -5,7 +5,6 @@ import static gov.va.api.health.dstu2.api.RoundTrip.assertRoundTrip;
 import gov.va.api.health.dstu2.api.bundle.AbstractBundle;
 import gov.va.api.health.dstu2.api.bundle.BundleLink;
 import gov.va.api.health.dstu2.api.samples.SamplePractitioners;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class PractitionerTest {
@@ -15,15 +14,15 @@ public class PractitionerTest {
   public void bundlerCanBuildMedicationBundles() {
     Practitioner.Entry entry =
         Practitioner.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://practitioner.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://practitioner.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://practitioner.com/1"))
+                    .build()
+                    .asList())
             .resource(data.practitioner())
             .search(data.search())
             .request(data.request())
@@ -32,13 +31,13 @@ public class PractitionerTest {
 
     Practitioner.Bundle bundle =
         Practitioner.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://practitioner.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://practitioner.com/2"))
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
 

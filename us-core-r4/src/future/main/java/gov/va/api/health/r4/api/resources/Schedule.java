@@ -26,13 +26,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(
-  fieldVisibility = JsonAutoDetect.Visibility.ANY,
-  isGetterVisibility = JsonAutoDetect.Visibility.NONE
-)
+    fieldVisibility = JsonAutoDetect.Visibility.ANY,
+    isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
-  description = "https://www.hl7.org/fhir/R4/schedule.html",
-  example = "${r4.schedule:com.example.Example#example}"
-)
+    description = "https://www.hl7.org/fhir/R4/schedule.html",
+    example = "${r4.schedule:com.example.Example#example}")
 public class Schedule {
   @NotBlank @Builder.Default String resourceType = "Schedule";
 
@@ -60,8 +58,7 @@ public class Schedule {
   // Schedule Resource
   @Valid List<Identifier> identifier;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String active;
+  Boolean active;
 
   @Valid List<CodeableConcept> serviceCategory;
 

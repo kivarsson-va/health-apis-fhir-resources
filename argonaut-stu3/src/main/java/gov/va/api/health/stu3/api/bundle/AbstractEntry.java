@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.bundle;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.elements.BackboneElement;
 import gov.va.api.health.stu3.api.elements.Extension;
@@ -59,7 +60,7 @@ public abstract class AbstractEntry<T extends Resource> implements BackboneEleme
   @Data
   @Builder
   @Schema(description = "http://hl7.org/fhir/STU3/bundle.html")
-  public static class Request implements BackboneElement {
+  public static class Request implements AsList<Request>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     protected final String id;
 
@@ -84,7 +85,7 @@ public abstract class AbstractEntry<T extends Resource> implements BackboneEleme
   @Data
   @Builder
   @Schema(description = "http://hl7.org/fhir/STU3/bundle.html")
-  public static class Response implements BackboneElement {
+  public static class Response implements AsList<Response>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     protected final String id;
 
@@ -104,7 +105,7 @@ public abstract class AbstractEntry<T extends Resource> implements BackboneEleme
   @Data
   @Builder
   @Schema(description = "http://hl7.org/fhir/STU3/bundle.html")
-  public static class Search implements BackboneElement {
+  public static class Search implements AsList<Search>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     final String id;
 

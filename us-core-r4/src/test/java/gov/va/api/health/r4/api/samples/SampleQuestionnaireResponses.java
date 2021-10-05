@@ -30,14 +30,14 @@ public class SampleQuestionnaireResponses {
             .definition("definition")
             .text("text")
             .answer(
-                List.of(
-                    QuestionnaireResponse.Answer.builder()
-                        .id("11")
-                        .extension(List.of(extension(), extension()))
-                        .modifierExtension(
-                            List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
-                        .valueString("a string answer")
-                        .build()))
+                QuestionnaireResponse.Answer.builder()
+                    .id("11")
+                    .extension(List.of(extension(), extension()))
+                    .modifierExtension(
+                        List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+                    .valueString("a string answer")
+                    .build()
+                    .asList())
             .build(),
         QuestionnaireResponse.Item.builder()
             .id("2")
@@ -47,14 +47,14 @@ public class SampleQuestionnaireResponses {
             .definition("definition")
             .text("text")
             .answer(
-                List.of(
-                    QuestionnaireResponse.Answer.builder()
-                        .id("21")
-                        .extension(List.of(extension(), extension()))
-                        .modifierExtension(
-                            List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
-                        .valueInteger(42)
-                        .build()))
+                QuestionnaireResponse.Answer.builder()
+                    .id("21")
+                    .extension(List.of(extension(), extension()))
+                    .modifierExtension(
+                        List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+                    .valueInteger(42)
+                    .build()
+                    .asList())
             .build());
   }
 
@@ -69,8 +69,8 @@ public class SampleQuestionnaireResponses {
         .extension(List.of(extension(), extension()))
         .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
         .identifier(identifier())
-        .basedOn(List.of(reference()))
-        .partOf(List.of(reference()))
+        .basedOn(reference().asList())
+        .partOf(reference().asList())
         .questionnaire("http://hl7.org/fhir/Questionnaire/3141")
         .status(Status.completed)
         .subject(reference())

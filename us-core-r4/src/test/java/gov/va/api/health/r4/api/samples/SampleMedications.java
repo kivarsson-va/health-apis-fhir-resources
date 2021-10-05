@@ -1,8 +1,7 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Medication;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -13,8 +12,8 @@ public class SampleMedications {
   public Medication.Batch batch() {
     return Medication.Batch.builder()
         .id("806")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .lotNumber("9995")
         .expirationDate("2015-04-15T04:00:00Z")
         .build();
@@ -23,7 +22,7 @@ public class SampleMedications {
   public Medication.Ingredient ingredient() {
     return Medication.Ingredient.builder()
         .id("509")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .itemCodeableConcept(codeableConcept())
         .isActive(true)
         .strength(ratio())
@@ -37,16 +36,16 @@ public class SampleMedications {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .code(codeableConcept())
         .status(Medication.Status.entered_in_error)
         .manufacturer(reference())
         .form(codeableConcept())
         .amount(ratio())
-        .ingredient(singletonList(ingredient()))
+        .ingredient(ingredient().asList())
         .batch(batch())
         .build();
   }

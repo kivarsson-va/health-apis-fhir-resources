@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.Conformance;
 import gov.va.api.health.dstu2.api.resources.Conformance.AcceptUnknown;
 import gov.va.api.health.dstu2.api.resources.Conformance.Contact;
@@ -63,7 +61,7 @@ public class SampleConformance {
         .implementation(implementation())
         .fhirVersion("argonaut")
         .acceptUnknown(AcceptUnknown.no)
-        .format(singletonList("json"))
+        .format(List.of("json"))
         .profile(referenceList())
         .rest(restList())
         .messaging(messagingList())
@@ -82,7 +80,7 @@ public class SampleConformance {
   }
 
   public List<Contact> contactList() {
-    return singletonList(contact());
+    return contact().asList();
   }
 
   private Document document() {
@@ -97,7 +95,7 @@ public class SampleConformance {
   }
 
   private List<Document> documentList() {
-    return singletonList(document());
+    return document().asList();
   }
 
   public Conformance.Implementation implementation() {
@@ -133,7 +131,7 @@ public class SampleConformance {
   }
 
   public List<MessagingEndpoint> messagingEndpointList() {
-    return singletonList(messagingEndpoint());
+    return messagingEndpoint().asList();
   }
 
   public MessagingEvent messagingEvent() {
@@ -152,11 +150,11 @@ public class SampleConformance {
   }
 
   public List<MessagingEvent> messagingEventList() {
-    return singletonList(messagingEvent());
+    return messagingEvent().asList();
   }
 
   public List<Messaging> messagingList() {
-    return singletonList(messaging());
+    return messaging().asList();
   }
 
   public Conformance.ResourceInteraction resourceInteraction() {
@@ -170,7 +168,7 @@ public class SampleConformance {
   }
 
   private List<ResourceInteraction> resourceInteractionList() {
-    return singletonList(resourceInteraction());
+    return resourceInteraction().asList();
   }
 
   public Conformance.Rest rest() {
@@ -186,7 +184,7 @@ public class SampleConformance {
         .transactionMode(RestTransactionMode.not_supported)
         .searchParam(searchParamList())
         .operation(restOperationList())
-        .compartment(singletonList("compartments!"))
+        .compartment(List.of("compartments!"))
         .build();
   }
 
@@ -201,11 +199,11 @@ public class SampleConformance {
   }
 
   private List<RestInteraction> restInteractionList() {
-    return singletonList(restInteraction());
+    return restInteraction().asList();
   }
 
   private List<Rest> restList() {
-    return singletonList(rest());
+    return rest().asList();
   }
 
   private RestOperation restOperation() {
@@ -219,7 +217,7 @@ public class SampleConformance {
   }
 
   private List<RestOperation> restOperationList() {
-    return singletonList(restOperation());
+    return restOperation().asList();
   }
 
   private RestResource restResource() {
@@ -236,14 +234,14 @@ public class SampleConformance {
         .conditionalCreate(true)
         .conditionalUpdate(true)
         .conditionalDelete(DeleteCode.not_supported)
-        .searchInclude(singletonList("ok"))
-        .searchRevInclude(singletonList("meh"))
+        .searchInclude(List.of("ok"))
+        .searchRevInclude(List.of("meh"))
         .searchParam(searchParamList())
         .build();
   }
 
   public List<RestResource> restResourceList() {
-    return singletonList(restResource());
+    return restResource().asList();
   }
 
   public Conformance.RestSecurity restSecurity() {
@@ -269,7 +267,7 @@ public class SampleConformance {
   }
 
   private List<SecurityCertificate> restSecurityCertificateList() {
-    return singletonList(restSecurityCertificate());
+    return restSecurityCertificate().asList();
   }
 
   public Conformance.SearchParam searchParam() {
@@ -281,14 +279,14 @@ public class SampleConformance {
         .definition("http://example.com")
         .type(SearchParamType.string)
         .documentation("this resource is yuge")
-        .target(singletonList("json"))
-        .modifier(singletonList(SearchParamModifier.not_in))
-        .chain(singletonList("cha-cha-chain-of-fools"))
+        .target(List.of("json"))
+        .modifier(List.of(SearchParamModifier.not_in))
+        .chain(List.of("cha-cha-chain-of-fools"))
         .build();
   }
 
   private List<SearchParam> searchParamList() {
-    return singletonList(searchParam());
+    return searchParam().asList();
   }
 
   public Conformance.Software software() {

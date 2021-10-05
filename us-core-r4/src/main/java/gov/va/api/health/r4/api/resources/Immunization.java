@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -59,7 +60,7 @@ import lombok.NoArgsConstructor;
       fields = {"status", "_status"},
       message = "Exactly one occurrence may be specified... status | _status")
 })
-public class Immunization implements Resource {
+public class Immunization implements AsList<Immunization>, Resource {
   // Ancestors
   @NotBlank @Builder.Default String resourceType = "Immunization";
 
@@ -163,7 +164,7 @@ public class Immunization implements Resource {
       example =
           "${r4.immunizationBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerImmunization#immunizationBundle}")
-  public static final class Bundle extends AbstractBundle<Immunization.Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -196,12 +197,37 @@ public class Immunization implements Resource {
   }
 
   @Data
+  @Builder
+  @Schema(name = "ImmunizationEducation")
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Education implements AsList<Education>, BackboneElement {
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    String documentType;
+
+    @Pattern(regexp = Fhir.URI)
+    String reference;
+
+    @Pattern(regexp = Fhir.DATETIME)
+    String publicationDate;
+
+    @Pattern(regexp = Fhir.DATETIME)
+    String presentationDate;
+  }
+
+  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @Schema(name = "ImmunizationEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Immunization.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<Immunization> {
+  public static final class Entry extends AbstractEntry<Immunization> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -223,7 +249,7 @@ public class Immunization implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Performer implements BackboneElement {
+  public static class Performer implements AsList<Performer>, BackboneElement {
     String id;
 
     @Valid List<Extension> extension;
@@ -233,52 +259,6 @@ public class Immunization implements Resource {
     @Valid CodeableConcept function;
 
     @Valid @NotNull Reference actor;
-  }
-
-  @Data
-  @Builder
-  @Schema(name = "ImmunizationEducation")
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Education implements BackboneElement {
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    String documentType;
-
-    @Pattern(regexp = Fhir.URI)
-    String reference;
-
-    @Pattern(regexp = Fhir.DATETIME)
-    String publicationDate;
-
-    @Pattern(regexp = Fhir.DATETIME)
-    String presentationDate;
-  }
-
-  @Data
-  @Builder
-  @Schema(name = "ImmunizationReaction")
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Reaction implements BackboneElement {
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Pattern(regexp = Fhir.DATETIME)
-    String date;
-
-    @Valid Reference detail;
-
-    Boolean reported;
   }
 
   @Data
@@ -299,7 +279,7 @@ public class Immunization implements Resource {
             "Only one seriesDoses field may be specified... "
                 + "seriesDosesPositiveInt | seriesDosesString")
   })
-  public static class ProtocolApplied implements BackboneElement {
+  public static class ProtocolApplied implements AsList<ProtocolApplied>, BackboneElement {
     String id;
 
     @Valid List<Extension> extension;
@@ -321,5 +301,26 @@ public class Immunization implements Resource {
     Integer seriesDosesPositiveInt;
 
     String seriesDosesString;
+  }
+
+  @Data
+  @Builder
+  @Schema(name = "ImmunizationReaction")
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Reaction implements AsList<Reaction>, BackboneElement {
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Pattern(regexp = Fhir.DATETIME)
+    String date;
+
+    @Valid Reference detail;
+
+    Boolean reported;
   }
 }

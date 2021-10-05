@@ -1,8 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.bundle.AbstractEntry.HttpVerb;
 import gov.va.api.health.r4.api.bundle.AbstractEntry.Request;
 import gov.va.api.health.r4.api.bundle.AbstractEntry.Response;
@@ -45,9 +42,8 @@ import gov.va.api.health.r4.api.elements.Narrative;
 import gov.va.api.health.r4.api.elements.Narrative.NarrativeStatus;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.OperationOutcome;
-import gov.va.api.health.r4.api.resources.Resource;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(staticName = "get")
@@ -55,11 +51,11 @@ public class SampleDataTypes {
   public Address address() {
     return Address.builder()
         .id("1234")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .use(AddressUse.home)
         .type(AddressType.both)
         .text("Hello")
-        .line(Arrays.asList("hello", "goodbye"))
+        .line(List.of("hello", "goodbye"))
         .city("Hello City")
         .district("Hello District")
         .state("Hello State")
@@ -91,7 +87,7 @@ public class SampleDataTypes {
   }
 
   public CodeableConcept codeableConcept() {
-    return CodeableConcept.builder().coding(singletonList(coding())).text("code text test").build();
+    return CodeableConcept.builder().coding(coding().asList()).text("code text test").build();
   }
 
   public Coding coding() {
@@ -105,10 +101,7 @@ public class SampleDataTypes {
   }
 
   public ContactDetail contactDetail() {
-    return ContactDetail.builder()
-        .name("Hello name")
-        .telecom(singletonList(contactPoint()))
-        .build();
+    return ContactDetail.builder().name("Hello name").telecom(contactPoint().asList()).build();
   }
 
   public ContactPoint contactPoint() {
@@ -122,21 +115,21 @@ public class SampleDataTypes {
   }
 
   public CodeableConcept details() {
-    return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+    return CodeableConcept.builder().coding(coding().asList()).text("HelloText").build();
   }
 
   public Dosage dosage() {
     return Dosage.builder()
         .sequence(1)
         .text("text")
-        .additionalInstruction(singletonList(codeableConcept()))
+        .additionalInstruction(codeableConcept().asList())
         .patientInstruction("patient instruction")
         .timing(timing())
         .asNeededCodeableConcept(codeableConcept())
         .site(codeableConcept())
         .route(codeableConcept())
         .method(codeableConcept())
-        .doseAndRate(singletonList(doseAndRate()))
+        .doseAndRate(doseAndRate().asList())
         .maxDosePerPeriod(ratio())
         .maxDosePerAdministration(simpleQuantity())
         .maxDosePerLifetime(simpleQuantity())
@@ -194,9 +187,9 @@ public class SampleDataTypes {
         .use(NameUse.anonymous)
         .text("HelloText")
         .family("HelloFamily")
-        .given(singletonList("HelloGiven"))
-        .prefix(singletonList("HelloPrefix"))
-        .suffix(singletonList("HelloSuffix"))
+        .given(List.of("HelloGiven"))
+        .prefix(List.of("HelloPrefix"))
+        .suffix(List.of("HelloSuffix"))
         .period(period())
         .build();
   }
@@ -206,7 +199,7 @@ public class SampleDataTypes {
         .id("5678")
         .use(IdentifierUse.official)
         .use(Identifier.IdentifierUse.official)
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .build();
   }
 
@@ -216,8 +209,8 @@ public class SampleDataTypes {
         .code("HelloCode")
         .details(details())
         .diagnostics("HelloDiagnostics")
-        .location(singletonList("HelloLocation"))
-        .expression(singletonList("HelloExpression"))
+        .location(List.of("HelloLocation"))
+        .expression(List.of("HelloExpression"))
         .build();
   }
 
@@ -225,9 +218,9 @@ public class SampleDataTypes {
     return Meta.builder()
         .versionId("1111")
         .lastUpdated("2000-01-01T00:00:00-00:00")
-        .profile(singletonList("http://HelloProfile.com"))
-        .security(singletonList(coding()))
-        .tag(singletonList(coding()))
+        .profile(List.of("http://HelloProfile.com"))
+        .security(coding().asList())
+        .tag(coding().asList())
         .build();
   }
 
@@ -247,21 +240,20 @@ public class SampleDataTypes {
         .language("Hello Language")
         .text(narrative())
         .modifierExtension(
-            Arrays.asList(
+            List.of(
                 extension(),
                 extensionWithQuantity(),
                 extensionWithRatio(),
                 extensionWithUsageContext(),
                 extensionWithContactDetail()))
-        .issue(singletonList(issue()))
+        .issue(issue().asList())
         .build();
   }
 
   public Period period() {
     return Period.builder()
         .id("5678")
-        .extension(
-            singletonList(Extension.builder().url("http://example.com").valueInteger(1).build()))
+        .extension(Extension.builder().url("http://example.com").valueInteger(1).build().asList())
         .start("2000-01-01T00:00:00-00:00")
         .end("2001-01-01T00:00:00-00:00")
         .build();
@@ -290,8 +282,8 @@ public class SampleDataTypes {
   public Request request() {
     return Request.builder()
         .id("request1")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .method(HttpVerb.GET)
         .url("http://example.com")
         .ifNoneMatch("ok")
@@ -301,15 +293,15 @@ public class SampleDataTypes {
         .build();
   }
 
-  public Resource resource() {
+  public OperationOutcome resource() {
     return operationOutcome();
   }
 
   public Response response() {
     return Response.builder()
         .id("response1")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .status("single")
         .location("http://example.com")
         .etag("you're it")
@@ -320,7 +312,7 @@ public class SampleDataTypes {
   public SampledData sampledData() {
     return SampledData.builder()
         .id("1234")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .origin(simpleQuantity())
         .period(new BigDecimal("10.234"))
         .factor(new BigDecimal("2.5"))
@@ -335,15 +327,15 @@ public class SampleDataTypes {
     return Search.builder()
         .id("search1")
         .mode(SearchMode.match)
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .score(new BigDecimal("0.5"))
         .build();
   }
 
   public Signature signature() {
     return Signature.builder()
-        .type(singletonList(coding()))
+        .type(coding().asList())
         .when("now")
         .who(reference())
         .onBehalfOf(reference())
@@ -363,7 +355,7 @@ public class SampleDataTypes {
 
   public Timing timing() {
     return Timing.builder()
-        .event(singletonList("2017-01-01T00:00:00.000Z"))
+        .event(List.of("2017-01-01T00:00:00.000Z"))
         .repeat(
             Repeat.builder()
                 .boundsPeriod(period())
@@ -377,8 +369,8 @@ public class SampleDataTypes {
                 .period(new BigDecimal("0.5"))
                 .periodMax(new BigDecimal("1.0"))
                 .periodUnit(UnitOfTime.wk)
-                .timeOfDay(singletonList("11:00:00"))
-                .when(singletonList(EventTime.AC))
+                .timeOfDay(List.of("11:00:00"))
+                .when(List.of(EventTime.AC))
                 .offset(1)
                 .build())
         .code(codeableConcept())
@@ -389,7 +381,7 @@ public class SampleDataTypes {
     return Extension.builder()
         .url("http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity")
         .extension(
-            asList(
+            List.of(
                 Extension.builder()
                     .url("ombCategory")
                     .valueCoding(

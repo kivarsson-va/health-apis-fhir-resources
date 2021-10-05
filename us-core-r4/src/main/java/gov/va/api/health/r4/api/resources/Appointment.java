@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -44,7 +45,7 @@ import lombok.NoArgsConstructor;
     description = "https://www.hl7.org/fhir/R4/appointment.html",
     example =
         "${r4.appointment:gov.va.api.health.r4.api.swaggerexamples.SwaggerAppointment#appointment}")
-public class Appointment implements DomainResource {
+public class Appointment implements AsList<Appointment>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Appointment";
 
   @Pattern(regexp = Fhir.ID)
@@ -152,7 +153,7 @@ public class Appointment implements DomainResource {
       example =
           "${r4.appointmentBundle:gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerAppointment#appointmentBundle}")
-  public static class Bundle extends AbstractBundle<Appointment.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Appointment bundle builder. */
     @Builder
     public Bundle(
@@ -185,12 +186,34 @@ public class Appointment implements DomainResource {
   }
 
   @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @JsonDeserialize(builder = Appointment.Entry.EntryBuilder.class)
+  @Schema(name = "AppointmentEntry")
+  public static class Entry extends AbstractEntry<Appointment> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Appointment resource,
+        @Valid Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
+  }
+
+  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "AppointmentParticipant")
-  public static class Participant implements BackboneElement {
+  public static class Participant implements AsList<Participant>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -207,27 +230,5 @@ public class Appointment implements DomainResource {
     @NotNull @Valid ParticipationStatus status;
 
     @Valid Period period;
-  }
-
-  @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = Appointment.Entry.EntryBuilder.class)
-  @Schema(name = "AppointmentEntry")
-  public static class Entry extends AbstractEntry<Appointment> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Appointment resource,
-        @Valid Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
   }
 }

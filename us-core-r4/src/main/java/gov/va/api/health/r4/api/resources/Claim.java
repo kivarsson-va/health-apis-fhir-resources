@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -52,7 +53,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description = "https://www.hl7.org/fhir/R4/claim.html",
     example = "${r4.claim:gov.va.api.health.r4.api.swaggerexamples.SwaggerClaim#claim}")
-public class Claim implements DomainResource {
+public class Claim implements AsList<Claim>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Claim";
 
   @Pattern(regexp = Fhir.ID)
@@ -155,7 +156,7 @@ public class Claim implements DomainResource {
   @ZeroOrOneOf(
       fields = {"locationAddress", "locationReference"},
       message = "Only one location field may be specified")
-  public static class Accident implements BackboneElement {
+  public static class Accident implements AsList<Accident>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -183,7 +184,7 @@ public class Claim implements DomainResource {
       name = "ClaimBundle",
       example =
           "${r4.claimBundle:gov.va.api.health.r4.api.swaggerexamples.SwaggerClaim#claimBundle}")
-  public static class Bundle extends AbstractBundle<Claim.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Claim bundle builder. */
     @Builder
     public Bundle(
@@ -221,7 +222,7 @@ public class Claim implements DomainResource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ClaimCareTeam")
-  public static class CareTeam implements BackboneElement {
+  public static class CareTeam implements AsList<CareTeam>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -251,7 +252,7 @@ public class Claim implements DomainResource {
   @ExactlyOneOf(
       fields = {"diagnosisCodeableConcept", "diagnosisReference"},
       message = "diagnosisCodeableConcept or diagnosisReference, but not both")
-  public static class Diagnosis implements BackboneElement {
+  public static class Diagnosis implements AsList<Diagnosis>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -280,7 +281,7 @@ public class Claim implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Claim.Entry.EntryBuilder.class)
   @Schema(name = "ClaimEntry")
-  public static class Entry extends AbstractEntry<Claim> {
+  public static class Entry extends AbstractEntry<Claim> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -302,7 +303,7 @@ public class Claim implements DomainResource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ClaimInsurance")
-  public static class Insurance implements BackboneElement {
+  public static class Insurance implements AsList<Insurance>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -342,7 +343,7 @@ public class Claim implements DomainResource {
         fields = {"locationCodeableConcept", "locationAddress", "locationReference"},
         message = "Only one location field may be specified")
   })
-  public static class Item implements BackboneElement {
+  public static class Item implements AsList<Item>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -407,7 +408,7 @@ public class Claim implements DomainResource {
     @AllArgsConstructor
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @Schema(name = "ClaimItemDetail")
-    public static class Detail implements BackboneElement {
+    public static class Detail implements AsList<Detail>, BackboneElement {
       @Pattern(regexp = Fhir.ID)
       String id;
 
@@ -447,7 +448,7 @@ public class Claim implements DomainResource {
       @AllArgsConstructor
       @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
       @Schema(name = "ClaimItemDetailSubDetail")
-      public static class SubDetail implements BackboneElement {
+      public static class SubDetail implements AsList<SubDetail>, BackboneElement {
         @Pattern(regexp = Fhir.ID)
         String id;
 
@@ -488,7 +489,7 @@ public class Claim implements DomainResource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ClaimPayee")
-  public static class Payee implements BackboneElement {
+  public static class Payee implements AsList<Payee>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -510,7 +511,7 @@ public class Claim implements DomainResource {
   @ExactlyOneOf(
       fields = {"procedureCodeableConcept", "procedureReference"},
       message = "procedureCodeableConcept or procedureReference, but not both")
-  public static class Procedure implements BackboneElement {
+  public static class Procedure implements AsList<Procedure>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -540,7 +541,7 @@ public class Claim implements DomainResource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ClaimRelated")
-  public static class Related implements BackboneElement {
+  public static class Related implements AsList<Related>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -575,7 +576,7 @@ public class Claim implements DomainResource {
         },
         message = "Only one value field may be specified")
   })
-  public static class SupportingInfo implements BackboneElement {
+  public static class SupportingInfo implements AsList<SupportingInfo>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

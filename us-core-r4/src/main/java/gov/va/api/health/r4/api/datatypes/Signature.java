@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
 import gov.va.api.health.r4.api.elements.Extension;
@@ -19,7 +20,7 @@ import lombok.Data;
 @Builder
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/R4/datatypes.html#Signature")
-public class Signature implements Element {
+public class Signature implements AsList<Signature>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

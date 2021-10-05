@@ -5,7 +5,6 @@ import static gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType;
 import static gov.va.api.health.r4.api.bundle.BundleLink.LinkRelation;
 import static gov.va.api.health.r4.api.resources.Encounter.Bundle;
 import static gov.va.api.health.r4.api.resources.Encounter.Entry;
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -25,15 +24,15 @@ public class EncounterTest {
   public void bundlerCanBuildEncounterBundles() {
     Entry entry =
         Entry.builder()
-            .extension(singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://encounter.com")
             .id("123")
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://encounter.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("http://encounter.com/1")
+                    .build()
+                    .asList())
             .resource(data.encounter())
             .search(data.search())
             .request(data.request())
@@ -41,13 +40,13 @@ public class EncounterTest {
             .build();
     Bundle bundle =
         Bundle.builder()
-            .entry(singletonList(entry))
+            .entry(entry.asList())
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://encounter.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("http://encounter.com/2")
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
     assertRoundTrip(bundle);
@@ -60,15 +59,14 @@ public class EncounterTest {
 
   @Test
   public void validationFailsGivenBadIdentifier() {
-    assertThat(violationsOf(data.encounter().identifier(singletonList(data.identifier()))))
-        .isNotEmpty();
+    assertThat(violationsOf(data.encounter().identifier(data.identifier().asList()))).isNotEmpty();
   }
 
   @Test
   public void validationFailsGivenIdentifierWithMissingSystem() {
 
     List<Identifier> invalidIdentifier =
-        singletonList(Identifier.builder().system(null).value("123456").build());
+        Identifier.builder().system(null).value("123456").build().asList();
 
     assertThat(violationsOf(data.encounter().identifier(invalidIdentifier))).isNotEmpty();
   }
@@ -76,11 +74,11 @@ public class EncounterTest {
   @Test
   public void validationFailsGivenIdentifierWithMissingValue() {
     List<Identifier> invalidIdentifier =
-        singletonList(
-            Identifier.builder()
-                .system("http://www.acme.com/identifiers/patient")
-                .value(null)
-                .build());
+        Identifier.builder()
+            .system("http://www.acme.com/identifiers/patient")
+            .value(null)
+            .build()
+            .asList();
 
     assertThat(violationsOf(data.encounter().identifier(invalidIdentifier))).isNotEmpty();
   }
@@ -88,11 +86,11 @@ public class EncounterTest {
   @Test
   public void validationPassesGivenGoodIdentifier() {
     List<Identifier> validIdentifier =
-        singletonList(
-            Identifier.builder()
-                .system("http://www.acme.com/identifiers/patient")
-                .value("123456")
-                .build());
+        Identifier.builder()
+            .system("http://www.acme.com/identifiers/patient")
+            .value("123456")
+            .build()
+            .asList();
     assertThat(violationsOf(data.encounter().identifier(validIdentifier))).isEmpty();
   }
 

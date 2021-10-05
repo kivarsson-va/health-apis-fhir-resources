@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Encounter;
 import gov.va.api.health.r4.api.resources.Encounter.ClassHistory;
 import gov.va.api.health.r4.api.resources.Encounter.Diagnosis;
@@ -10,7 +8,6 @@ import gov.va.api.health.r4.api.resources.Encounter.Location;
 import gov.va.api.health.r4.api.resources.Encounter.Participant;
 import gov.va.api.health.r4.api.resources.Encounter.Status;
 import gov.va.api.health.r4.api.resources.Encounter.StatusHistory;
-import java.util.Arrays;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -27,8 +24,8 @@ public class SampleEncounters {
   public ClassHistory classHistory() {
     return ClassHistory.builder()
         .id("0000")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .encounterClass(coding())
         .period(period())
         .build();
@@ -37,8 +34,8 @@ public class SampleEncounters {
   public Diagnosis diagnosis() {
     return Diagnosis.builder()
         .id("1111")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .condition(reference())
         .use(codeableConcept())
         .rank(1)
@@ -52,11 +49,10 @@ public class SampleEncounters {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(Arrays.asList(resource(), resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource(), resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.arrived)
         .statusHistory(List.of(statusHistory(), statusHistory()))
         .encounterClass(coding())
@@ -75,7 +71,7 @@ public class SampleEncounters {
         .diagnosis(List.of(diagnosis(), diagnosis()))
         .account(List.of(reference(), reference()))
         .hospitalization(hospitalization())
-        .location(singletonList(location()))
+        .location(location().asList())
         .serviceProvider(reference())
         .partOf(reference())
         .build();
@@ -84,8 +80,8 @@ public class SampleEncounters {
   public Hospitalization hospitalization() {
     return Hospitalization.builder()
         .id("2222")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .origin(reference())
         .admitSource(codeableConcept())
         .reAdmission(codeableConcept())
@@ -100,8 +96,8 @@ public class SampleEncounters {
   public Location location() {
     return Location.builder()
         .id("3333")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .location(reference())
         .status(Location.Status.planned)
         .physicalType(codeableConcept())
@@ -112,8 +108,8 @@ public class SampleEncounters {
   public Participant participant() {
     return Participant.builder()
         .id("4444")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(List.of(codeableConcept(), codeableConcept()))
         .period(period())
         .individual(reference())
@@ -123,8 +119,8 @@ public class SampleEncounters {
   public StatusHistory statusHistory() {
     return StatusHistory.builder()
         .id("5555")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .status(Status.planned)
         .period(period())
         .build();

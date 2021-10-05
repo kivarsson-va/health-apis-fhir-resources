@@ -27,6 +27,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -76,7 +77,7 @@ import org.apache.commons.lang3.StringUtils;
       },
       message = "Only one value field may be specified")
 })
-public class Observation implements Resource {
+public class Observation implements AsList<Observation>, Resource {
   @NotBlank @Builder.Default String resourceType = "Observation";
 
   @Pattern(regexp = Fhir.ID)
@@ -185,7 +186,7 @@ public class Observation implements Resource {
           "${dstu2.observationBundle:"
               + "gov.va.api.health.dstu2.api.swaggerexamples."
               + "SwaggerObservation#observationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -219,7 +220,7 @@ public class Observation implements Resource {
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
   @JsonDeserialize(builder = Observation.Entry.EntryBuilder.class)
   @Schema(name = "ObservationEntry")
-  public static class Entry extends AbstractEntry<Observation> {
+  public static class Entry extends AbstractEntry<Observation> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -254,7 +255,8 @@ public class Observation implements Resource {
         "valueTime"
       },
       message = "Only one value value may be specified")
-  public static class ObservationComponent implements BackboneElement {
+  public static class ObservationComponent
+      implements AsList<ObservationComponent>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -289,7 +291,8 @@ public class Observation implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class ObservationReferenceRange implements BackboneElement {
+  public static class ObservationReferenceRange
+      implements AsList<ObservationReferenceRange>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -308,7 +311,7 @@ public class Observation implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class ObservationRelated implements BackboneElement {
+  public static class ObservationRelated implements AsList<ObservationRelated>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

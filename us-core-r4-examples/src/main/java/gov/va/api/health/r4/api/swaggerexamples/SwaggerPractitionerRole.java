@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
@@ -12,6 +10,7 @@ import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.PractitionerRole;
 import gov.va.api.health.r4.api.resources.PractitionerRole.DayOfWeek;
 import gov.va.api.health.r4.api.resources.PractitionerRole.PractitionerAvailableTime;
+import java.util.List;
 
 public class SwaggerPractitionerRole {
   /** An example PractitionerRole. */
@@ -32,40 +31,40 @@ public class SwaggerPractitionerRole {
                 .display("LYONS VA MEDICAL CENTER")
                 .build())
         .code(
-            asList(
-                CodeableConcept.builder()
-                    .coding(
-                        asList(
-                            Coding.builder()
-                                .system("http://nucc.org/provider-taxonomy")
-                                .code("15")
-                                .display("OPTOMETRIST")
-                                .build()))
-                    .build()))
+            CodeableConcept.builder()
+                .coding(
+                    Coding.builder()
+                        .system("http://nucc.org/provider-taxonomy")
+                        .code("15")
+                        .display("OPTOMETRIST")
+                        .build()
+                        .asList())
+                .build()
+                .asList())
         .specialty(
-            asList(
-                CodeableConcept.builder()
-                    .coding(
-                        asList(
-                            Coding.builder()
-                                .system("http://nucc.org/provider-taxonomy")
-                                .code("207Q00000X")
-                                .display("Family Medicine")
-                                .build()))
-                    .build()))
+            CodeableConcept.builder()
+                .coding(
+                    Coding.builder()
+                        .system("http://nucc.org/provider-taxonomy")
+                        .code("207Q00000X")
+                        .display("Family Medicine")
+                        .build()
+                        .asList())
+                .build()
+                .asList())
         .telecom(
-            asList(
-                ContactPoint.builder()
-                    .system(ContactPointSystem.phone)
-                    .value("333-333-3333")
-                    .build()))
+            ContactPoint.builder()
+                .system(ContactPointSystem.phone)
+                .value("333-333-3333")
+                .build()
+                .asList())
         .availableTime(
-            asList(
-                PractitionerAvailableTime.builder()
-                    .daysOfWeek(asList(DayOfWeek.mon, DayOfWeek.wed, DayOfWeek.fri))
-                    .availableStartTime("08:00:00")
-                    .availableEndTime("15:00:00")
-                    .build()))
+            PractitionerAvailableTime.builder()
+                .daysOfWeek(List.of(DayOfWeek.mon, DayOfWeek.wed, DayOfWeek.fri))
+                .availableStartTime("08:00:00")
+                .availableEndTime("15:00:00")
+                .build()
+                .asList())
         .build();
   }
 
@@ -79,7 +78,7 @@ public class SwaggerPractitionerRole {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -96,12 +95,12 @@ public class SwaggerPractitionerRole {
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/PractitionerRole?practitioner.identifier=I2-54WJZ6YHNQICAV4YZRI54BVVCA000000&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                PractitionerRole.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/PractitionerRole/I2-3NOHFSBEAZEKYRMDWVWB7LAFJNCKM3SFLR2CYELHDC7DZ5X3BKGA0000")
-                    .resource(practitionerRole())
-                    .build()))
+            PractitionerRole.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/PractitionerRole/I2-3NOHFSBEAZEKYRMDWVWB7LAFJNCKM3SFLR2CYELHDC7DZ5X3BKGA0000")
+                .resource(practitionerRole())
+                .build()
+                .asList())
         .build();
   }
 }

@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
@@ -21,15 +20,15 @@ public class PractitionerTest {
   public void bundlerCanBuildPractitionerBundles() {
     Practitioner.Entry entry =
         Practitioner.Entry.builder()
-            .extension(singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://practitioner.com")
             .id("1234")
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://practitioner.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://practitioner.com/1")
+                    .build()
+                    .asList())
             .resource(data.practitioner())
             .search(data.search())
             .request(data.request())
@@ -37,13 +36,13 @@ public class PractitionerTest {
             .build();
     Practitioner.Bundle bundle =
         Practitioner.Bundle.builder()
-            .entry(singletonList(entry))
+            .entry(entry.asList())
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://practitioner.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://practitioner.com/2")
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
     assertRoundTrip(bundle);

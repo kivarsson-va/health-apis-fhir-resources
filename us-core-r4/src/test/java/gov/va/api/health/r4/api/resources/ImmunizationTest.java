@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -17,28 +16,28 @@ public class ImmunizationTest {
         Immunization.Bundle.builder()
             .type(AbstractBundle.BundleType.searchset)
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url("http://immunization.com/bundle")
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://immunization.com/bundle")
+                    .build()
+                    .asList())
             .entry(
-                singletonList(
-                    Immunization.Entry.builder()
-                        .extension(singletonList(samples.extension()))
-                        .fullUrl("http://immunization.com")
-                        .id("1234")
-                        .link(
-                            singletonList(
-                                BundleLink.builder()
-                                    .relation(BundleLink.LinkRelation.self)
-                                    .url("http://immunization.com/entry")
-                                    .build()))
-                        .resource(samples.immunization())
-                        .search(samples.search())
-                        .request(samples.request())
-                        .response(samples.response())
-                        .build()))
+                Immunization.Entry.builder()
+                    .extension(samples.extension().asList())
+                    .fullUrl("http://immunization.com")
+                    .id("1234")
+                    .link(
+                        BundleLink.builder()
+                            .relation(BundleLink.LinkRelation.self)
+                            .url("http://immunization.com/entry")
+                            .build()
+                            .asList())
+                    .resource(samples.immunization())
+                    .search(samples.search())
+                    .request(samples.request())
+                    .response(samples.response())
+                    .build()
+                    .asList())
             .build();
     assertRoundTrip(bundle);
   }

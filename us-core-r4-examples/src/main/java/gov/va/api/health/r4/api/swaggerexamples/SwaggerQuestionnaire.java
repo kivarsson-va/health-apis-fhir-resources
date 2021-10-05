@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -36,11 +34,11 @@ public class SwaggerQuestionnaire {
                     .linkId("1")
                     .definition("definition")
                     .code(
-                        asList(
-                            Coding.builder()
-                                .system("http://example.org/system/code/sections")
-                                .code("COMORBIDITY")
-                                .build()))
+                        Coding.builder()
+                            .system("http://example.org/system/code/sections")
+                            .code("COMORBIDITY")
+                            .build()
+                            .asList())
                     .prefix("prefix")
                     .text("text")
                     .type(Questionnaire.QuestionnaireItemType.group)
@@ -51,23 +49,23 @@ public class SwaggerQuestionnaire {
                     .maxLength(2000)
                     .answerValueSet("answers")
                     .answerOption(
-                        List.of(
-                            Questionnaire.AnswerOption.builder()
-                                .valueString("x")
-                                .initialSelected(false)
-                                .build()))
-                    .initial(List.of(Questionnaire.Initial.builder().valueString("x").build()))
+                        Questionnaire.AnswerOption.builder()
+                            .valueString("x")
+                            .initialSelected(false)
+                            .build()
+                            .asList())
+                    .initial(Questionnaire.Initial.builder().valueString("x").build().asList())
                     .item(
                         List.of(
                             Questionnaire.Item.builder()
                                 .linkId("1.1")
                                 .code(
-                                    List.of(
-                                        Coding.builder()
-                                            .system("http://example.org/system/code/QUESTIONS")
-                                            .code("COMCAR00")
-                                            .display("Angina Pectoris")
-                                            .build()))
+                                    Coding.builder()
+                                        .system("http://example.org/system/code/QUESTIONS")
+                                        .code("COMCAR00")
+                                        .display("Angina Pectoris")
+                                        .build()
+                                        .asList())
                                 .prefix("1")
                                 .type(Questionnaire.QuestionnaireItemType.choice)
                                 .answerValueSet("http://hl7.org/fhir/ValueSet/yesnodontknow")
@@ -75,12 +73,12 @@ public class SwaggerQuestionnaire {
                             Questionnaire.Item.builder()
                                 .linkId("1.2")
                                 .code(
-                                    List.of(
-                                        Coding.builder()
-                                            .system("http://snomed.info/sct")
-                                            .code("22298006")
-                                            .display("Myocardial infarction (disorder)")
-                                            .build()))
+                                    Coding.builder()
+                                        .system("http://snomed.info/sct")
+                                        .code("22298006")
+                                        .display("Myocardial infarction (disorder)")
+                                        .build()
+                                        .asList())
                                 .prefix("1")
                                 .type(Questionnaire.QuestionnaireItemType.choice)
                                 .answerValueSet("http://hl7.org/fhir/ValueSet/yesnodontknow")
@@ -91,11 +89,11 @@ public class SwaggerQuestionnaire {
                     .linkId("2")
                     .definition("definition")
                     .code(
-                        List.of(
-                            Coding.builder()
-                                .system("http://example.org/system/code/sections")
-                                .code("HISTOPATHOLOGY")
-                                .build()))
+                        Coding.builder()
+                            .system("http://example.org/system/code/sections")
+                            .code("HISTOPATHOLOGY")
+                            .build()
+                            .asList())
                     .prefix("prefix")
                     .text("text")
                     .type(Questionnaire.QuestionnaireItemType.group)
@@ -106,31 +104,30 @@ public class SwaggerQuestionnaire {
                     .maxLength(2000)
                     .answerValueSet("answers")
                     .item(
-                        List.of(
-                            Questionnaire.Item.builder()
-                                .linkId("2.1")
-                                .code(
-                                    List.of(
+                        Questionnaire.Item.builder()
+                            .linkId("2.1")
+                            .code(
+                                Coding.builder()
+                                    .system("http://example.org/system/code/sections")
+                                    .code("ABDOMINAL")
+                                    .build()
+                                    .asList())
+                            .type(Questionnaire.QuestionnaireItemType.group)
+                            .item(
+                                Questionnaire.Item.builder()
+                                    .linkId("2.1.2")
+                                    .code(
                                         Coding.builder()
-                                            .system("http://example.org/system/code/sections")
-                                            .code("ABDOMINAL")
-                                            .build()))
-                                .type(Questionnaire.QuestionnaireItemType.group)
-                                .item(
-                                    List.of(
-                                        Questionnaire.Item.builder()
-                                            .linkId("2.1.2")
-                                            .code(
-                                                List.of(
-                                                    Coding.builder()
-                                                        .system(
-                                                            "http://example.org/system/code/questions")
-                                                        .code("STADPT")
-                                                        .display("pT category")
-                                                        .build()))
-                                            .type(Questionnaire.QuestionnaireItemType.choice)
-                                            .build()))
-                                .build()))
+                                            .system("http://example.org/system/code/questions")
+                                            .code("STADPT")
+                                            .display("pT category")
+                                            .build()
+                                            .asList())
+                                    .type(Questionnaire.QuestionnaireItemType.choice)
+                                    .build()
+                                    .asList())
+                            .build()
+                            .asList())
                     .build()))
         .build();
   }
@@ -145,7 +142,7 @@ public class SwaggerQuestionnaire {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -162,13 +159,12 @@ public class SwaggerQuestionnaire {
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/v0/Questionnaire?_id=3141&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Questionnaire.Entry.builder()
-                    .fullUrl("https://sandbox-api.va.gov/services/fhir/v0/r4/v0/Questionnaire/3141")
-                    .resource(questionnaire())
-                    .search(
-                        AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
-                    .build()))
+            Questionnaire.Entry.builder()
+                .fullUrl("https://sandbox-api.va.gov/services/fhir/v0/r4/v0/Questionnaire/3141")
+                .resource(questionnaire())
+                .search(AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

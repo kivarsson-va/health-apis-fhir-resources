@@ -1,13 +1,11 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.HealthcareService;
 import gov.va.api.health.r4.api.resources.HealthcareService.AvailableTime;
 import gov.va.api.health.r4.api.resources.HealthcareService.AvailableTime.DaysOfWeek;
 import gov.va.api.health.r4.api.resources.HealthcareService.Eligibility;
 import gov.va.api.health.r4.api.resources.HealthcareService.NotAvailable;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -17,7 +15,7 @@ public class SampleHealthcareServices {
 
   public AvailableTime availableTime() {
     return AvailableTime.builder()
-        .daysOfWeek(Arrays.asList(DaysOfWeek.mon, DaysOfWeek.fri))
+        .daysOfWeek(List.of(DaysOfWeek.mon, DaysOfWeek.fri))
         .allDay(false)
         .availableStartTime("03:00:00")
         .availableEndTime("05:00:00")
@@ -35,34 +33,33 @@ public class SampleHealthcareServices {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(List.of(identifier()))
         .active(true)
         .providedBy(reference())
-        .category(singletonList(codeableConcept()))
-        .type(singletonList(codeableConcept()))
-        .specialty(singletonList(codeableConcept()))
-        .location(singletonList(reference()))
+        .category(List.of(codeableConcept()))
+        .type(List.of(codeableConcept()))
+        .specialty(List.of(codeableConcept()))
+        .location(List.of(reference()))
         .name("name")
         .comment("comment")
         .extraDetails("# extra details")
         .photo(attachment())
-        .telecom(singletonList(contactPoint()))
-        .coverageArea(singletonList(reference()))
-        .serviceProvisionCode(singletonList(codeableConcept()))
-        .eligibility(singletonList(eligibility()))
-        .program(singletonList(codeableConcept()))
-        .characteristic(singletonList(codeableConcept()))
-        .communication(singletonList(codeableConcept()))
-        .referralMethod(singletonList(codeableConcept()))
+        .telecom(List.of(contactPoint()))
+        .coverageArea(List.of(reference()))
+        .serviceProvisionCode(List.of(codeableConcept()))
+        .eligibility(List.of(eligibility()))
+        .program(List.of(codeableConcept()))
+        .characteristic(List.of(codeableConcept()))
+        .communication(List.of(codeableConcept()))
+        .referralMethod(List.of(codeableConcept()))
         .appointmentRequired(true)
-        .availableTime(singletonList(availableTime()))
-        .notAvailable(singletonList(notAvailable()))
+        .availableTime(List.of(availableTime()))
+        .notAvailable(List.of(notAvailable()))
         .availabilityExceptions("available exceptions")
-        .endpoint(singletonList(reference()))
+        .endpoint(List.of(reference()))
         .build();
   }
 

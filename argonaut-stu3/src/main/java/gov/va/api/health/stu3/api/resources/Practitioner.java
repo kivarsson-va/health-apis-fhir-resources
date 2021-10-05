@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.bundle.AbstractBundle;
 import gov.va.api.health.stu3.api.bundle.AbstractEntry;
@@ -45,7 +46,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description =
         "http://www.fhir.org/guides/argonaut/pd/StructureDefinition-argo-practitioner.html")
-public class Practitioner implements DomainResource {
+public class Practitioner implements AsList<Practitioner>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Practitioner";
 
   @Pattern(regexp = Fhir.ID)
@@ -101,31 +102,9 @@ public class Practitioner implements DomainResource {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = Practitioner.Entry.EntryBuilder.class)
-  @Schema(name = "PractitionerEntry")
-  public static class Entry extends AbstractEntry<Practitioner> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Practitioner resource,
-        @Valid Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Practitioner.Bundle.BundleBuilder.class)
   @Schema(name = "PractitionerBundle")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -154,11 +133,33 @@ public class Practitioner implements DomainResource {
   }
 
   @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @JsonDeserialize(builder = Practitioner.Entry.EntryBuilder.class)
+  @Schema(name = "PractitionerEntry")
+  public static class Entry extends AbstractEntry<Practitioner> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Practitioner resource,
+        @Valid Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
+  }
+
+  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Qualification implements BackboneElement {
+  public static class Qualification implements AsList<Qualification>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

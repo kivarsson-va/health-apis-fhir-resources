@@ -28,13 +28,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(
-  fieldVisibility = JsonAutoDetect.Visibility.ANY,
-  isGetterVisibility = JsonAutoDetect.Visibility.NONE
-)
+    fieldVisibility = JsonAutoDetect.Visibility.ANY,
+    isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
-  description = "https://www.hl7.org/fhir/R4/healthcareservice.html",
-  example = "${r4.healthcareService:com.example.Example#example}"
-)
+    description = "https://www.hl7.org/fhir/R4/healthcareservice.html",
+    example = "${r4.healthcareService:com.example.Example#example}")
 public class HealthcareService {
   @NotBlank @Builder.Default String resourceType = "HealthcareService";
 
@@ -62,8 +60,7 @@ public class HealthcareService {
   // Claim Resource
   @Valid List<Identifier> identifier;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String active;
+  Boolean active;
 
   @Valid Reference providedBy;
 
@@ -102,8 +99,7 @@ public class HealthcareService {
 
   @Valid List<CodeableConcept> referralMethod;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String appointmentRequired;
+  Boolean appointmentRequired;
 
   @Valid List<AvailableTime> availableTime;
 
@@ -150,8 +146,7 @@ public class HealthcareService {
 
     @Valid List<DaysOfWeek> daysOfWeek;
 
-    @Pattern(regexp = Fhir.BOOLEAN)
-    String allDay;
+    Boolean allDay;
 
     @Pattern(regexp = Fhir.TIME)
     String availableStartTime;

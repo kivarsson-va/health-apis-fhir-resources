@@ -20,6 +20,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ import lombok.NoArgsConstructor;
     example =
         "${dstu2.organization:gov.va.api.health.dstu2.api.swaggerexamples"
             + ".SwaggerOrganization#organization}")
-public class Organization implements DomainResource {
+public class Organization implements AsList<Organization>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Organization";
 
   @Pattern(regexp = Fhir.ID)
@@ -82,7 +83,7 @@ public class Organization implements DomainResource {
       example =
           "${dstu2.organizationBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerOrganization#organizationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -116,7 +117,7 @@ public class Organization implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Organization.Entry.EntryBuilder.class)
   @Schema(name = "OrganizationEntry")
-  public static class Entry extends AbstractEntry<Organization> {
+  public static class Entry extends AbstractEntry<Organization> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -137,7 +138,7 @@ public class Organization implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class OrganizationContact implements BackboneElement {
+  public static class OrganizationContact implements AsList<OrganizationContact>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

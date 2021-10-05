@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.resources;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.Address;
 import gov.va.api.health.r4.api.datatypes.Age;
@@ -55,7 +56,7 @@ import lombok.NoArgsConstructor;
     fieldVisibility = JsonAutoDetect.Visibility.ANY,
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(description = "https://www.hl7.org/fhir/R4/parameters.html")
-public final class Parameters implements Resource {
+public final class Parameters implements AsList<Parameters>, Resource {
   @NotBlank @Builder.Default String resourceType = "Parameters";
 
   @Pattern(regexp = Fhir.ID)
@@ -132,7 +133,7 @@ public final class Parameters implements Resource {
         "valueDosage",
         "valueMeta"
       })
-  public static final class Parameter implements BackboneElement {
+  public static final class Parameter implements AsList<Parameter>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

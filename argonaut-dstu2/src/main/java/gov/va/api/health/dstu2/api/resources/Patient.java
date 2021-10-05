@@ -23,6 +23,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -58,7 +59,7 @@ import lombok.NoArgsConstructor;
       fields = {"multipleBirthBoolean", "multipleBirthInteger"},
       message = "Only one multiple birth value may be specified")
 })
-public class Patient implements Resource {
+public class Patient implements AsList<Patient>, Resource {
   @NotBlank @Builder.Default String resourceType = "Patient";
 
   @Pattern(regexp = Fhir.ID)
@@ -156,7 +157,7 @@ public class Patient implements Resource {
       example =
           "${dstu2.patientBundle:gov.va.api.health.dstu2.api.swaggerexamples."
               + "SwaggerPatient#patientBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -189,7 +190,7 @@ public class Patient implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Communication implements BackboneElement {
+  public static class Communication implements AsList<Communication>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -205,7 +206,7 @@ public class Patient implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "PatientContact")
-  public static class Contact implements BackboneElement {
+  public static class Contact implements AsList<Contact>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -228,7 +229,7 @@ public class Patient implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Patient.Entry.EntryBuilder.class)
   @Schema(name = "PatientEntry")
-  public static class Entry extends AbstractEntry<Patient> {
+  public static class Entry extends AbstractEntry<Patient> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -249,7 +250,7 @@ public class Patient implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class PatientLink implements BackboneElement {
+  public static class PatientLink implements AsList<PatientLink>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

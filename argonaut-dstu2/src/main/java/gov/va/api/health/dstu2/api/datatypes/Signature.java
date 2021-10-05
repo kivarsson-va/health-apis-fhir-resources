@@ -5,6 +5,7 @@ import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.elements.Element;
 import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ExactlyOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
@@ -20,7 +21,7 @@ import lombok.Data;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/DSTU2/datatypes.html#Signature")
 @ExactlyOneOf(fields = {"whoUri", "whoReference"})
-public class Signature implements Element {
+public class Signature implements AsList<Signature>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

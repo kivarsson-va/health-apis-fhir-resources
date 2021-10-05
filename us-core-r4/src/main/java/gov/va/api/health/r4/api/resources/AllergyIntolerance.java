@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -56,7 +57,7 @@ import lombok.NoArgsConstructor;
       fields = {"onsetDateTime", "onsetAge", "onsetPeriod", "onsetRange", "onsetString"},
       message = "Only one onset field may be specified")
 })
-public final class AllergyIntolerance implements Resource {
+public final class AllergyIntolerance implements AsList<AllergyIntolerance>, Resource {
   @NotBlank @Builder.Default String resourceType = "AllergyIntolerance";
 
   @Pattern(regexp = Fhir.ID)
@@ -156,7 +157,7 @@ public final class AllergyIntolerance implements Resource {
       example =
           "${r4.allergyIntoleranceBundle:gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerAllergyIntolerance#allergyIntoleranceBundle}")
-  public static final class Bundle extends AbstractBundle<Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -194,7 +195,8 @@ public final class AllergyIntolerance implements Resource {
   @Schema(name = "AllergyIntoleranceEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = AllergyIntolerance.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<AllergyIntolerance> {
+  public static final class Entry extends AbstractEntry<AllergyIntolerance>
+      implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -216,7 +218,7 @@ public final class AllergyIntolerance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static final class Reaction implements BackboneElement {
+  public static final class Reaction implements AsList<Reaction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
 import gov.va.api.health.r4.api.elements.Extension;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
     fieldVisibility = JsonAutoDetect.Visibility.ANY,
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(description = "https://www.hl7.org/fhir/R4/metadatatypes.html#parameterdefinition")
-public final class ParameterDefinition implements Element {
+public final class ParameterDefinition implements AsList<ParameterDefinition>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.dstu2.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.Search;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.SearchMode;
@@ -11,6 +9,7 @@ import gov.va.api.health.dstu2.api.datatypes.CodeableConcept;
 import gov.va.api.health.dstu2.api.datatypes.Timing;
 import gov.va.api.health.dstu2.api.elements.Reference;
 import gov.va.api.health.dstu2.api.resources.MedicationStatement;
+import java.util.List;
 
 public class SwaggerMedicationStatement {
   /**
@@ -35,16 +34,15 @@ public class SwaggerMedicationStatement {
                 .display("Hydrochlorothiazide 25 MG")
                 .build())
         .dosage(
-            asList(
-                MedicationStatement.Dosage.builder()
-                    .text("Once per day.")
-                    .timing(
-                        Timing.builder()
-                            .code(
-                                CodeableConcept.builder().text("As directed by physician.").build())
-                            .build())
-                    .route(CodeableConcept.builder().text("As directed by physician.").build())
-                    .build()))
+            MedicationStatement.Dosage.builder()
+                .text("Once per day.")
+                .timing(
+                    Timing.builder()
+                        .code(CodeableConcept.builder().text("As directed by physician.").build())
+                        .build())
+                .route(CodeableConcept.builder().text("As directed by physician.").build())
+                .build()
+                .asList())
         .build();
   }
 
@@ -58,7 +56,7 @@ public class SwaggerMedicationStatement {
         .type(BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(LinkRelation.self)
                     .url(
@@ -75,46 +73,13 @@ public class SwaggerMedicationStatement {
                         "https://sandbox-api.va.gov/services/argonaut/v0/MedicationStatement?patient=1017283148V813263&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                MedicationStatement.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/argonaut/v0/MedicationStatement/1f46363d-af9b-5ba5-acda-b384373a9af2")
-                    .resource(
-                        MedicationStatement.builder()
-                            .id("1f46363d-af9b-5ba5-acda-b384373a9af2")
-                            .patient(
-                                Reference.builder()
-                                    .reference(
-                                        "https://sandbox-api.va.gov/services/argonaut/v0/Patient/2000163")
-                                    .display("Mr. Aurelio227 Cruickshank494")
-                                    .build())
-                            .dateAsserted("2013-04-15T01:15:52Z")
-                            .status(MedicationStatement.Status.active)
-                            .medicationReference(
-                                Reference.builder()
-                                    .reference(
-                                        "https://sandbox-api.va.gov/services/argonaut/v0/Medication/7b550d7f-2db8-5002-bc0c-150a70d02944")
-                                    .display("Hydrochlorothiazide 25 MG")
-                                    .build())
-                            .dosage(
-                                asList(
-                                    MedicationStatement.Dosage.builder()
-                                        .text("Once per day.")
-                                        .timing(
-                                            Timing.builder()
-                                                .code(
-                                                    CodeableConcept.builder()
-                                                        .text("As directed by physician.")
-                                                        .build())
-                                                .build())
-                                        .route(
-                                            CodeableConcept.builder()
-                                                .text("As directed by physician.")
-                                                .build())
-                                        .build()))
-                            .build())
-                    .search(Search.builder().mode(SearchMode.match).build())
-                    .build()))
+            MedicationStatement.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/argonaut/v0/MedicationStatement/1f46363d-af9b-5ba5-acda-b384373a9af2")
+                .resource(medicationStatement())
+                .search(Search.builder().mode(SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

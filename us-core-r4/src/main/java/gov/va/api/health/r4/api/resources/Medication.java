@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -47,7 +48,7 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.medication:gov.va.api.health."
             + "r4.api.swaggerexamples.SwaggerMedication#medication}")
-public class Medication implements Resource {
+public class Medication implements AsList<Medication>, Resource {
   // Ancestors
   @NotBlank @Builder.Default String resourceType = "Medication";
 
@@ -95,6 +96,26 @@ public class Medication implements Resource {
   }
 
   @Data
+  @Builder
+  @Schema(name = "MedicationBatch")
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Batch implements AsList<Batch>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    String lotNumber;
+
+    @Pattern(regexp = Fhir.DATETIME)
+    String expirationDate;
+  }
+
+  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -104,7 +125,7 @@ public class Medication implements Resource {
       example =
           "${r4.medicationBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerMedication#medicationBundle}")
-  public static final class Bundle extends AbstractBundle<Medication.Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -142,7 +163,7 @@ public class Medication implements Resource {
   @Schema(name = "MedicationEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Medication.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<Medication> {
+  public static final class Entry extends AbstractEntry<Medication> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -171,7 +192,7 @@ public class Medication implements Resource {
         fields = {"itemCodeableConcept", "itemReference"},
         message = "Exactly one field for item... itemCodeableConcept | itemReference")
   })
-  public static class Ingredient implements BackboneElement {
+  public static class Ingredient implements AsList<Ingredient>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -186,25 +207,5 @@ public class Medication implements Resource {
     Boolean isActive;
 
     @Valid Ratio strength;
-  }
-
-  @Data
-  @Builder
-  @Schema(name = "MedicationBatch")
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Batch implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    String lotNumber;
-
-    @Pattern(regexp = Fhir.DATETIME)
-    String expirationDate;
   }
 }

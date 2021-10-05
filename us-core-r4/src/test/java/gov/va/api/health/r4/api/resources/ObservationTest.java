@@ -9,7 +9,6 @@ import gov.va.api.health.r4.api.samples.SampleKnownTypes;
 import gov.va.api.health.r4.api.samples.SampleObservations;
 import gov.va.api.health.validation.api.ExactlyOneOfVerifier;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -25,15 +24,15 @@ public class ObservationTest {
   public void bundlerCanBuildObservationBundles() {
     Observation.Entry entry =
         Observation.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://observation.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://observation.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://observation.com/1")
+                    .build()
+                    .asList())
             .resource(data.observation())
             .search(data.search())
             .request(data.request())
@@ -42,13 +41,13 @@ public class ObservationTest {
 
     Observation.Bundle bundle =
         Observation.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://observation.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://observation.com/2")
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
 
@@ -80,9 +79,7 @@ public class ObservationTest {
 
   @Test
   public void validationFailsGivenBadCategorySystem() {
-    assertThat(
-            violationsOf(
-                data.observation().category(Collections.singletonList(data.codeableConcept()))))
+    assertThat(violationsOf(data.observation().category(data.codeableConcept().asList())))
         .isNotEmpty();
   }
 

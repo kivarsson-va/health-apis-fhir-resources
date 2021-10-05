@@ -2,6 +2,7 @@ package gov.va.api.health.r4.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
 import gov.va.api.health.r4.api.elements.Extension;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/R4/datatypes.html#Timing")
-public class Timing implements Element {
+public class Timing implements AsList<Timing>, Element {
 
   @Pattern(regexp = Fhir.ID)
   String id;
@@ -46,7 +47,7 @@ public class Timing implements Element {
   @ZeroOrOneOf(
       fields = {"boundsDuration", "boundsRange", "boundsPeriod"},
       message = "Only one bounds field may be specified")
-  public static class Repeat implements Element {
+  public static class Repeat implements AsList<Repeat>, Element {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -1,14 +1,12 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Claim;
-import java.util.Collections;
+import java.util.List;
 
 public class SwaggerClaim {
   /**
@@ -22,7 +20,7 @@ public class SwaggerClaim {
         .status(Claim.Status.active)
         .type(
             CodeableConcept.builder()
-                .coding(Collections.singletonList(Coding.builder().code("institutional").build()))
+                .coding(Coding.builder().code("institutional").build().asList())
                 .text("Hospital, clinic and typically inpatient claims.")
                 .build())
         .use(Claim.Use.claim)
@@ -31,37 +29,33 @@ public class SwaggerClaim {
         .provider(Reference.builder().display("Organization/11153").build())
         .priority(
             CodeableConcept.builder()
-                .coding(Collections.singletonList(Coding.builder().code("normal").build()))
+                .coding(Coding.builder().code("normal").build().asList())
                 .text("With best effort.")
                 .build())
         .procedure(
-            Collections.singletonList(
-                Claim.Procedure.builder()
-                    .sequence(78362914)
-                    .type(
-                        Collections.singletonList(
-                            CodeableConcept.builder()
-                                .coding(
-                                    Collections.singletonList(
-                                        Coding.builder().code("primary").build()))
-                                .text(
-                                    "The first procedure in a series required to address problem.")
-                                .build()))
-                    .date("2019-04-12")
-                    .procedureCodeableConcept(
-                        CodeableConcept.builder()
-                            .coding(
-                                Collections.singletonList(Coding.builder().code("39216").build()))
-                            .text("Minimally Invasive Lumbar Spinal Fusion")
-                            .build())
-                    .build()))
+            Claim.Procedure.builder()
+                .sequence(78362914)
+                .type(
+                    CodeableConcept.builder()
+                        .coding(Coding.builder().code("primary").build().asList())
+                        .text("The first procedure in a series required to address problem.")
+                        .build()
+                        .asList())
+                .date("2019-04-12")
+                .procedureCodeableConcept(
+                    CodeableConcept.builder()
+                        .coding(Coding.builder().code("39216").build().asList())
+                        .text("Minimally Invasive Lumbar Spinal Fusion")
+                        .build())
+                .build()
+                .asList())
         .insurance(
-            Collections.singletonList(
-                Claim.Insurance.builder()
-                    .sequence(122)
-                    .focal(true)
-                    .coverage(Reference.builder().display("Coverage/98203441").build())
-                    .build()))
+            Claim.Insurance.builder()
+                .sequence(122)
+                .focal(true)
+                .coverage(Reference.builder().display("Coverage/98203441").build())
+                .build()
+                .asList())
         .build();
   }
 
@@ -75,7 +69,7 @@ public class SwaggerClaim {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.first)
                     .url(
@@ -91,7 +85,7 @@ public class SwaggerClaim {
                     .url(
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/Claim?patient=1008679665V880686&page=1&_count=15")
                     .build()))
-        .entry(asList(Claim.Entry.builder().resource(claim()).build()))
+        .entry(Claim.Entry.builder().resource(claim()).build().asList())
         .build();
   }
 }

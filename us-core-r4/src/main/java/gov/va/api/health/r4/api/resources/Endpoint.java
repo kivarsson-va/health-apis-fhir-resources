@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -43,7 +44,7 @@ import lombok.NoArgsConstructor;
     description = "http://www.fhir.org/guides/argonaut/pd/StructureDefinition-argo-endpoint.html",
     example =
         "${r4.endpoint:gov.va.api.health.r4.api.swaggerexamples." + "SwaggerEndpoint#endpoint}")
-public class Endpoint implements DomainResource {
+public class Endpoint implements AsList<Endpoint>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Endpoint";
 
   @Pattern(regexp = Fhir.ID)
@@ -103,34 +104,13 @@ public class Endpoint implements DomainResource {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = Endpoint.Entry.EntryBuilder.class)
-  public static class Entry extends AbstractEntry<Endpoint> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Endpoint resource,
-        @Valid Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Endpoint.Bundle.BundleBuilder.class)
   @Schema(
       name = "Endpoint",
       example =
           "${r4.endpointBundle:gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerEndpoint#endpointBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -159,6 +139,27 @@ public class Endpoint implements DomainResource {
           link,
           entry,
           signature);
+    }
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @JsonDeserialize(builder = Endpoint.Entry.EntryBuilder.class)
+  public static class Entry extends AbstractEntry<Endpoint> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Endpoint resource,
+        @Valid Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
     }
   }
 }

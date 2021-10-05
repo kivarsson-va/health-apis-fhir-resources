@@ -1,8 +1,6 @@
 package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
@@ -22,15 +20,15 @@ public class OrganizationTest {
   public void bundlerCanBuildOrganizationBundles() {
     Organization.Entry entry =
         Organization.Entry.builder()
-            .extension(singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://organization.com")
             .id("1234")
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://organization.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://organization.com/1")
+                    .build()
+                    .asList())
             .resource(data.organization())
             .search(data.search())
             .request(data.request())
@@ -38,13 +36,13 @@ public class OrganizationTest {
             .build();
     Organization.Bundle bundle =
         Organization.Bundle.builder()
-            .entry(singletonList(entry))
+            .entry(entry.asList())
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://organization.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://organization.com/2")
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
     assertRoundTrip(bundle);
@@ -65,7 +63,7 @@ public class OrganizationTest {
     assertThat(
             violationsOf(
                 data.organization()
-                    .address(singletonList(data.address().line(asList("a", "b", "c", "d", "e"))))))
+                    .address(data.address().line(List.of("a", "b", "c", "d", "e")).asList())))
         .isNotEmpty();
   }
 
@@ -86,9 +84,9 @@ public class OrganizationTest {
     assertThat(
             violationsOf(
                 data.organization()
-                    .address(singletonList(data.address().line(asList("a", "b", "c", "d"))))))
+                    .address(data.address().line(List.of("a", "b", "c", "d")).asList())))
         .isEmpty();
-    assertThat(violationsOf(data.organization().address(singletonList(data.address().line(null)))))
+    assertThat(violationsOf(data.organization().address(data.address().line(null).asList())))
         .isEmpty();
   }
 

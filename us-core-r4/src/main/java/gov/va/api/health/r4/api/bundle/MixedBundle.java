@@ -3,6 +3,7 @@ package gov.va.api.health.r4.api.bundle;
 import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.datatypes.Signature;
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://hl7.org/fhir/R4/bundle.html")
-public final class MixedBundle extends AbstractBundle<MixedEntry> {
+public final class MixedBundle extends AbstractBundle<MixedEntry> implements AsList<MixedBundle> {
   /** Builder constructor. */
   @Builder
   public MixedBundle(

@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.time.Instant;
-import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class FhirDateTimeTest {
@@ -17,7 +17,7 @@ public class FhirDateTimeTest {
     assertThat(FhirDateTime.parseDateTime(null)).isNull();
     assertThat(FhirDateTime.parseDateTime(" ")).isNull();
     for (String datetime :
-        Arrays.asList(
+        List.of(
             // dateTime
             "2002-05-30T09:00:00",
             "2002-05-30T09:30:10.5",

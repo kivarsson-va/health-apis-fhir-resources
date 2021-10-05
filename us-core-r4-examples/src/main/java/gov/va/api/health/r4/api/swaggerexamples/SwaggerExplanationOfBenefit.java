@@ -22,8 +22,6 @@ import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Status;
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Total;
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Use;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class SwaggerExplanationOfBenefit {
@@ -42,20 +40,20 @@ public class SwaggerExplanationOfBenefit {
                     "<div xmlns=\\\"http://www.w3.org/1999/xhtml\\\">A human-readable rendering of the ExplanationOfBenefit</div>")
                 .build())
         .identifier(
-            Collections.singletonList(
-                Identifier.builder()
-                    .system("http://www.BenefitsInc.com/fhir/explanationofbenefit")
-                    .value("987654321")
-                    .build()))
+            Identifier.builder()
+                .system("http://www.BenefitsInc.com/fhir/explanationofbenefit")
+                .value("987654321")
+                .build()
+                .asList())
         .status(Status.active)
         .type(
             CodeableConcept.builder()
                 .coding(
-                    Collections.singletonList(
-                        Coding.builder()
-                            .system("http://terminology.hl7.org/CodeSystem/claim-type")
-                            .code("oral")
-                            .build()))
+                    Coding.builder()
+                        .system("http://terminology.hl7.org/CodeSystem/claim-type")
+                        .code("oral")
+                        .build()
+                        .asList())
                 .build())
         .use(Use.claim)
         .patient(Reference.builder().reference("Patient/1").build())
@@ -68,11 +66,11 @@ public class SwaggerExplanationOfBenefit {
                 .type(
                     CodeableConcept.builder()
                         .coding(
-                            Collections.singletonList(
-                                Coding.builder()
-                                    .system("http://terminology.hl7.org/CodeSystem/payeetype")
-                                    .code("provider")
-                                    .build()))
+                            Coding.builder()
+                                .system("http://terminology.hl7.org/CodeSystem/payeetype")
+                                .code("provider")
+                                .build()
+                                .asList())
                         .build())
                 .party(Reference.builder().reference("Organization/2").build())
                 .build())
@@ -82,49 +80,43 @@ public class SwaggerExplanationOfBenefit {
         .outcome(Outcome.complete)
         .disposition("Claim settled as per contract.")
         .careTeam(
-            Collections.singletonList(
-                CareTeam.builder()
-                    .sequence(1)
-                    .provider(Reference.builder().reference("Practitioner/example").build())
-                    .build()))
+            CareTeam.builder()
+                .sequence(1)
+                .provider(Reference.builder().reference("Practitioner/example").build())
+                .build()
+                .asList())
         .insurance(
-            Collections.singletonList(
-                Insurance.builder()
-                    .focal(true)
-                    .coverage(Reference.builder().reference("Coverage/9876B1").build())
-                    .build()))
+            Insurance.builder()
+                .focal(true)
+                .coverage(Reference.builder().reference("Coverage/9876B1").build())
+                .build()
+                .asList())
         .item(
-            Arrays.asList(
+            List.of(
                 Item.builder()
                     .sequence(1)
                     .careTeamSequence(List.of(1))
                     .productOrService(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system("http://terminology.hl7.org/CodeSystem/ex-USCLS")
-                                        .code("1205")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/ex-USCLS")
+                                    .code("1205")
+                                    .build()
+                                    .asList())
                             .build())
                     .servicedDate("2014-08-16")
                     .unitPrice(
                         Money.builder().value(new BigDecimal("135.57")).currency("USD").build())
                     .net(Money.builder().value(new BigDecimal("135.57")).currency("USD").build())
-                    .udi(
-                        Collections.singletonList(
-                            Reference.builder().reference("Device/example").build()))
-                    .encounter(
-                        Collections.singletonList(
-                            Reference.builder().reference("Encounter/example").build()))
+                    .udi(Reference.builder().reference("Device/example").build().asList())
+                    .encounter(Reference.builder().reference("Encounter/example").build().asList())
                     .adjudication(
-                        Arrays.asList(
+                        List.of(
                             Adjudication.builder()
                                 .category(
                                     CodeableConcept.builder()
-                                        .coding(
-                                            Collections.singletonList(
-                                                Coding.builder().code("eligible").build()))
+                                        .coding(Coding.builder().code("eligible").build().asList())
                                         .build())
                                 .amount(
                                     Money.builder()
@@ -136,17 +128,14 @@ public class SwaggerExplanationOfBenefit {
                                 .category(
                                     CodeableConcept.builder()
                                         .coding(
-                                            Collections.singletonList(
-                                                Coding.builder().code("eligpercent").build()))
+                                            Coding.builder().code("eligpercent").build().asList())
                                         .build())
                                 .value(new BigDecimal("0.8"))
                                 .build(),
                             Adjudication.builder()
                                 .category(
                                     CodeableConcept.builder()
-                                        .coding(
-                                            Collections.singletonList(
-                                                Coding.builder().code("benefit").build()))
+                                        .coding(Coding.builder().code("benefit").build().asList())
                                         .build())
                                 .amount(
                                     Money.builder()
@@ -160,155 +149,142 @@ public class SwaggerExplanationOfBenefit {
                     .careTeamSequence(List.of(1))
                     .productOrService(
                         CodeableConcept.builder()
-                            .coding(
-                                Collections.singletonList(Coding.builder().code("group").build()))
+                            .coding(Coding.builder().code("group").build().asList())
                             .build())
                     .servicedDate("2014-08-16")
                     .net(Money.builder().value(new BigDecimal("200.00")).currency("USD").build())
                     .adjudication(
-                        Collections.singletonList(
-                            Adjudication.builder()
-                                .category(
-                                    CodeableConcept.builder()
-                                        .coding(
-                                            Collections.singletonList(
-                                                Coding.builder().code("benefit").build()))
-                                        .build())
-                                .amount(
-                                    Money.builder()
-                                        .value(new BigDecimal("180.00"))
-                                        .currency("USD")
-                                        .build())
-                                .build()))
+                        Adjudication.builder()
+                            .category(
+                                CodeableConcept.builder()
+                                    .coding(Coding.builder().code("benefit").build().asList())
+                                    .build())
+                            .amount(
+                                Money.builder()
+                                    .value(new BigDecimal("180.00"))
+                                    .currency("USD")
+                                    .build())
+                            .build()
+                            .asList())
                     .detail(
-                        Collections.singletonList(
-                            ItemDetail.builder()
-                                .sequence(1)
-                                .productOrService(
-                                    CodeableConcept.builder()
-                                        .coding(
-                                            Collections.singletonList(
-                                                Coding.builder().code("group").build()))
-                                        .build())
-                                .net(
-                                    Money.builder()
-                                        .value(new BigDecimal("200.00"))
-                                        .currency("USD")
-                                        .build())
-                                .udi(
-                                    Collections.singletonList(
-                                        Reference.builder().reference("Device/example").build()))
-                                .adjudication(
-                                    Collections.singletonList(
-                                        Adjudication.builder()
-                                            .category(
-                                                CodeableConcept.builder()
-                                                    .coding(
-                                                        Collections.singletonList(
+                        ItemDetail.builder()
+                            .sequence(1)
+                            .productOrService(
+                                CodeableConcept.builder()
+                                    .coding(Coding.builder().code("group").build().asList())
+                                    .build())
+                            .net(
+                                Money.builder()
+                                    .value(new BigDecimal("200.00"))
+                                    .currency("USD")
+                                    .build())
+                            .udi(Reference.builder().reference("Device/example").build().asList())
+                            .adjudication(
+                                Adjudication.builder()
+                                    .category(
+                                        CodeableConcept.builder()
+                                            .coding(
+                                                Coding.builder().code("benefit").build().asList())
+                                            .build())
+                                    .amount(
+                                        Money.builder()
+                                            .value(new BigDecimal("180.00"))
+                                            .currency("USD")
+                                            .build())
+                                    .build()
+                                    .asList())
+                            .subDetail(
+                                ItemSubDetail.builder()
+                                    .sequence(1)
+                                    .productOrService(
+                                        CodeableConcept.builder()
+                                            .coding(
+                                                Coding.builder()
+                                                    .system(
+                                                        "http://terminology.hl7.org/CodeSystem/ex-USCLS")
+                                                    .code("1205")
+                                                    .build()
+                                                    .asList())
+                                            .build())
+                                    .unitPrice(
+                                        Money.builder()
+                                            .value(new BigDecimal("200.00"))
+                                            .currency("USD")
+                                            .build())
+                                    .net(
+                                        Money.builder()
+                                            .value(new BigDecimal("200.00"))
+                                            .currency("USD")
+                                            .build())
+                                    .udi(
+                                        Reference.builder()
+                                            .reference("Device/example")
+                                            .build()
+                                            .asList())
+                                    .adjudication(
+                                        List.of(
+                                            Adjudication.builder()
+                                                .category(
+                                                    CodeableConcept.builder()
+                                                        .coding(
+                                                            Coding.builder()
+                                                                .code("eligible")
+                                                                .build()
+                                                                .asList())
+                                                        .build())
+                                                .amount(
+                                                    Money.builder()
+                                                        .value(new BigDecimal("200.00"))
+                                                        .currency("USD")
+                                                        .build())
+                                                .build(),
+                                            Adjudication.builder()
+                                                .category(
+                                                    CodeableConcept.builder()
+                                                        .coding(
+                                                            Coding.builder()
+                                                                .code("eligpercent")
+                                                                .build()
+                                                                .asList())
+                                                        .build())
+                                                .amount(
+                                                    Money.builder()
+                                                        .value(new BigDecimal("0.9"))
+                                                        .build())
+                                                .build(),
+                                            Adjudication.builder()
+                                                .category(
+                                                    CodeableConcept.builder()
+                                                        .coding(
                                                             Coding.builder()
                                                                 .code("benefit")
-                                                                .build()))
-                                                    .build())
-                                            .amount(
-                                                Money.builder()
-                                                    .value(new BigDecimal("180.00"))
-                                                    .currency("USD")
-                                                    .build())
-                                            .build()))
-                                .subDetail(
-                                    Collections.singletonList(
-                                        ItemSubDetail.builder()
-                                            .sequence(1)
-                                            .productOrService(
-                                                CodeableConcept.builder()
-                                                    .coding(
-                                                        Collections.singletonList(
-                                                            Coding.builder()
-                                                                .system(
-                                                                    "http://terminology.hl7.org/CodeSystem/ex-USCLS")
-                                                                .code("1205")
-                                                                .build()))
-                                                    .build())
-                                            .unitPrice(
-                                                Money.builder()
-                                                    .value(new BigDecimal("200.00"))
-                                                    .currency("USD")
-                                                    .build())
-                                            .net(
-                                                Money.builder()
-                                                    .value(new BigDecimal("200.00"))
-                                                    .currency("USD")
-                                                    .build())
-                                            .udi(
-                                                Collections.singletonList(
-                                                    Reference.builder()
-                                                        .reference("Device/example")
-                                                        .build()))
-                                            .adjudication(
-                                                Arrays.asList(
-                                                    Adjudication.builder()
-                                                        .category(
-                                                            CodeableConcept.builder()
-                                                                .coding(
-                                                                    Collections.singletonList(
-                                                                        Coding.builder()
-                                                                            .code("eligible")
-                                                                            .build()))
-                                                                .build())
-                                                        .amount(
-                                                            Money.builder()
-                                                                .value(new BigDecimal("200.00"))
-                                                                .currency("USD")
-                                                                .build())
-                                                        .build(),
-                                                    Adjudication.builder()
-                                                        .category(
-                                                            CodeableConcept.builder()
-                                                                .coding(
-                                                                    Collections.singletonList(
-                                                                        Coding.builder()
-                                                                            .code("eligpercent")
-                                                                            .build()))
-                                                                .build())
-                                                        .amount(
-                                                            Money.builder()
-                                                                .value(new BigDecimal("0.9"))
-                                                                .build())
-                                                        .build(),
-                                                    Adjudication.builder()
-                                                        .category(
-                                                            CodeableConcept.builder()
-                                                                .coding(
-                                                                    Collections.singletonList(
-                                                                        Coding.builder()
-                                                                            .code("benefit")
-                                                                            .build()))
-                                                                .build())
-                                                        .amount(
-                                                            Money.builder()
-                                                                .value(new BigDecimal("180.00"))
-                                                                .currency("USD")
-                                                                .build())
-                                                        .build()))
-                                            .build()))
-                                .build()))
+                                                                .build()
+                                                                .asList())
+                                                        .build())
+                                                .amount(
+                                                    Money.builder()
+                                                        .value(new BigDecimal("180.00"))
+                                                        .currency("USD")
+                                                        .build())
+                                                .build()))
+                                    .build()
+                                    .asList())
+                            .build()
+                            .asList())
                     .build()))
         .total(
-            Arrays.asList(
+            List.of(
                 Total.builder()
                     .category(
                         CodeableConcept.builder()
-                            .coding(
-                                Collections.singletonList(
-                                    Coding.builder().code("submitted").build()))
+                            .coding(Coding.builder().code("submitted").build().asList())
                             .build())
                     .amount(Money.builder().value(new BigDecimal("135.57")).currency("USD").build())
                     .build(),
                 Total.builder()
                     .category(
                         CodeableConcept.builder()
-                            .coding(
-                                Collections.singletonList(Coding.builder().code("benefit").build()))
+                            .coding(Coding.builder().code("benefit").build().asList())
                             .build())
                     .amount(Money.builder().value(new BigDecimal("96.00")).currency("USD").build())
                     .build()))
@@ -325,7 +301,7 @@ public class SwaggerExplanationOfBenefit {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            Arrays.asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.first)
                     .url(
@@ -342,8 +318,7 @@ public class SwaggerExplanationOfBenefit {
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/ExplanationOfBenefit?patient=1008679665V880686&page=1&_count=15")
                     .build()))
         .entry(
-            Arrays.asList(
-                ExplanationOfBenefit.Entry.builder().resource(explanationOfBenefit()).build()))
+            ExplanationOfBenefit.Entry.builder().resource(explanationOfBenefit()).build().asList())
         .build();
   }
 }

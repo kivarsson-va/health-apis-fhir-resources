@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api;
 
-import static java.util.Collections.singletonList;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gov.va.api.health.r4.api.elements.Extension;
 import lombok.AccessLevel;
@@ -19,11 +17,11 @@ public final class DataAbsentReason {
   public static Extension of(@NonNull String value) {
     return Extension.builder()
         .extension(
-            singletonList(
-                Extension.builder()
-                    .url("https://hl7.org/fhir/extension-data-absent-reason.html")
-                    .valueCode(value)
-                    .build()))
+            Extension.builder()
+                .url("https://hl7.org/fhir/extension-data-absent-reason.html")
+                .valueCode(value)
+                .build()
+                .asList())
         .build();
   }
 

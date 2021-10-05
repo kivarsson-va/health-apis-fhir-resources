@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -44,7 +45,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description = "http://hl7.org/fhir/us/core/StructureDefinition-us-core-implantable-device.html",
     example = "${r4.device:gov.va.api.health.r4.api.swaggerexamples.SwaggerDevice#device}")
-public class Device implements Resource {
+public class Device implements AsList<Device>, Resource {
   @NotBlank @Builder.Default String resourceType = "Device";
 
   @Pattern(regexp = Fhir.ID)
@@ -164,7 +165,7 @@ public class Device implements Resource {
       example =
           "${r4.deviceBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerDevice#deviceBundle}")
-  public static final class Bundle extends AbstractBundle<Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -197,34 +198,12 @@ public class Device implements Resource {
   }
 
   @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @Schema(name = "DeviceEntry")
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = Device.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<Device> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Device resource,
-        @Valid AbstractEntry.Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
   @Builder
   @Schema(name = "UniqueDeviceIdentifier")
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class DeviceIdentifier implements BackboneElement {
+  public static class DeviceIdentifier implements AsList<DeviceIdentifier>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -256,7 +235,7 @@ public class Device implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class DeviceName implements BackboneElement {
+  public static class DeviceName implements AsList<DeviceName>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -270,12 +249,34 @@ public class Device implements Resource {
   }
 
   @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @Schema(name = "DeviceEntry")
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @JsonDeserialize(builder = Device.Entry.EntryBuilder.class)
+  public static final class Entry extends AbstractEntry<Device> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Device resource,
+        @Valid AbstractEntry.Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
+  }
+
+  @Data
   @Builder
   @Schema(name = "DeviceProperty")
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Property implements BackboneElement {
+  public static class Property implements AsList<Property>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -296,7 +297,7 @@ public class Device implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Specialization implements BackboneElement {
+  public static class Specialization implements AsList<Specialization>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -315,7 +316,7 @@ public class Device implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Version implements BackboneElement {
+  public static class Version implements AsList<Version>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

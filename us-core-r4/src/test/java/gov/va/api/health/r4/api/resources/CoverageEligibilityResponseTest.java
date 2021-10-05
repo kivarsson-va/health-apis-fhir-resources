@@ -2,7 +2,6 @@ package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
 import static gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType.searchset;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.bundle.BundleLink.LinkRelation;
@@ -24,15 +23,15 @@ public class CoverageEligibilityResponseTest {
   public void bundlerCanBuildCoverageEligibilityResponseBundles() {
     Entry entry =
         Entry.builder()
-            .extension(singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://coverage-eligibility-response.com")
             .id("123")
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://coverage-eligibility-response/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://coverage-eligibility-response/1")
+                    .build()
+                    .asList())
             .resource(data.coverageEligibilityResponse())
             .search(data.search())
             .request(data.request())
@@ -41,13 +40,13 @@ public class CoverageEligibilityResponseTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(singletonList(entry))
+            .entry(entry.asList())
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://coverage-eligibility-response.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://coverage-eligibility-response.com/2"))
+                    .build()
+                    .asList())
             .type(searchset)
             .signature(data.signature())
             .build();

@@ -1,13 +1,12 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Immunization;
+import java.util.List;
 
 public class SwaggerImmunization {
   /**
@@ -24,8 +23,11 @@ public class SwaggerImmunization {
             CodeableConcept.builder()
                 .text("meningococcal MCV4P")
                 .coding(
-                    asList(
-                        Coding.builder().system("http://hl7.org/fhir/sid/cvx").code("114").build()))
+                    Coding.builder()
+                        .system("http://hl7.org/fhir/sid/cvx")
+                        .code("114")
+                        .build()
+                        .asList())
                 .build())
         .patient(
             Reference.builder()
@@ -33,10 +35,10 @@ public class SwaggerImmunization {
                 .display("Mr. Aurelio227 Cruickshank494")
                 .build())
         .reaction(
-            asList(
-                Immunization.Reaction.builder()
-                    .detail(Reference.builder().display("Lethargy").build())
-                    .build()))
+            Immunization.Reaction.builder()
+                .detail(Reference.builder().display("Lethargy").build())
+                .build()
+                .asList())
         .build();
   }
 
@@ -50,7 +52,7 @@ public class SwaggerImmunization {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -67,12 +69,12 @@ public class SwaggerImmunization {
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/Immunization?patient=2000163&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Immunization.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/Immunization/I2-U4FPJS3E633MAJQBCAA2KAB5BQ000000")
-                    .resource(immunization())
-                    .build()))
+            Immunization.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/Immunization/I2-U4FPJS3E633MAJQBCAA2KAB5BQ000000")
+                .resource(immunization())
+                .build()
+                .asList())
         .build();
   }
 }

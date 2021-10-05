@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.CapabilityStatement;
 import gov.va.api.health.r4.api.resources.CapabilityStatement.CapabilityResource;
 import gov.va.api.health.r4.api.resources.CapabilityStatement.ConditionalDelete;
@@ -28,6 +26,7 @@ import gov.va.api.health.r4.api.resources.CapabilityStatement.SupportedMessageMo
 import gov.va.api.health.r4.api.resources.CapabilityStatement.SystemRestfulInteraction;
 import gov.va.api.health.r4.api.resources.CapabilityStatement.TypeRestfulInteraction;
 import gov.va.api.health.r4.api.resources.CapabilityStatement.Versioning;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -41,9 +40,9 @@ public class SampleCapabilityStatements {
         .implicitRules("https://example.com")
         .language("en")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .url("http://example.com")
         .version("1")
         .name("conformin' norman")
@@ -52,23 +51,23 @@ public class SampleCapabilityStatements {
         .experimental(true)
         .date("2000-01-01T00:00:00-00:00")
         .publisher("random house")
-        .contact(singletonList(contactDetail()))
+        .contact(contactDetail().asList())
         .description("words words")
-        .useContext(singletonList(usageContext()))
-        .jurisdiction(singletonList(codeableConcept()))
+        .useContext(usageContext().asList())
+        .jurisdiction(codeableConcept().asList())
         .purpose("words words")
         .copyright("Alphonso, Lord of the Mangos")
         .kind(Kind.capability)
-        .instantiates(singletonList("http://example.com"))
-        .imports(singletonList("http://example.com"))
+        .instantiates(List.of("http://example.com"))
+        .imports(List.of("http://example.com"))
         .software(software())
         .implementation(implementation())
         .fhirVersion("R4")
-        .format(singletonList("R4"))
-        .patchFormat(singletonList("R4"))
-        .rest(singletonList(rest()))
-        .messaging(singletonList(messaging()))
-        .document(singletonList(document()))
+        .format(List.of("R4"))
+        .patchFormat(List.of("R4"))
+        .rest(rest().asList())
+        .messaging(messaging().asList())
+        .document(document().asList())
         .build();
   }
 
@@ -76,9 +75,9 @@ public class SampleCapabilityStatements {
     return CapabilityResource.builder()
         .type("CODE")
         .profile("http://example.com")
-        .supportedProfile(singletonList("http://example.com"))
+        .supportedProfile(List.of("http://example.com"))
         .documentation("words words")
-        .interaction(singletonList(resourceInteraction()))
+        .interaction(resourceInteraction().asList())
         .versioning(Versioning.no_version)
         .readHistory(true)
         .updateCreate(false)
@@ -86,11 +85,11 @@ public class SampleCapabilityStatements {
         .conditionalRead(ConditionalRead.not_supported)
         .conditionalUpdate(false)
         .conditionalDelete(ConditionalDelete.not_supported)
-        .referencePolicy(singletonList(ReferencePolicy.enforced))
-        .searchInclude(singletonList("indlude dem"))
-        .searchRevInclude(singletonList("include dem too"))
-        .searchParam(singletonList(searchParam()))
-        .operation(singletonList(operation()))
+        .referencePolicy(List.of(ReferencePolicy.enforced))
+        .searchInclude(List.of("indlude dem"))
+        .searchRevInclude(List.of("include dem too"))
+        .searchParam(searchParam().asList())
+        .operation(operation().asList())
         .build();
   }
 
@@ -116,10 +115,10 @@ public class SampleCapabilityStatements {
 
   public Messaging messaging() {
     return Messaging.builder()
-        .endpoint(singletonList(endpoint()))
+        .endpoint(endpoint().asList())
         .reliableCache(0)
         .documentation("words words")
-        .supportedMessage(singletonList(supportedMessage()))
+        .supportedMessage(supportedMessage().asList())
         .build();
   }
 
@@ -143,8 +142,8 @@ public class SampleCapabilityStatements {
         .mode(RestMode.client)
         .documentation("words words")
         .security(security())
-        .resource(singletonList(capabilityResource()))
-        .interaction(singletonList(restInteraction()))
+        .resource(capabilityResource().asList())
+        .interaction(restInteraction().asList())
         .searchParam(searchParam())
         .operation(operation())
         .compartment("words words")
@@ -170,7 +169,7 @@ public class SampleCapabilityStatements {
   public Security security() {
     return Security.builder()
         .cors(true)
-        .service(singletonList(codeableConcept()))
+        .service(codeableConcept().asList())
         .description("words words")
         .build();
   }

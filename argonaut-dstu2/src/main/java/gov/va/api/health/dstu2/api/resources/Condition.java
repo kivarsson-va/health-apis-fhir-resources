@@ -21,6 +21,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -62,7 +63,7 @@ import lombok.NoArgsConstructor;
       },
       message = "Only one abatement value may be specified")
 })
-public class Condition implements Resource {
+public class Condition implements AsList<Condition>, Resource {
   @NotBlank @Builder.Default String resourceType = "Condition";
 
   @Pattern(regexp = Fhir.ID)
@@ -148,7 +149,7 @@ public class Condition implements Resource {
       example =
           "${dstu2.conditionBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerCondition#conditionBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -182,7 +183,7 @@ public class Condition implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Condition.Entry.EntryBuilder.class)
   @Schema(name = "ConditionEntry")
-  public static class Entry extends AbstractEntry<Condition> {
+  public static class Entry extends AbstractEntry<Condition> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -203,7 +204,7 @@ public class Condition implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Evidence implements BackboneElement {
+  public static class Evidence implements AsList<Evidence>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -219,7 +220,7 @@ public class Condition implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Stage implements BackboneElement {
+  public static class Stage implements AsList<Stage>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

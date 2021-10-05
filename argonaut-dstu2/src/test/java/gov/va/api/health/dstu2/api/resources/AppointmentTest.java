@@ -5,7 +5,6 @@ import static gov.va.api.health.dstu2.api.RoundTrip.assertRoundTrip;
 import gov.va.api.health.dstu2.api.bundle.AbstractBundle;
 import gov.va.api.health.dstu2.api.bundle.BundleLink;
 import gov.va.api.health.dstu2.api.samples.SampleAppointments;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class AppointmentTest {
@@ -20,15 +19,15 @@ public class AppointmentTest {
   public void bundlerCanBuildAppointmentBundles() {
     Appointment.Entry entry =
         Appointment.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://Appointment.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://Appointment.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://Appointment.com/1"))
+                    .build()
+                    .asList())
             .resource(data.appointment())
             .search(data.search())
             .request(data.request())
@@ -36,13 +35,13 @@ public class AppointmentTest {
             .build();
     Appointment.Bundle bundle =
         Appointment.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://Appointment.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://Appointment.com/2"))
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
     assertRoundTrip(bundle);

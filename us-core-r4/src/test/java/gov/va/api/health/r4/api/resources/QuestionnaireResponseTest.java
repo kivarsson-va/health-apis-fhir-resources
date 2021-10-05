@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.samples.SampleQuestionnaireResponses;
-import java.util.List;
 import javax.validation.Validation;
 import org.junit.jupiter.api.Test;
 
@@ -17,15 +16,15 @@ public class QuestionnaireResponseTest {
   public void bundlerCanBuildQuestionnaireResponseBundles() {
     QuestionnaireResponse.Entry entry =
         QuestionnaireResponse.Entry.builder()
-            .extension(List.of(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://questionnaireresponse.com")
             .id("123")
             .link(
-                List.of(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url("http://questionnaireresponse/1")
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://questionnaireresponse/1")
+                    .build()
+                    .asList())
             .resource(data.questionnaireResponse())
             .search(data.search())
             .request(data.request())
@@ -33,13 +32,13 @@ public class QuestionnaireResponseTest {
             .build();
     QuestionnaireResponse.Bundle bundle =
         QuestionnaireResponse.Bundle.builder()
-            .entry(List.of(entry))
+            .entry(entry.asList())
             .link(
-                List.of(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url("http://questionnaireresponse.com/2")
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://questionnaireresponse.com/2")
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .signature(data.signature())
             .build();
@@ -49,7 +48,7 @@ public class QuestionnaireResponseTest {
   @Test
   public void invalid() {
     QuestionnaireResponse response = data.questionnaireResponse();
-    response.item().get(0).answer(List.of(data.invalidAnswer()));
+    response.item().get(0).answer(data.invalidAnswer().asList());
     assertThat(Validation.buildDefaultValidatorFactory().getValidator().validate(response))
         .isNotEmpty();
   }

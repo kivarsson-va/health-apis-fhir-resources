@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.CarinBlueButton;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
@@ -47,7 +48,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description = "https://www.hl7.org/fhir/R4/coverage.html",
     example = "${r4.coverage:gov.va.api.health.r4.api.swaggerexamples.SwaggerCoverage#coverage}")
-public class Coverage implements Resource {
+public class Coverage implements AsList<Coverage>, Resource {
   @NotBlank @Builder.Default String resourceType = "Coverage";
 
   // Anscestor -- Resource
@@ -141,7 +142,7 @@ public class Coverage implements Resource {
       example =
           "${r4.coverageBundle:gov.va.api.health.r4.api."
               + "swaggerexamples.SwaggerCoverage#coverageBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Coverage bundle builder. */
     @Builder
     public Bundle(
@@ -182,7 +183,7 @@ public class Coverage implements Resource {
   @ExactlyOneOf(
       fields = {"valueQuantity", "valueMoney"},
       message = "valueQuantity or valueMoney, but not both")
-  public static class CostToBeneficiary implements BackboneElement {
+  public static class CostToBeneficiary implements AsList<CostToBeneficiary>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -205,7 +206,7 @@ public class Coverage implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "CoverageClass")
-  public static class CoverageClass implements BackboneElement {
+  public static class CoverageClass implements AsList<CoverageClass>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -229,7 +230,7 @@ public class Coverage implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Coverage.Entry.EntryBuilder.class)
   @Schema(name = "CoverageEntry")
-  public static class Entry extends AbstractEntry<Coverage> {
+  public static class Entry extends AbstractEntry<Coverage> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -252,7 +253,7 @@ public class Coverage implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "CostToBeneficiaryException")
   @SuppressWarnings("JavaLangClash")
-  public static class Exception implements BackboneElement {
+  public static class Exception implements AsList<Exception>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

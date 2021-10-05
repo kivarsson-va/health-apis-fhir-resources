@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.elements.Element;
 import gov.va.api.health.stu3.api.elements.Extension;
@@ -22,7 +23,7 @@ import lombok.Data;
 @Schema(description = "http://hl7.org/fhir/STU3/datatypes.html#Signature")
 @ExactlyOneOf(fields = {"whoUri", "whoReference"})
 @ZeroOrOneOf(fields = {"onBehalfOfUri", "onBehalfOfReference"})
-public class Signature implements Element {
+public class Signature implements AsList<Signature>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

@@ -2,7 +2,6 @@ package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
 import static gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType.searchset;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.samples.SampleAppointments;
@@ -20,15 +19,15 @@ public class AppointmentTest {
   public void bundlerCanBuildAppointmentBundles() {
     Appointment.Entry entry =
         Appointment.Entry.builder()
-            .extension(singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://appointment.com")
             .id("123")
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://appointment/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://appointment/1"))
+                    .build()
+                    .asList())
             .resource(data.appointment())
             .search(data.search())
             .request(data.request())
@@ -36,13 +35,13 @@ public class AppointmentTest {
             .build();
     Appointment.Bundle bundle =
         Appointment.Bundle.builder()
-            .entry(singletonList(entry))
+            .entry(entry.asList())
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://appointment.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://appointment.com/2"))
+                    .build()
+                    .asList())
             .type(searchset)
             .signature(data.signature())
             .build();

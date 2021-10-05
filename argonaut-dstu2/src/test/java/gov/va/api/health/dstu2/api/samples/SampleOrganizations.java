@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.Organization;
 import gov.va.api.health.dstu2.api.resources.Organization.OrganizationContact;
 import lombok.NoArgsConstructor;
@@ -18,24 +16,24 @@ public class SampleOrganizations {
         .implicitRules("http://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .active(true)
         .type(codeableConcept())
         .name("Hello Name")
-        .telecom(singletonList(contactPoint()))
-        .address(singletonList(address()))
+        .telecom(contactPoint().asList())
+        .address(address().asList())
         .partOf(reference())
         .contact(
-            singletonList(
-                OrganizationContact.builder()
-                    .purpose(codeableConcept())
-                    .name(humanName())
-                    .telecom(singletonList(contactPoint()))
-                    .address(address())
-                    .build()))
+            OrganizationContact.builder()
+                .purpose(codeableConcept())
+                .name(humanName())
+                .telecom(contactPoint().asList())
+                .address(address())
+                .build()
+                .asList())
         .build();
   }
 }

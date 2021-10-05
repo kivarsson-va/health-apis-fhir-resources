@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.Encounter;
 import gov.va.api.health.dstu2.api.resources.Encounter.EncounterClass;
 import gov.va.api.health.dstu2.api.resources.Encounter.EncounterLocation;
@@ -9,7 +7,7 @@ import gov.va.api.health.dstu2.api.resources.Encounter.Hospitalization;
 import gov.va.api.health.dstu2.api.resources.Encounter.Participant;
 import gov.va.api.health.dstu2.api.resources.Encounter.Status;
 import gov.va.api.health.dstu2.api.resources.Encounter.StatusHistory;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -29,27 +27,26 @@ public class SampleEncounters {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.arrived)
-        .statusHistory(singletonList(statusHistory()))
+        .statusHistory(statusHistory().asList())
         .encounterClass(EncounterClass.ambulatory)
         .type(codeableConceptList())
         .priority(codeableConceptList())
         .patient(reference())
         .episodeOfCare(referenceList())
         .incomingReferral(referenceList())
-        .participant(singletonList(participant()))
+        .participant(participant().asList())
         .appointment(reference())
         .period(period())
         .length(duration())
         .reason(codeableConceptList())
         .indication(referenceList())
         .hospitalization(hospitalization())
-        .location(singletonList(location()))
+        .location(location().asList())
         .serviceProvider(reference())
         .partOf(reference())
         .build();
@@ -58,8 +55,8 @@ public class SampleEncounters {
   public Hospitalization hospitalization() {
     return Hospitalization.builder()
         .id("2222")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .preAdmissionIdentifier(identifier())
         .origin(reference())
         .admitSource(codeableConcept())
@@ -77,8 +74,8 @@ public class SampleEncounters {
   public EncounterLocation location() {
     return EncounterLocation.builder()
         .id("3333")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .location(reference())
         .status(EncounterLocation.Status.active)
         .period(period())
@@ -88,8 +85,8 @@ public class SampleEncounters {
   public Participant participant() {
     return Participant.builder()
         .id("1111")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(codeableConceptList())
         .period(period())
         .individual(reference())
@@ -99,8 +96,8 @@ public class SampleEncounters {
   public StatusHistory statusHistory() {
     return StatusHistory.builder()
         .id("0000")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .status(Status.planned)
         .period(period())
         .build();

@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.Address;
@@ -12,7 +10,7 @@ import gov.va.api.health.r4.api.datatypes.HumanName;
 import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.resources.Patient;
-import java.util.Arrays;
+import java.util.List;
 
 public class SwaggerPatient {
   /**
@@ -24,11 +22,11 @@ public class SwaggerPatient {
     return Patient.builder()
         .id("2000163")
         .extension(
-            asList(
+            List.of(
                 Extension.builder()
                     .url("http://hl7.org/fhir/us/core/StructureDefinition/us-core-race")
                     .extension(
-                        asList(
+                        List.of(
                             Extension.builder()
                                 .url("ombCategory")
                                 .valueCoding(
@@ -44,7 +42,7 @@ public class SwaggerPatient {
                 Extension.builder()
                     .url("http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity")
                     .extension(
-                        asList(
+                        List.of(
                             Extension.builder()
                                 .url("ombCategory")
                                 .valueCoding(
@@ -65,17 +63,17 @@ public class SwaggerPatient {
                     .valueCode("M")
                     .build()))
         .identifier(
-            asList(
+            List.of(
                 Identifier.builder()
                     .use(Identifier.IdentifierUse.usual)
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Arrays.asList(
-                                    Coding.builder()
-                                        .system("http://hl7.org/fhir/v2/0203")
-                                        .code("MR")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://hl7.org/fhir/v2/0203")
+                                    .code("MR")
+                                    .build()
+                                    .asList())
                             .build())
                     .system("http://va.gov/mpi")
                     .value("2000163")
@@ -85,25 +83,25 @@ public class SwaggerPatient {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Arrays.asList(
-                                    Coding.builder()
-                                        .system("http://hl7.org/fhir/v2/0203")
-                                        .code("SB")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://hl7.org/fhir/v2/0203")
+                                    .code("SB")
+                                    .build()
+                                    .asList())
                             .build())
                     .system("http://hl7.org/fhir/sid/us-ssn")
                     .value("999-61-4803")
                     .build()))
         .name(
-            Arrays.asList(
-                HumanName.builder()
-                    .use(HumanName.NameUse.usual)
-                    .text("Mr. Aurelio227 Cruickshank494")
-                    .family("Cruickshank494")
-                    .given(asList("Aurelio227"))
-                    .build()))
+            HumanName.builder()
+                .use(HumanName.NameUse.usual)
+                .text("Mr. Aurelio227 Cruickshank494")
+                .family("Cruickshank494")
+                .given(List.of("Aurelio227"))
+                .build()
+                .asList())
         .telecom(
-            asList(
+            List.of(
                 ContactPoint.builder()
                     .system(ContactPoint.ContactPointSystem.phone)
                     .value("5555191065")
@@ -117,22 +115,22 @@ public class SwaggerPatient {
         .birthDate("1995-02-06")
         .deceasedBoolean(false)
         .address(
-            Arrays.asList(
-                Address.builder()
-                    .line(asList("909 Rohan Highlands"))
-                    .city("Mesa")
-                    .state("Arizona")
-                    .postalCode("85120")
-                    .build()))
+            Address.builder()
+                .line(List.of("909 Rohan Highlands"))
+                .city("Mesa")
+                .state("Arizona")
+                .postalCode("85120")
+                .build()
+                .asList())
         .maritalStatus(
             CodeableConcept.builder()
                 .coding(
-                    Arrays.asList(
-                        Coding.builder()
-                            .system("http://hl7.org/fhir/R4/v3/NullFlavor/cs.html")
-                            .code("UNK")
-                            .display("unknown")
-                            .build()))
+                    Coding.builder()
+                        .system("http://hl7.org/fhir/R4/v3/NullFlavor/cs.html")
+                        .code("UNK")
+                        .display("unknown")
+                        .build()
+                        .asList())
                 .build())
         .build();
   }
@@ -147,7 +145,7 @@ public class SwaggerPatient {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.first)
                     .url(
@@ -163,7 +161,7 @@ public class SwaggerPatient {
                     .url(
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/Patient?identifer=1017283148V813263&page=1&_count=15")
                     .build()))
-        .entry(Arrays.asList(Patient.Entry.builder().resource(patient()).build()))
+        .entry(Patient.Entry.builder().resource(patient()).build().asList())
         .build();
   }
 }

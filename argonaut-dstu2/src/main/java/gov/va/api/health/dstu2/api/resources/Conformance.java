@@ -12,6 +12,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -33,7 +34,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/DSTU2/conformance.html")
-public class Conformance implements Resource {
+public class Conformance implements AsList<Conformance>, Resource {
   @NotBlank @Builder.Default String resourceType = "Conformance";
 
   @Pattern(regexp = Fhir.ID)
@@ -215,7 +216,7 @@ public class Conformance implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ConformanceContact")
-  public static class Contact implements BackboneElement {
+  public static class Contact implements AsList<Contact>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -230,7 +231,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Document implements BackboneElement {
+  public static class Document implements AsList<Document>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -246,7 +247,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Implementation implements BackboneElement {
+  public static class Implementation implements AsList<Implementation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -263,7 +264,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Messaging implements BackboneElement {
+  public static class Messaging implements AsList<Messaging>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -287,7 +288,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class MessagingEndpoint implements BackboneElement {
+  public static class MessagingEndpoint implements AsList<MessagingEndpoint>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -305,7 +306,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class MessagingEvent implements BackboneElement {
+  public static class MessagingEvent implements AsList<MessagingEvent>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -329,7 +330,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class ResourceInteraction implements BackboneElement {
+  public static class ResourceInteraction implements AsList<ResourceInteraction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -344,7 +345,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Rest implements BackboneElement {
+  public static class Rest implements AsList<Rest>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -373,7 +374,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class RestInteraction implements BackboneElement {
+  public static class RestInteraction implements AsList<RestInteraction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -388,7 +389,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class RestOperation implements BackboneElement {
+  public static class RestOperation implements AsList<RestOperation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -403,7 +404,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class RestResource implements BackboneElement {
+  public static class RestResource implements AsList<RestResource>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -437,7 +438,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class RestSecurity implements BackboneElement {
+  public static class RestSecurity implements AsList<RestSecurity>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -454,7 +455,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class SearchParam implements BackboneElement {
+  public static class SearchParam implements AsList<SearchParam>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -477,7 +478,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class SecurityCertificate implements BackboneElement {
+  public static class SecurityCertificate implements AsList<SecurityCertificate>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -496,7 +497,7 @@ public class Conformance implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Software implements BackboneElement {
+  public static class Software implements AsList<Software>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

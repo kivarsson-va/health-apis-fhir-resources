@@ -20,6 +20,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ import lombok.NoArgsConstructor;
     example =
         "${dstu2.medication:gov.va.api.health.dstu2.api.swaggerexamples"
             + ".SwaggerMedication#medication}")
-public class Medication implements Resource {
+public class Medication implements AsList<Medication>, Resource {
   @NotBlank @Builder.Default String resourceType = "Medication";
 
   @Pattern(regexp = Fhir.ID)
@@ -79,7 +80,7 @@ public class Medication implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Batch implements BackboneElement {
+  public static class Batch implements AsList<Batch>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -101,7 +102,7 @@ public class Medication implements Resource {
       example =
           "${dstu2.medicationBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerMedication#medicationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -134,7 +135,7 @@ public class Medication implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Content implements BackboneElement {
+  public static class Content implements AsList<Content>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -152,7 +153,7 @@ public class Medication implements Resource {
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
   @JsonDeserialize(builder = Medication.Entry.EntryBuilder.class)
   @Schema(name = "MedicationEntry")
-  public static class Entry extends AbstractEntry<Medication> {
+  public static class Entry extends AbstractEntry<Medication> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -173,7 +174,7 @@ public class Medication implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Ingredient implements BackboneElement {
+  public static class Ingredient implements AsList<Ingredient>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -189,7 +190,7 @@ public class Medication implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class MedicationPackage implements BackboneElement {
+  public static class MedicationPackage implements AsList<MedicationPackage>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -206,7 +207,7 @@ public class Medication implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Product implements BackboneElement {
+  public static class Product implements AsList<Product>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

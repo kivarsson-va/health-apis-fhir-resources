@@ -8,6 +8,7 @@ import gov.va.api.health.dstu2.api.elements.BackboneElement;
 import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -31,7 +32,7 @@ import lombok.NoArgsConstructor;
     example =
         "${dstu2.operationOutcome:gov.va.api.health.dstu2.api.swaggerexamples"
             + ".SwaggerOperationOutcome#operationOutcome}")
-public class OperationOutcome implements DomainResource {
+public class OperationOutcome implements AsList<OperationOutcome>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "OperationOutcome";
 
   @Pattern(regexp = Fhir.ID)
@@ -63,7 +64,7 @@ public class OperationOutcome implements DomainResource {
   @Schema(
       description =
           "https://www.hl7.org/fhir/operationoutcome-definitions.html#OperationOutcome.issue")
-  public static class Issue implements BackboneElement {
+  public static class Issue implements AsList<Issue>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

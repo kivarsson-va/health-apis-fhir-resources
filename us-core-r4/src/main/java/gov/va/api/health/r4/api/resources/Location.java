@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -43,7 +44,7 @@ import lombok.NoArgsConstructor;
     description =
         "https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-location.html",
     example = "${r4.location:gov.va.api.health.r4.api.swaggerexamples.SwaggerLocation#location}")
-public class Location implements DomainResource {
+public class Location implements AsList<Location>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Location";
 
   @Pattern(regexp = Fhir.ID)
@@ -130,7 +131,7 @@ public class Location implements DomainResource {
       example =
           "${r4.locationBundle:gov.va.api.health.r4.api."
               + "swaggerexamples.SwaggerLocation#locationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -168,7 +169,7 @@ public class Location implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Location.Entry.EntryBuilder.class)
   @Schema(name = "LocationEntry")
-  public static class Entry extends AbstractEntry<Location> {
+  public static class Entry extends AbstractEntry<Location> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -189,27 +190,7 @@ public class Location implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Position implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @NotNull BigDecimal longitude;
-
-    @NotNull BigDecimal latitude;
-
-    BigDecimal altitude;
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class HoursOfOperation implements BackboneElement {
+  public static class HoursOfOperation implements AsList<HoursOfOperation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -226,5 +207,25 @@ public class Location implements DomainResource {
 
     @Pattern(regexp = Fhir.TIME)
     String closingTime;
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Position implements AsList<Position>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @NotNull BigDecimal longitude;
+
+    @NotNull BigDecimal latitude;
+
+    BigDecimal altitude;
   }
 }

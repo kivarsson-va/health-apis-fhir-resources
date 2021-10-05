@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest.Insurance;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest.Item;
@@ -9,7 +7,7 @@ import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest.Item.Diagno
 import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest.Purpose;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest.Status;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityRequest.SupportingInfo;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -24,23 +22,22 @@ public class SampleCoverageEligibilityRequests {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(List.of(identifier()))
         .status(Status.active)
         .priority(codeableConcept())
-        .purpose(singletonList(Purpose.auth_requirements))
+        .purpose(List.of(Purpose.auth_requirements))
         .patient(reference())
         .created("2017-01-01T00:00:00.000Z")
         .enterer(reference())
         .provider(reference())
         .insurer(reference())
         .facility(reference())
-        .supportingInfo(singletonList(supportingInfo()))
-        .insurance(singletonList(insurance()))
-        .item(singletonList(item()))
+        .supportingInfo(List.of(supportingInfo()))
+        .insurance(List.of(insurance()))
+        .item(List.of(item()))
         .build();
   }
 
@@ -70,24 +67,20 @@ public class SampleCoverageEligibilityRequests {
 
   public Item item() {
     return Item.builder()
-        .supportingInfoSequence(singletonList("1"))
+        .supportingInfoSequence(List.of(1))
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
+        .modifier(List.of(codeableConcept()))
         .provider(reference())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .facility(reference())
-        .diagnosis(Arrays.asList(diagnosisWithCodeableConcept(), diagnosisWithReference()))
-        .detail(singletonList(reference()))
+        .diagnosis(List.of(diagnosisWithCodeableConcept(), diagnosisWithReference()))
+        .detail(List.of(reference()))
         .build();
   }
 
   public SupportingInfo supportingInfo() {
-    return SupportingInfo.builder()
-        .sequence("1")
-        .information(reference())
-        .appliesToAll(true)
-        .build();
+    return SupportingInfo.builder().sequence(1).information(reference()).appliesToAll(true).build();
   }
 }

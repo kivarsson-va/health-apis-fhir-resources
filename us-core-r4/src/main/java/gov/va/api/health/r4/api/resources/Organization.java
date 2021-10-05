@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.CarinBlueButton;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
@@ -50,7 +51,7 @@ import org.apache.commons.lang3.StringUtils;
     example =
         "${r4.organization:gov.va.api.health."
             + "r4.api.swaggerexamples.SwaggerOrganization#organization}")
-public class Organization implements Resource {
+public class Organization implements AsList<Organization>, Resource {
   // Ancestors
   @NotBlank @Builder.Default String resourceType = "Organization";
 
@@ -150,29 +151,6 @@ public class Organization implements Resource {
   }
 
   @Data
-  @Builder
-  @Schema(name = "OrganizationContact")
-  @AllArgsConstructor
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Contact implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid CodeableConcept purpose;
-
-    @Valid HumanName name;
-
-    @Valid List<ContactPoint> telecom;
-
-    @Valid Address address;
-  }
-
-  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -183,7 +161,7 @@ public class Organization implements Resource {
           "${r4.organizationBundle:"
               + "gov.va.api.health.r4.api.swaggerexamples."
               + "SwaggerOrganization#organizationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -216,12 +194,35 @@ public class Organization implements Resource {
   }
 
   @Data
+  @Builder
+  @Schema(name = "OrganizationContact")
+  @AllArgsConstructor
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Contact implements AsList<Contact>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid CodeableConcept purpose;
+
+    @Valid HumanName name;
+
+    @Valid List<ContactPoint> telecom;
+
+    @Valid Address address;
+  }
+
+  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Organization.Entry.EntryBuilder.class)
   @Schema(name = "OrganizationEntry")
-  public static class Entry extends AbstractEntry<Organization> {
+  public static class Entry extends AbstractEntry<Organization> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,

@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.MedicationOrder;
 import gov.va.api.health.dstu2.api.resources.MedicationOrder.DispenseRequest;
 import gov.va.api.health.dstu2.api.resources.MedicationOrder.DosageInstruction;
@@ -18,8 +16,8 @@ public class SampleMedicationOrders {
   public DispenseRequest dispenseRequest() {
     return DispenseRequest.builder()
         .id("2222")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .medicationCodeableConcept(codeableConcept())
         .validityPeriod(period())
         .numberOfRepeatsAllowed(10)
@@ -31,8 +29,8 @@ public class SampleMedicationOrders {
   public DosageInstruction dosageInstruction() {
     return DosageInstruction.builder()
         .id("2222")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .text("Hello Text")
         .additionalInstructions(codeableConcept())
         .timing(timing())
@@ -53,10 +51,10 @@ public class SampleMedicationOrders {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .dateWritten("2000-10-01")
         .status(Status.active)
         .dateEnded("2000-10-01")
@@ -66,7 +64,7 @@ public class SampleMedicationOrders {
         .reasonCodeableConcept(codeableConcept())
         .note("Hello Note")
         .medicationReference(reference())
-        .dosageInstruction(singletonList(dosageInstruction()))
+        .dosageInstruction(dosageInstruction().asList())
         .dispenseRequest(dispenseRequest())
         .substitution(substitution())
         .priorPrescription(reference())
@@ -76,8 +74,8 @@ public class SampleMedicationOrders {
   public Substitution substitution() {
     return Substitution.builder()
         .id("2222")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(codeableConcept())
         .reason(codeableConcept())
         .build();

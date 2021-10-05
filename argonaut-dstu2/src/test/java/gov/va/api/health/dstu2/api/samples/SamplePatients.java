@@ -1,14 +1,12 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.datatypes.Attachment;
 import gov.va.api.health.dstu2.api.datatypes.CodeableConcept;
 import gov.va.api.health.dstu2.api.resources.Patient;
 import gov.va.api.health.dstu2.api.resources.Patient.Communication;
 import gov.va.api.health.dstu2.api.resources.Patient.Contact;
 import gov.va.api.health.dstu2.api.resources.Patient.PatientLink;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -24,8 +22,8 @@ public class SamplePatients {
   public Communication communication() {
     return Communication.builder()
         .id("8888")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .language(language())
         .preferred(false)
         .build();
@@ -34,9 +32,9 @@ public class SamplePatients {
   Contact contact() {
     return Contact.builder()
         .id("0000")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .relationship(singletonList(relationship()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .relationship(relationship().asList())
         .name(humanName())
         .telecom(contactPointList())
         .address(address())
@@ -47,21 +45,21 @@ public class SamplePatients {
   }
 
   public CodeableConcept language() {
-    return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+    return CodeableConcept.builder().coding(coding().asList()).text("HelloText").build();
   }
 
   public Patient.PatientLink link() {
     return PatientLink.builder()
         .id("7777")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .other(reference())
         .type("HelloType")
         .build();
   }
 
   public CodeableConcept maritalStatus() {
-    return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+    return CodeableConcept.builder().coding(coding().asList()).text("HelloText").build();
   }
 
   public Patient patient() {
@@ -71,26 +69,25 @@ public class SamplePatients {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .active(true)
-        .name(singletonList(humanName()))
+        .name(humanName().asList())
         .telecom(contactPointList())
         .gender(Patient.Gender.unknown)
         .birthDate("2000-01-01")
         .deceasedBoolean(false)
-        .address(singletonList(address()))
+        .address(address().asList())
         .maritalStatus(maritalStatus())
         .multipleBirthBoolean(false)
-        .photo(singletonList(photo()))
-        .contact(singletonList(contact()))
-        .communication(singletonList(communication()))
-        .careProvider(singletonList(reference()))
+        .photo(photo().asList())
+        .contact(contact().asList())
+        .communication(communication().asList())
+        .careProvider(reference().asList())
         .managingOrganization(reference())
-        .link(singletonList(link()))
+        .link(link().asList())
         .build();
   }
 
@@ -108,6 +105,6 @@ public class SamplePatients {
   }
 
   public CodeableConcept relationship() {
-    return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+    return CodeableConcept.builder().coding(coding().asList()).text("HelloText").build();
   }
 }

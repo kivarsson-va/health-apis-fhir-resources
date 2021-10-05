@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.resources;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.datatypes.CodeableConcept;
 import gov.va.api.health.stu3.api.datatypes.SimpleResource;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/operationoutcome.html")
-public class OperationOutcome implements DomainResource {
+public class OperationOutcome implements AsList<OperationOutcome>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "OperationOutcome";
 
   @Pattern(regexp = Fhir.ID)
@@ -59,7 +60,7 @@ public class OperationOutcome implements DomainResource {
   @Schema(
       description =
           "https://www.hl7.org/fhir/STU3/operationoutcome-definitions.html#OperationOutcome.issue")
-  public static class Issue implements BackboneElement {
+  public static class Issue implements AsList<Issue>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

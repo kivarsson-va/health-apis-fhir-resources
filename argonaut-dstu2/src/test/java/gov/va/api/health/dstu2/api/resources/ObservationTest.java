@@ -11,7 +11,6 @@ import gov.va.api.health.dstu2.api.resources.Observation.Entry;
 import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.dstu2.api.samples.SampleObservations;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -26,15 +25,15 @@ public class ObservationTest {
   public void bundlerCanBuildObservationBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://observation.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://observation.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://observation.com/1"))
+                    .build()
+                    .asList())
             .resource(data.observation())
             .search(data.search())
             .request(data.request())
@@ -43,13 +42,13 @@ public class ObservationTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://observation.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://observation.com/2"))
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
 

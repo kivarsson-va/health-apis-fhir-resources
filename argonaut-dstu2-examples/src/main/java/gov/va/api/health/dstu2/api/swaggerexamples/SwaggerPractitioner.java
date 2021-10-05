@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.dstu2.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.Search;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.SearchMode;
@@ -28,13 +26,13 @@ public class SwaggerPractitioner {
         .active(true)
         .name(
             HumanName.builder()
-                .family(asList("DOE922"))
-                .given(asList("JANE460"))
-                .prefix(asList("DR."))
-                .suffix(asList("MD"))
+                .family(List.of("DOE922"))
+                .given(List.of("JANE460"))
+                .prefix(List.of("DR."))
+                .suffix(List.of("MD"))
                 .build())
         .telecom(
-            asList(
+            List.of(
                 ContactPoint.builder()
                     .system(ContactPoint.ContactPointSystem.phone)
                     .value("555-555-1137")
@@ -51,45 +49,44 @@ public class SwaggerPractitioner {
                     .use(ContactPoint.ContactPointUse.mobile)
                     .build()))
         .address(
-            List.of(
-                Address.builder()
-                    .line(List.of("555 E 5TH ST", "SUITE B"))
-                    .city("CHEYENNE")
-                    .state("WYOMING")
-                    .postalCode("82001")
-                    .build()))
+            Address.builder()
+                .line(List.of("555 E 5TH ST", "SUITE B"))
+                .city("CHEYENNE")
+                .state("WYOMING")
+                .postalCode("82001")
+                .build()
+                .asList())
         .gender(Practitioner.Gender.female)
         .birthDate("1964-02-23")
         .practitionerRole(
-            asList(
-                Practitioner.PractitionerRole.builder()
-                    .managingOrganization(
-                        Reference.builder()
-                            .reference(
-                                "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Organization/I2-AKOTGEFSVKFJOPUKHIVJAH5VQU000000")
-                            .display("CHEYENNE VA MEDICAL")
-                            .build())
-                    .role(
-                        CodeableConcept.builder()
-                            .coding(
-                                asList(
-                                    Coding.builder()
-                                        .system("http://hl7.org/fhir/practitioner-role")
-                                        .code("PHYSICIAN")
-                                        .display("PSYCHOLOGIST")
-                                        .build()))
-                            .text("PSYCHOLOGIST")
-                            .build())
-                    .location(
-                        asList(
-                            Reference.builder()
-                                .reference(
-                                    "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Location/I2-3JYDMXC6RXTU4H25KRVXATSEJQ000000")
-                                .display("ZZCHY LASTNAME MEDICAL")
-                                .build()))
-                    .healthcareService(
-                        asList(Reference.builder().display("MEDICAL SERVICE").build()))
-                    .build()))
+            Practitioner.PractitionerRole.builder()
+                .managingOrganization(
+                    Reference.builder()
+                        .reference(
+                            "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Organization/I2-AKOTGEFSVKFJOPUKHIVJAH5VQU000000")
+                        .display("CHEYENNE VA MEDICAL")
+                        .build())
+                .role(
+                    CodeableConcept.builder()
+                        .coding(
+                            Coding.builder()
+                                .system("http://hl7.org/fhir/practitioner-role")
+                                .code("PHYSICIAN")
+                                .display("PSYCHOLOGIST")
+                                .build()
+                                .asList())
+                        .text("PSYCHOLOGIST")
+                        .build())
+                .location(
+                    Reference.builder()
+                        .reference(
+                            "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Location/I2-3JYDMXC6RXTU4H25KRVXATSEJQ000000")
+                        .display("ZZCHY LASTNAME MEDICAL")
+                        .build()
+                        .asList())
+                .healthcareService(Reference.builder().display("MEDICAL SERVICE").build().asList())
+                .build()
+                .asList())
         .build();
   }
 
@@ -103,7 +100,7 @@ public class SwaggerPractitioner {
         .type(BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(LinkRelation.self)
                     .url(
@@ -120,13 +117,13 @@ public class SwaggerPractitioner {
                         "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Practitioner?identifier=I2-HRJI2MVST2IQSPR7U5SACWIWZA000000&page=1&_count=30")
                     .build()))
         .entry(
-            asList(
-                Practitioner.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Practitioner/I2-HRJI2MVST2IQSPR7U5SACWIWZA000000")
-                    .resource(practitioner())
-                    .search(Search.builder().mode(SearchMode.match).build())
-                    .build()))
+            Practitioner.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/dstu2/Practitioner/I2-HRJI2MVST2IQSPR7U5SACWIWZA000000")
+                .resource(practitioner())
+                .search(Search.builder().mode(SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

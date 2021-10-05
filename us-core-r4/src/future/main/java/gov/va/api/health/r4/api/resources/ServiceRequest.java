@@ -34,26 +34,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(
-  fieldVisibility = JsonAutoDetect.Visibility.ANY,
-  isGetterVisibility = JsonAutoDetect.Visibility.NONE
-)
+    fieldVisibility = JsonAutoDetect.Visibility.ANY,
+    isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
-  description = "https://www.hl7.org/fhir/R4/servicerequest.html",
-  example = "${r4.serviceRequest:com.example.Example#example}"
-)
+    description = "https://www.hl7.org/fhir/R4/servicerequest.html",
+    example = "${r4.serviceRequest:com.example.Example#example}")
 @ZeroOrOneOfs({
   @ZeroOrOneOf(
-    fields = {"quantityQuantity", "quantityRatio", "quantityRange"},
-    message = "Only one quantity field may be specified"
-  ),
+      fields = {"quantityQuantity", "quantityRatio", "quantityRange"},
+      message = "Only one quantity field may be specified"),
   @ZeroOrOneOf(
-    fields = {"occurrenceDateTime", "occurrencePeriod", "occurrenceTiming"},
-    message = "Only one occurrence field may be specified"
-  ),
+      fields = {"occurrenceDateTime", "occurrencePeriod", "occurrenceTiming"},
+      message = "Only one occurrence field may be specified"),
   @ZeroOrOneOf(
-    fields = {"asNeededBoolean", "asNeededCodeableConcept"},
-    message = "Only one asNeeded field may be specified"
-  )
+      fields = {"asNeededBoolean", "asNeededCodeableConcept"},
+      message = "Only one asNeeded field may be specified")
 })
 public class ServiceRequest implements Resource {
   @NotBlank @Builder.Default String resourceType = "ServiceRequest";
@@ -100,8 +95,7 @@ public class ServiceRequest implements Resource {
 
   Priority priority;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String doNotPerform;
+  Boolean doNotPerform;
 
   @Valid CodeableConcept code;
 
@@ -124,8 +118,7 @@ public class ServiceRequest implements Resource {
 
   @Valid Timing occurrenceTiming;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String asNeededBoolean;
+  Boolean asNeededBoolean;
 
   @Valid CodeableConcept asNeededCodeableConcept;
 

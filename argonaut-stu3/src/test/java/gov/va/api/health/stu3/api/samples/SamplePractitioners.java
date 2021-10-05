@@ -1,13 +1,10 @@
 package gov.va.api.health.stu3.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.stu3.api.datatypes.HumanName;
 import gov.va.api.health.stu3.api.datatypes.Identifier;
 import gov.va.api.health.stu3.api.elements.Meta;
 import gov.va.api.health.stu3.api.elements.Narrative;
 import gov.va.api.health.stu3.api.resources.Practitioner;
-import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -22,25 +19,25 @@ public class SamplePractitioners {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(Narrative.builder().build())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(Identifier.builder().build()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(Identifier.builder().build().asList())
         .active(true)
-        .name(List.of(HumanName.builder().build()))
-        .telecom(singletonList(dataTypes.contactPoint()))
-        .address(singletonList(dataTypes.address()))
+        .name(HumanName.builder().build().asList())
+        .telecom(dataTypes.contactPoint().asList())
+        .address(dataTypes.address().asList())
         .gender(Practitioner.Gender.male)
         .birthDate("2000-10-01")
-        .photo(singletonList(dataTypes.attachment()))
+        .photo(dataTypes.attachment().asList())
         .qualification(
-            singletonList(
-                Practitioner.Qualification.builder()
-                    .identifier(singletonList(dataTypes.identifier()))
-                    .code(dataTypes.codeableConcept())
-                    .period(dataTypes.period())
-                    .issuer(dataTypes.reference())
-                    .build()))
+            Practitioner.Qualification.builder()
+                .identifier(dataTypes.identifier().asList())
+                .code(dataTypes.codeableConcept())
+                .period(dataTypes.period())
+                .issuer(dataTypes.reference())
+                .build()
+                .asList())
         .communication(dataTypes.codeableConceptList())
         .build();
   }

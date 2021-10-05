@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.samples;
 
 import gov.va.api.health.r4.api.resources.Organization;
-import java.util.Collections;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -18,10 +17,10 @@ public class SampleOrganizations {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(Collections.singletonList(resource()))
-        .extension(Collections.singletonList(extension()))
-        .modifierExtension(Collections.singletonList(extension()))
-        .identifier(Collections.singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .active(true)
         .name("Goodnight Club")
         .alias(List.of("Nap-time Club"))

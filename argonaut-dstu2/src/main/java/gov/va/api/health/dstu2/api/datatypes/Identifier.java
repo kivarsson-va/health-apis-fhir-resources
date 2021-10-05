@@ -5,6 +5,7 @@ import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.elements.Element;
 import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/DSTU2/datatypes.html#Identifier")
-public class Identifier implements Element {
+public class Identifier implements AsList<Identifier>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

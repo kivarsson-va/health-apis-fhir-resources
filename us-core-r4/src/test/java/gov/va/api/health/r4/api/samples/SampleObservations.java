@@ -1,10 +1,9 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.resources.Observation;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -15,24 +14,24 @@ public class SampleObservations {
   public CodeableConcept category() {
     return CodeableConcept.builder()
         .coding(
-            singletonList(
-                Coding.builder()
-                    .system("http://terminology.hl7.org/CodeSystem/observation-category")
-                    .code("laboratory")
-                    .build()))
+            Coding.builder()
+                .system("http://terminology.hl7.org/CodeSystem/observation-category")
+                .code("laboratory")
+                .build()
+                .asList())
         .build();
   }
 
   public Observation.Component component() {
     return Observation.Component.builder()
         .id("1234")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .code(codeableConcept())
         .valuePeriod(period())
         .dataAbsentReason(codeableConcept())
-        .interpretation(singletonList(codeableConcept()))
-        .referenceRange(singletonList(referenceRange()))
+        .interpretation(codeableConcept().asList())
+        .referenceRange(referenceRange().asList())
         .build();
   }
 
@@ -43,45 +42,45 @@ public class SampleObservations {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
-        .basedOn(singletonList(reference()))
-        .partOf(singletonList(reference()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
+        .basedOn(reference().asList())
+        .partOf(reference().asList())
         .status(Observation.ObservationStatus.unknown)
-        .category(singletonList(category()))
+        .category(category().asList())
         .code(codeableConcept())
         .subject(reference())
-        .focus(singletonList(reference()))
+        .focus(reference().asList())
         .encounter(reference())
         .effectiveDateTime("2015-04-15T04:00:00Z")
         .issued("2015-04-15T04:00:00Z")
-        .performer(singletonList(reference()))
+        .performer(reference().asList())
         .valueQuantity(quantity())
         .dataAbsentReason(codeableConcept())
-        .interpretation(singletonList(codeableConcept()))
-        .note(singletonList(annotation()))
+        .interpretation(codeableConcept().asList())
+        .note(annotation().asList())
         .bodySite(codeableConcept())
         .method(codeableConcept())
         .specimen(reference())
         .device(reference())
-        .referenceRange(singletonList(referenceRange()))
-        .hasMember(singletonList(reference()))
-        .derivedFrom(singletonList(reference()))
-        .component(singletonList(component()))
+        .referenceRange(referenceRange().asList())
+        .hasMember(reference().asList())
+        .derivedFrom(reference().asList())
+        .component(component().asList())
         .build();
   }
 
   public Observation.ReferenceRange referenceRange() {
     return Observation.ReferenceRange.builder()
         .id("1234")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .low(simpleQuantity())
         .high(simpleQuantity())
         .type(codeableConcept())
-        .appliesTo(singletonList(codeableConcept()))
+        .appliesTo(codeableConcept().asList())
         .age(range())
         .text("Best Test Text")
         .build();

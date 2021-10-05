@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.dstu2.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.Search;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.SearchMode;
@@ -10,6 +8,7 @@ import gov.va.api.health.dstu2.api.bundle.BundleLink.LinkRelation;
 import gov.va.api.health.dstu2.api.datatypes.CodeableConcept;
 import gov.va.api.health.dstu2.api.datatypes.Coding;
 import gov.va.api.health.dstu2.api.resources.Medication;
+import java.util.List;
 
 public class SwaggerMedication {
   /**
@@ -23,12 +22,12 @@ public class SwaggerMedication {
         .code(
             CodeableConcept.builder()
                 .coding(
-                    asList(
-                        Coding.builder()
-                            .system("https://www.nlm.nih.gov/research/umls/rxnorm/")
-                            .code("895994")
-                            .display("120 Fluticasone propionate .044 MG/ACTUAT Inhaler")
-                            .build()))
+                    Coding.builder()
+                        .system("https://www.nlm.nih.gov/research/umls/rxnorm/")
+                        .code("895994")
+                        .display("120 Fluticasone propionate .044 MG/ACTUAT Inhaler")
+                        .build()
+                        .asList())
                 .text("120 ACTUAT Fluticasone propionate .044 MG/ACTUAT Inhaler")
                 .build())
         .product(
@@ -49,7 +48,7 @@ public class SwaggerMedication {
         .type(BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(LinkRelation.self)
                     .url(
@@ -66,39 +65,13 @@ public class SwaggerMedication {
                         "https://sandbox-api.va.gov/services/argonaut/v0/Medication?patient=1017283148V813263&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Medication.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/argonaut/v0/Medication/f4163f35-1565-552b-a1b9-a2f8870e6f4a")
-                    .resource(
-                        Medication.builder()
-                            .id("f4163f35-1565-552b-a1b9-a2f8870e6f4a")
-                            .code(
-                                CodeableConcept.builder()
-                                    .coding(
-                                        asList(
-                                            Coding.builder()
-                                                .system(
-                                                    "https://www.nlm.nih.gov/research/umls/rxnorm/")
-                                                .code("895994")
-                                                .display(
-                                                    "120 Fluticasone propionate "
-                                                        + ".044 MG/ACTUAT Inhaler")
-                                                .build()))
-                                    .text(
-                                        "120 ACTUAT Fluticasone propionate .044 MG/ACTUAT Inhaler")
-                                    .build())
-                            .product(
-                                Medication.Product.builder()
-                                    .id("4024655")
-                                    .form(
-                                        CodeableConcept.builder()
-                                            .text("1 dose(s) 1 time(s) per 1 days")
-                                            .build())
-                                    .build())
-                            .build())
-                    .search(Search.builder().mode(SearchMode.match).build())
-                    .build()))
+            Medication.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/argonaut/v0/Medication/f4163f35-1565-552b-a1b9-a2f8870e6f4a")
+                .resource(medication())
+                .search(Search.builder().mode(SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

@@ -1,13 +1,11 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Coverage;
 import gov.va.api.health.r4.api.resources.Coverage.CostToBeneficiary;
 import gov.va.api.health.r4.api.resources.Coverage.CoverageClass;
 import gov.va.api.health.r4.api.resources.Coverage.Exception;
 import gov.va.api.health.r4.api.resources.Coverage.Status;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -19,7 +17,7 @@ public class SampleCoverages {
     return CostToBeneficiary.builder()
         .type(codeableConcept())
         .valueMoney(money())
-        .exception(singletonList(exception()))
+        .exception(exception().asList())
         .build();
   }
 
@@ -27,7 +25,7 @@ public class SampleCoverages {
     return CostToBeneficiary.builder()
         .type(codeableConcept())
         .valueQuantity(simpleQuantity())
-        .exception(singletonList(exception()))
+        .exception(exception().asList())
         .build();
   }
 
@@ -46,11 +44,10 @@ public class SampleCoverages {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.active)
         .type(codeableConcept())
         .policyHolder(reference())
@@ -60,13 +57,13 @@ public class SampleCoverages {
         .dependent("Hello dependent")
         .relationship(codeableConcept())
         .period(period())
-        .payor(singletonList(reference()))
-        .coverageClass(singletonList(coverageClass()))
+        .payor(reference().asList())
+        .coverageClass(coverageClass().asList())
         .order(1)
         .network("Hello network")
-        .costToBeneficiary(singletonList(costToBeneficiaryWithValueMoney()))
+        .costToBeneficiary(costToBeneficiaryWithValueMoney().asList())
         .subrogation(true)
-        .contract(singletonList(reference()))
+        .contract(reference().asList())
         .build();
   }
 
@@ -77,11 +74,10 @@ public class SampleCoverages {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.active)
         .type(codeableConcept())
         .policyHolder(reference())
@@ -91,13 +87,13 @@ public class SampleCoverages {
         .dependent("Hello dependent")
         .relationship(codeableConcept())
         .period(period())
-        .payor(singletonList(reference()))
-        .coverageClass(singletonList(coverageClass()))
+        .payor(reference().asList())
+        .coverageClass(coverageClass().asList())
         .order(1)
         .network("Hello network")
-        .costToBeneficiary(singletonList(costToBeneficiaryWithValueQuantity()))
+        .costToBeneficiary(costToBeneficiaryWithValueQuantity().asList())
         .subrogation(true)
-        .contract(singletonList(reference()))
+        .contract(reference().asList())
         .build();
   }
 

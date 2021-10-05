@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
@@ -9,6 +7,7 @@ import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Device;
 import gov.va.api.health.r4.api.resources.Device.DeviceNameType;
+import java.util.List;
 
 public class SwaggerDevice {
   /**
@@ -33,16 +32,16 @@ public class SwaggerDevice {
         .type(
             CodeableConcept.builder()
                 .coding(
-                    asList(
-                        Coding.builder()
-                            .system("http://snomed.info/sct")
-                            .code("53350007")
-                            .display("Prosthesis, device (physical object)")
-                            .build()))
+                    Coding.builder()
+                        .system("http://snomed.info/sct")
+                        .code("53350007")
+                        .display("Prosthesis, device (physical object)")
+                        .build()
+                        .asList())
                 .build())
         .manufacturer("BOSTON SCIENTIFIC")
         .deviceName(
-            asList(
+            List.of(
                 Device.DeviceName.builder().name("L331").type(DeviceNameType.model_name).build(),
                 Device.DeviceName.builder()
                     .name("PACEMAKER")
@@ -63,7 +62,7 @@ public class SwaggerDevice {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -80,12 +79,12 @@ public class SwaggerDevice {
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/Device?patient=2000163&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Device.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/Device/I2-526QWVIAZHOZHCMERY7CQDV7UEAYPJXR4SASZH2FJNN3OUGOZ3QA0000")
-                    .resource(device())
-                    .build()))
+            Device.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/Device/I2-526QWVIAZHOZHCMERY7CQDV7UEAYPJXR4SASZH2FJNN3OUGOZ3QA0000")
+                .resource(device())
+                .build()
+                .asList())
         .build();
   }
 }

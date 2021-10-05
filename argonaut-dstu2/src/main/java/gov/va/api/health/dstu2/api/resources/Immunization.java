@@ -20,6 +20,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ExactlyOneOf;
 import gov.va.api.health.validation.api.ExactlyOneOfs;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -51,7 +52,7 @@ import lombok.NoArgsConstructor;
   @ExactlyOneOf(fields = {"status", "_status"}),
   @ExactlyOneOf(fields = {"reported", "_reported"})
 })
-public class Immunization implements Resource {
+public class Immunization implements AsList<Immunization>, Resource {
   @NotBlank @Builder.Default String resourceType = "Immunization";
 
   @Pattern(regexp = Fhir.ID)
@@ -122,7 +123,7 @@ public class Immunization implements Resource {
       example =
           "${dstu2.immunizationBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerImmunization#immunizationBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -156,7 +157,7 @@ public class Immunization implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Immunization.Entry.EntryBuilder.class)
   @Schema(name = "ImmunizationEntry")
-  public static class Entry extends AbstractEntry<Immunization> {
+  public static class Entry extends AbstractEntry<Immunization> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -177,7 +178,7 @@ public class Immunization implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Explanation implements BackboneElement {
+  public static class Explanation implements AsList<Explanation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -193,7 +194,7 @@ public class Immunization implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ImmunizationReaction")
-  public static class Reaction implements BackboneElement {
+  public static class Reaction implements AsList<Reaction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -216,7 +217,7 @@ public class Immunization implements Resource {
     @ExactlyOneOf(fields = {"targetDisease", "_targetDisease"}),
     @ExactlyOneOf(fields = {"doseStatus", "_doseStatus"})
   })
-  public static class VaccinationProtocol implements BackboneElement {
+  public static class VaccinationProtocol implements AsList<VaccinationProtocol>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

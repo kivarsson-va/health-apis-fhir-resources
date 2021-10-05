@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.elements;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.datatypes.Address;
 import gov.va.api.health.stu3.api.datatypes.Annotation;
@@ -74,7 +75,7 @@ import lombok.NoArgsConstructor;
       "valueMeta"
     },
     message = "Only one value type may be specified")
-public class Extension implements Element {
+public class Extension implements AsList<Extension>, Element {
 
   @Pattern(regexp = Fhir.ID)
   String id;

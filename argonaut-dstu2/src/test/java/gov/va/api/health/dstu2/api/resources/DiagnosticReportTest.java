@@ -8,7 +8,6 @@ import gov.va.api.health.dstu2.api.bundle.BundleLink;
 import gov.va.api.health.dstu2.api.samples.SampleDiagnosticReports;
 import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -23,15 +22,15 @@ public class DiagnosticReportTest {
   public void bundlerCanBuildDiagnosticReportBundles() {
     DiagnosticReport.Entry entry =
         DiagnosticReport.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://diagnosticreports.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://diagnosticreport/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://diagnosticreport/1"))
+                    .build()
+                    .asList())
             .resource(data.diagnosticReport())
             .search(data.search())
             .request(data.request())
@@ -40,13 +39,13 @@ public class DiagnosticReportTest {
 
     DiagnosticReport.Bundle bundle =
         DiagnosticReport.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://diagnosticreport.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://diagnosticreport.com/2"))
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
 

@@ -2,6 +2,7 @@ package gov.va.api.health.r4.api.resources;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
@@ -32,7 +33,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/R4/capabilitystatement.html")
-public class CapabilityStatement implements Resource {
+public class CapabilityStatement implements AsList<CapabilityStatement>, Resource {
   @NotBlank @Builder.Default String resourceType = "CapabilityStatement";
 
   @Pattern(regexp = Fhir.ID)
@@ -226,7 +227,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class CapabilityResource implements BackboneElement {
+  public static class CapabilityResource implements AsList<CapabilityResource>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -277,7 +278,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Document implements BackboneElement {
+  public static class Document implements AsList<Document>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -299,7 +300,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Implementation implements BackboneElement {
+  public static class Implementation implements AsList<Implementation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -321,7 +322,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Messaging implements BackboneElement {
+  public static class Messaging implements AsList<Messaging>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -344,7 +345,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class MessagingEndpoint implements BackboneElement {
+  public static class MessagingEndpoint implements AsList<MessagingEndpoint>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -363,7 +364,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Operation implements BackboneElement {
+  public static class Operation implements AsList<Operation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -387,7 +388,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class ResourceInteraction implements BackboneElement {
+  public static class ResourceInteraction implements AsList<ResourceInteraction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -405,7 +406,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Rest implements BackboneElement {
+  public static class Rest implements AsList<Rest>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -432,7 +433,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class RestInteraction implements BackboneElement {
+  public static class RestInteraction implements AsList<RestInteraction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -450,7 +451,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class SearchParam implements BackboneElement {
+  public static class SearchParam implements AsList<SearchParam>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -475,7 +476,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Security implements BackboneElement {
+  public static class Security implements AsList<Security>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -493,7 +494,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Software implements BackboneElement {
+  public static class Software implements AsList<Software>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -516,7 +517,7 @@ public class CapabilityStatement implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class SupportedMessage implements BackboneElement {
+  public static class SupportedMessage implements AsList<SupportedMessage>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

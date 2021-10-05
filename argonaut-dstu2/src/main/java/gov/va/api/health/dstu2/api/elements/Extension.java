@@ -13,6 +13,7 @@ import gov.va.api.health.dstu2.api.datatypes.Period;
 import gov.va.api.health.dstu2.api.datatypes.Quantity;
 import gov.va.api.health.dstu2.api.datatypes.Range;
 import gov.va.api.health.dstu2.api.datatypes.Ratio;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
@@ -58,7 +59,7 @@ import lombok.NoArgsConstructor;
       "valueReference"
     },
     message = "Only one value type may be specified")
-public class Extension implements Element {
+public class Extension implements AsList<Extension>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

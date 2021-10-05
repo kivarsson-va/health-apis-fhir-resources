@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Claim;
 import gov.va.api.health.r4.api.resources.Claim.Accident;
 import gov.va.api.health.r4.api.resources.Claim.CareTeam;
@@ -17,7 +15,7 @@ import gov.va.api.health.r4.api.resources.Claim.Status;
 import gov.va.api.health.r4.api.resources.Claim.SupportingInfo;
 import gov.va.api.health.r4.api.resources.Claim.Use;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -57,11 +55,10 @@ public class SampleClaims {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.active)
         .type(codeableConcept())
         .subType(codeableConcept())
@@ -74,15 +71,15 @@ public class SampleClaims {
         .provider(reference())
         .priority(codeableConcept())
         .fundsReserve(codeableConcept())
-        .related(singletonList(related()))
+        .related(related().asList())
         .prescription(reference())
         .originalPrescription(reference())
         .payee(payee())
         .referral(reference())
         .facility(reference())
-        .careTeam(singletonList(careTeam()))
+        .careTeam(careTeam().asList())
         .supportingInfo(
-            Arrays.asList(
+            List.of(
                 supportingInfo(),
                 supportingInfoWithTimingDate(),
                 supportingInfoWithTimingDateAndValueAttachment(),
@@ -96,12 +93,12 @@ public class SampleClaims {
                 supportingInfoWithTimingPeriodAndValueReference(),
                 supportingInfoWithTimingPeriodAndValueString(),
                 supportingInfoWithTimingPeriodAndValueBoolean()))
-        .diagnosis(Arrays.asList(diagnosisWithCodeableConcept(), diagnosisWithReference()))
-        .procedure(Arrays.asList(procedureWithCodeableConcept(), procedureWithReference()))
-        .insurance(singletonList(insurance()))
+        .diagnosis(List.of(diagnosisWithCodeableConcept(), diagnosisWithReference()))
+        .procedure(List.of(procedureWithCodeableConcept(), procedureWithReference()))
+        .insurance(insurance().asList())
         .accident(accidentWithLocationAddress())
         .item(
-            Arrays.asList(
+            List.of(
                 item(),
                 itemWithServicedDateAndLocationAddress(),
                 itemWithServicedDateAndLocationCodeableConcept(),
@@ -119,14 +116,14 @@ public class SampleClaims {
         .revenue(codeableConcept())
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("1.0"))
         .net(money())
-        .udi(singletonList(reference()))
-        .subDetail(singletonList(subDetail()))
+        .udi(reference().asList())
+        .subDetail(subDetail().asList())
         .build();
   }
 
@@ -144,7 +141,7 @@ public class SampleClaims {
   private Diagnosis incompleteDiagnosis() {
     return Diagnosis.builder()
         .sequence(1)
-        .type(singletonList(codeableConcept()))
+        .type(codeableConcept().asList())
         .onAdmission(codeableConcept())
         .packageCode(codeableConcept())
         .build();
@@ -156,9 +153,9 @@ public class SampleClaims {
   private Procedure incompleteProcedure() {
     return Procedure.builder()
         .sequence(1)
-        .type(singletonList(codeableConcept()))
+        .type(codeableConcept().asList())
         .date("2017-01-01T00:00:00.000Z")
-        .udi(singletonList(reference()))
+        .udi(reference().asList())
         .build();
   }
 
@@ -169,7 +166,7 @@ public class SampleClaims {
         .identifier(identifier())
         .coverage(reference())
         .businessArrangement("business arrangement")
-        .preAuthRef(singletonList("pre auth ref"))
+        .preAuthRef(List.of("pre auth ref"))
         .claimResponse(reference())
         .build();
   }
@@ -180,24 +177,24 @@ public class SampleClaims {
   public Item item() {
     return Item.builder()
         .sequence(1)
-        .careTeamSequence(singletonList(1))
-        .diagnosisSequence(singletonList(1))
-        .procedureSequence(singletonList(1))
-        .informationSequence(singletonList(1))
+        .careTeamSequence(List.of(1))
+        .diagnosisSequence(List.of(1))
+        .procedureSequence(List.of(1))
+        .informationSequence(List.of(1))
         .revenue(codeableConcept())
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("1.0"))
         .net(money())
-        .udi(singletonList(reference()))
+        .udi(reference().asList())
         .bodySite(codeableConcept())
-        .subSite(singletonList(codeableConcept()))
-        .encounter(singletonList(reference()))
-        .detail(singletonList(detail()))
+        .subSite(codeableConcept().asList())
+        .encounter(reference().asList())
+        .detail(detail().asList())
         .build();
   }
 
@@ -251,13 +248,13 @@ public class SampleClaims {
         .revenue(codeableConcept())
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("1.0"))
         .net(money())
-        .udi(singletonList(reference()))
+        .udi(reference().asList())
         .build();
   }
 

@@ -2,8 +2,8 @@ package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
 
-import gov.va.api.health.r4.api.ZeroOrOneOfVerifier;
 import gov.va.api.health.r4.api.samples.SampleCoverageEligibilityRequests;
+import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
 import org.junit.jupiter.api.Test;
 
 public class CoverageEligibilityRequestTest {

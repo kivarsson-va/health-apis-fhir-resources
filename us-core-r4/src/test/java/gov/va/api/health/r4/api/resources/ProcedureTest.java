@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -21,28 +20,28 @@ public class ProcedureTest {
         Procedure.Bundle.builder()
             .type(BundleType.searchset)
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url("http://procedure.com/bundle")
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("http://procedure.com/bundle")
+                    .build()
+                    .asList())
             .entry(
-                singletonList(
-                    Procedure.Entry.builder()
-                        .extension(singletonList(samples.extension()))
-                        .fullUrl("http://procedure.com")
-                        .id("1234")
-                        .link(
-                            singletonList(
-                                BundleLink.builder()
-                                    .relation(BundleLink.LinkRelation.self)
-                                    .url("http://procedure.com/entry")
-                                    .build()))
-                        .resource(samples.procedure())
-                        .search(samples.search())
-                        .request(samples.request())
-                        .response(samples.response())
-                        .build()))
+                Procedure.Entry.builder()
+                    .extension(samples.extension().asList())
+                    .fullUrl("http://procedure.com")
+                    .id("1234")
+                    .link(
+                        BundleLink.builder()
+                            .relation(BundleLink.LinkRelation.self)
+                            .url("http://procedure.com/entry")
+                            .build()
+                            .asList())
+                    .resource(samples.procedure())
+                    .search(samples.search())
+                    .request(samples.request())
+                    .response(samples.response())
+                    .build()
+                    .asList())
             .build();
     assertRoundTrip(bundle);
   }

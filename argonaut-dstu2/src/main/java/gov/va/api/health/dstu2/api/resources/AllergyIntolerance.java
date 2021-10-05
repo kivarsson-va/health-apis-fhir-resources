@@ -19,6 +19,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -47,7 +48,7 @@ import lombok.NoArgsConstructor;
     example =
         "${dstu2.allergyIntolerance:gov.va.api.health.dstu2.api.swaggerexamples"
             + ".SwaggerAllergyIntolerance#allergyIntolerance}")
-public class AllergyIntolerance implements Resource {
+public class AllergyIntolerance implements AsList<AllergyIntolerance>, Resource {
   @NotBlank @Builder.Default String resourceType = "AllergyIntolerance";
 
   @Pattern(regexp = Fhir.ID)
@@ -145,7 +146,7 @@ public class AllergyIntolerance implements Resource {
       example =
           "${dstu2.allergyIntoleranceBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerAllergyIntolerance#allergyIntoleranceBundle}")
-  public static class Bundle extends AbstractBundle<AllergyIntolerance.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -179,7 +180,7 @@ public class AllergyIntolerance implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = AllergyIntolerance.Entry.EntryBuilder.class)
   @Schema(name = "AllergyIntoleranceEntry")
-  public static class Entry extends AbstractEntry<AllergyIntolerance> {
+  public static class Entry extends AbstractEntry<AllergyIntolerance> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -201,7 +202,7 @@ public class AllergyIntolerance implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "AllergyIntoleranceReaction")
-  public static class Reaction implements BackboneElement {
+  public static class Reaction implements AsList<Reaction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

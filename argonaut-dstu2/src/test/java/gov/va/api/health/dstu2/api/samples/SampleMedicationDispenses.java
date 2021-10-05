@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.MedicationDispense;
 import gov.va.api.health.dstu2.api.resources.MedicationDispense.DosageInstruction;
 import gov.va.api.health.dstu2.api.resources.MedicationDispense.Status;
@@ -16,8 +14,8 @@ public class SampleMedicationDispenses {
   public DosageInstruction dosageInstruction() {
     return DosageInstruction.builder()
         .id("123")
-        .modifierExtension(singletonList(extension()))
-        .extension(singletonList(extension()))
+        .modifierExtension(extension().asList())
+        .extension(extension().asList())
         .text("Take orally, morning and night")
         .additionalInstructions(codeableConcept())
         .timing(timing())
@@ -38,14 +36,14 @@ public class SampleMedicationDispenses {
         .implicitRules("http://HelloRules.com")
         .language("English")
         .contained(simpleResourceList())
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .identifier(identifier())
         .text(narrative())
         .status(Status.completed)
         .patient(reference())
         .dispenser(reference())
-        .authorizingPrescription(singletonList(reference()))
+        .authorizingPrescription(reference().asList())
         .type(codeableConcept())
         .quantity(simpleQuantity())
         .daysSupply(simpleQuantity())
@@ -53,9 +51,9 @@ public class SampleMedicationDispenses {
         .whenPrepared("2018-01-02T04:00:00Z")
         .whenHandedOver("2018-01-04T04:00:00Z")
         .destination(reference())
-        .receiver(singletonList(reference()))
+        .receiver(reference().asList())
         .note("Do not feed to dogs")
-        .dosageInstruction(singletonList(dosageInstruction()))
+        .dosageInstruction(dosageInstruction().asList())
         .substitution(substitution())
         .build();
   }
@@ -63,11 +61,11 @@ public class SampleMedicationDispenses {
   public Substitution substitution() {
     return Substitution.builder()
         .id("456")
-        .modifierExtension(singletonList(extension()))
-        .extension(singletonList(extension()))
+        .modifierExtension(extension().asList())
+        .extension(extension().asList())
         .type(codeableConcept())
-        .reason(singletonList(codeableConcept()))
-        .responsibleParty(singletonList(reference()))
+        .reason(codeableConcept().asList())
+        .responsibleParty(reference().asList())
         .build();
   }
 }

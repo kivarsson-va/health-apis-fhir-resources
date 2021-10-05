@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry;
 import gov.va.api.health.dstu2.api.datatypes.Address;
 import gov.va.api.health.dstu2.api.datatypes.Address.AddressType;
@@ -39,8 +37,6 @@ import gov.va.api.health.dstu2.api.elements.Reference;
 import gov.va.api.health.dstu2.api.resources.OperationOutcome.Issue;
 import gov.va.api.health.dstu2.api.resources.OperationOutcome.Issue.IssueSeverity;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.NoArgsConstructor;
@@ -51,11 +47,11 @@ public final class SampleDataTypes {
   public Address address() {
     return Address.builder()
         .id("1234")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .use(AddressUse.home)
         .type(AddressType.both)
         .text("Hello")
-        .line(Arrays.asList("hello", "goodbye"))
+        .line(List.of("hello", "goodbye"))
         .city("Hello City")
         .district("Hello District")
         .state("Hello State")
@@ -72,7 +68,7 @@ public final class SampleDataTypes {
   public Annotation annotation() {
     return Annotation.builder()
         .id("8888")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .authorString("Test Author")
         .time("2015-04-15T04:00:00Z")
         .text("annotation test text")
@@ -97,7 +93,7 @@ public final class SampleDataTypes {
   }
 
   public List<CodeableConcept> codeableConceptList() {
-    return singletonList(codeableConcept());
+    return codeableConcept().asList();
   }
 
   public Coding coding() {
@@ -111,7 +107,7 @@ public final class SampleDataTypes {
   }
 
   public List<Coding> codingList() {
-    return Collections.singletonList(coding());
+    return coding().asList();
   }
 
   public ContactPoint contactPoint() {
@@ -125,11 +121,11 @@ public final class SampleDataTypes {
   }
 
   public List<ContactPoint> contactPointList() {
-    return singletonList(contactPoint());
+    return contactPoint().asList();
   }
 
   public CodeableConcept details() {
-    return CodeableConcept.builder().coding(singletonList(coding())).text("HelloText").build();
+    return CodeableConcept.builder().coding(coding().asList()).text("HelloText").build();
   }
 
   public Duration duration() {
@@ -146,7 +142,7 @@ public final class SampleDataTypes {
   }
 
   public List<Extension> extensionList() {
-    return singletonList(extension());
+    return extension().asList();
   }
 
   public Extension extensionWithQuantity() {
@@ -180,10 +176,10 @@ public final class SampleDataTypes {
     return HumanName.builder()
         .use(NameUse.anonymous)
         .text("HelloText")
-        .family(singletonList("HelloFamily"))
-        .given(singletonList("HelloGiven"))
-        .prefix(singletonList("HelloPrefix"))
-        .suffix(singletonList("HelloSuffix"))
+        .family(List.of("HelloFamily"))
+        .given(List.of("HelloGiven"))
+        .prefix(List.of("HelloPrefix"))
+        .suffix(List.of("HelloSuffix"))
         .period(period())
         .build();
   }
@@ -193,7 +189,7 @@ public final class SampleDataTypes {
         .id("5678")
         .use(IdentifierUse.official)
         .use(Identifier.IdentifierUse.official)
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .build();
   }
 
@@ -203,8 +199,8 @@ public final class SampleDataTypes {
         .code("HelloCode")
         .details(details())
         .diagnostics("HelloDiagnostics")
-        .location(singletonList("HelloLocation"))
-        .expression(singletonList("HelloExpression"))
+        .location(List.of("HelloLocation"))
+        .expression(List.of("HelloExpression"))
         .build();
   }
 
@@ -212,9 +208,9 @@ public final class SampleDataTypes {
     return Meta.builder()
         .versionId("1111")
         .lastUpdated("2000-01-01T00:00:00-00:00")
-        .profile(singletonList("http://HelloProfile.com"))
-        .security(singletonList(coding()))
-        .tag(singletonList(coding()))
+        .profile(List.of("http://HelloProfile.com"))
+        .security(coding().asList())
+        .tag(coding().asList())
         .build();
   }
 
@@ -225,8 +221,7 @@ public final class SampleDataTypes {
   public Period period() {
     return Period.builder()
         .id("5678")
-        .extension(
-            singletonList(Extension.builder().url("http://example.com").valueInteger(1).build()))
+        .extension(Extension.builder().url("http://example.com").valueInteger(1).build().asList())
         .start("2000-01-01T00:00:00-00:00")
         .end("2001-01-01T00:00:00-00:00")
         .build();
@@ -249,13 +244,13 @@ public final class SampleDataTypes {
   }
 
   public List<Reference> referenceList() {
-    return singletonList(reference());
+    return reference().asList();
   }
 
   public Repeat repeat() {
     return Repeat.builder()
         .id("2222")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .boundsQuantity(duration())
         .count(1)
         .duration(11.11)
@@ -273,8 +268,8 @@ public final class SampleDataTypes {
   public AbstractEntry.Request request() {
     return AbstractEntry.Request.builder()
         .id("request1")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .method(AbstractEntry.HttpVerb.GET)
         .url("http://example.com")
         .ifNoneMatch("ok")
@@ -296,8 +291,8 @@ public final class SampleDataTypes {
   public AbstractEntry.Response response() {
     return AbstractEntry.Response.builder()
         .id("request1")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .status("single")
         .location("http://example.com")
         .etag("you're it")
@@ -321,8 +316,8 @@ public final class SampleDataTypes {
     return AbstractEntry.Search.builder()
         .id("s1")
         .mode(AbstractEntry.SearchMode.match)
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .rank(new BigDecimal(0.5))
         .build();
   }
@@ -347,7 +342,7 @@ public final class SampleDataTypes {
   }
 
   public List<SimpleResource> simpleResourceList() {
-    return singletonList(resource());
+    return resource().asList();
   }
 
   public Timing timing() {
@@ -356,7 +351,7 @@ public final class SampleDataTypes {
     events.add(event);
     return Timing.builder()
         .id("2222")
-        .extension(singletonList(extension()))
+        .extension(extension().asList())
         .event(events)
         .repeat(repeat())
         .code(codeableConcept())

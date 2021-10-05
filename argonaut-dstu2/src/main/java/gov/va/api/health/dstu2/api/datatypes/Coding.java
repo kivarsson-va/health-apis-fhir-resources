@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.trimToNull;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.elements.Extension;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.fhir.api.HasDisplay;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/DSTU2/datatypes.html#Coding")
-public class Coding implements HasDisplay {
+public class Coding implements AsList<Coding>, HasDisplay {
   @Pattern(regexp = Fhir.ID)
   String id;
 

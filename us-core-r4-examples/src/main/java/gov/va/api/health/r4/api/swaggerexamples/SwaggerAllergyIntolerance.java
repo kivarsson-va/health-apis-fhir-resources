@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -10,6 +8,7 @@ import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.AllergyIntolerance;
+import java.util.List;
 
 public final class SwaggerAllergyIntolerance {
   /** Example AllergyIntolerance. */
@@ -25,47 +24,46 @@ public final class SwaggerAllergyIntolerance {
         .clinicalStatus(
             CodeableConcept.builder()
                 .coding(
-                    asList(
-                        Coding.builder()
-                            .system(
-                                "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical")
-                            .code("active")
-                            .build()))
+                    Coding.builder()
+                        .system("http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical")
+                        .code("active")
+                        .build()
+                        .asList())
                 .build())
         .verificationStatus(
             CodeableConcept.builder()
                 .coding(
-                    asList(
-                        Coding.builder()
-                            .system(
-                                "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification")
-                            .code("confirmed")
-                            .build()))
+                    Coding.builder()
+                        .system(
+                            "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification")
+                        .code("confirmed")
+                        .build()
+                        .asList())
                 .build())
         .type(AllergyIntolerance.Type.allergy)
-        .category(asList(AllergyIntolerance.Category.food))
+        .category(List.of(AllergyIntolerance.Category.food))
         .note(
-            asList(
-                Annotation.builder()
-                    .time("1995-04-30T01:15:52Z")
-                    .text("Allergy to peanuts")
-                    .build()))
+            Annotation.builder()
+                .time("1995-04-30T01:15:52Z")
+                .text("Allergy to peanuts")
+                .build()
+                .asList())
         .reaction(
-            asList(
-                AllergyIntolerance.Reaction.builder()
-                    .manifestation(
-                        asList(
-                            CodeableConcept.builder()
-                                .coding(
-                                    asList(
-                                        Coding.builder()
-                                            .display("Inflammation of Skin")
-                                            .system("urn:oid:2.16.840.1.113883.6.233")
-                                            .code("2000001")
-                                            .build()))
-                                .text("Inflammation of Skin")
-                                .build()))
-                    .build()))
+            AllergyIntolerance.Reaction.builder()
+                .manifestation(
+                    CodeableConcept.builder()
+                        .coding(
+                            Coding.builder()
+                                .display("Inflammation of Skin")
+                                .system("urn:oid:2.16.840.1.113883.6.233")
+                                .code("2000001")
+                                .build()
+                                .asList())
+                        .text("Inflammation of Skin")
+                        .build()
+                        .asList())
+                .build()
+                .asList())
         .build();
   }
 
@@ -75,7 +73,7 @@ public final class SwaggerAllergyIntolerance {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -92,14 +90,13 @@ public final class SwaggerAllergyIntolerance {
                         "https://sandbox-api.va.gov/services/r4/v0/AllergyIntolerance?patient=1017283148V813263&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                AllergyIntolerance.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/r4/v0/AllergyIntolerance/I2-6F9A021B07D553C88CCEB49A694D4AD9")
-                    .resource(allergyIntolerance())
-                    .search(
-                        AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
-                    .build()))
+            AllergyIntolerance.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/r4/v0/AllergyIntolerance/I2-6F9A021B07D553C88CCEB49A694D4AD9")
+                .resource(allergyIntolerance())
+                .search(AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

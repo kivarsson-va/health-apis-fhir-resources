@@ -25,6 +25,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ExactlyOneOf;
 import gov.va.api.health.validation.api.ExactlyOneOfs;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
@@ -65,7 +66,7 @@ import lombok.NoArgsConstructor;
       fields = {"prescriber", "_prescriber"},
       message = "Exactly one prescriber field must be specified"),
 })
-public class MedicationOrder implements Resource {
+public class MedicationOrder implements AsList<MedicationOrder>, Resource {
   @NotBlank @Builder.Default String resourceType = "MedicationOrder";
 
   @Pattern(regexp = Fhir.ID)
@@ -131,7 +132,7 @@ public class MedicationOrder implements Resource {
       example =
           "${dstu2.medicationOrderBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerMedicationOrder#medicationOrderBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -167,7 +168,7 @@ public class MedicationOrder implements Resource {
   @ZeroOrOneOf(
       fields = {"medicationCodeableConcept", "medicationReference"},
       message = "Only one medication field may be specified")
-  public static class DispenseRequest implements BackboneElement {
+  public static class DispenseRequest implements AsList<DispenseRequest>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -204,7 +205,7 @@ public class MedicationOrder implements Resource {
         fields = {"rateRatio", "rateRange"},
         message = "Only one rate field may be specified")
   })
-  public static class DosageInstruction implements BackboneElement {
+  public static class DosageInstruction implements AsList<DosageInstruction>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -233,7 +234,7 @@ public class MedicationOrder implements Resource {
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
   @JsonDeserialize(builder = MedicationOrder.Entry.EntryBuilder.class)
   @Schema(name = "MedicationOrderEntry")
-  public static class Entry extends AbstractEntry<MedicationOrder> {
+  public static class Entry extends AbstractEntry<MedicationOrder> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -254,7 +255,7 @@ public class MedicationOrder implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Substitution implements BackboneElement {
+  public static class Substitution implements AsList<Substitution>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

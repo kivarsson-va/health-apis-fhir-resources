@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -24,28 +23,28 @@ public class MedicationRequestTest {
         MedicationRequest.Bundle.builder()
             .type(AbstractBundle.BundleType.searchset)
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url("http://medicationrequest.com/bundle")
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://medicationrequest.com/bundle")
+                    .build()
+                    .asList())
             .entry(
-                singletonList(
-                    MedicationRequest.Entry.builder()
-                        .extension(singletonList(samples.extension()))
-                        .fullUrl("http://medicationrequest.com")
-                        .id("1234")
-                        .link(
-                            singletonList(
-                                BundleLink.builder()
-                                    .relation(BundleLink.LinkRelation.self)
-                                    .url("http://medicationrequest.com/entry")
-                                    .build()))
-                        .resource(samples.medicationRequest())
-                        .search(samples.search())
-                        .request(samples.request())
-                        .response(samples.response())
-                        .build()))
+                MedicationRequest.Entry.builder()
+                    .extension(samples.extension().asList())
+                    .fullUrl("http://medicationrequest.com")
+                    .id("1234")
+                    .link(
+                        BundleLink.builder()
+                            .relation(BundleLink.LinkRelation.self)
+                            .url("http://medicationrequest.com/entry")
+                            .build()
+                            .asList())
+                    .resource(samples.medicationRequest())
+                    .search(samples.search())
+                    .request(samples.request())
+                    .response(samples.response())
+                    .build()
+                    .asList())
             .build();
     assertRoundTrip(bundle);
   }

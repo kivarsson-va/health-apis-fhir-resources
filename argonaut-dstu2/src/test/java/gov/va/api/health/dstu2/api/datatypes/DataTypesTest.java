@@ -1,13 +1,12 @@
 package gov.va.api.health.dstu2.api.datatypes;
 
 import static gov.va.api.health.dstu2.api.RoundTrip.assertRoundTrip;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.dstu2.api.resources.OperationOutcome;
 import gov.va.api.health.dstu2.api.samples.SampleDataTypes;
 import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class DataTypesTest {
@@ -43,11 +42,10 @@ public class DataTypesTest {
             .implicitRules("http://HelloRules.com")
             .language("Hello Language")
             .text(data.narrative())
-            .contained(singletonList(data.resource()))
+            .contained(data.resource().asList())
             .modifierExtension(
-                Arrays.asList(
-                    data.extension(), data.extensionWithQuantity(), data.extensionWithRatio()))
-            .issue(singletonList(data.issue()))
+                List.of(data.extension(), data.extensionWithQuantity(), data.extensionWithRatio()))
+            .issue(data.issue().asList())
             .build());
   }
 }

@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.bundle.AbstractBundle;
 import gov.va.api.health.stu3.api.bundle.AbstractEntry;
@@ -42,7 +43,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description =
         "http://www.fhir.org/guides/argonaut/pd/StructureDefinition-argo-organization.html")
-public class Organization implements DomainResource {
+public class Organization implements AsList<Organization>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Organization";
 
   @Pattern(regexp = Fhir.ID)
@@ -93,7 +94,7 @@ public class Organization implements DomainResource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Organization.Bundle.BundleBuilder.class)
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -122,33 +123,11 @@ public class Organization implements DomainResource {
   }
 
   @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = Organization.Entry.EntryBuilder.class)
-  @Schema(name = "OrganizationEntry")
-  public static class Entry extends AbstractEntry<Organization> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Organization resource,
-        @Valid Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Contact implements BackboneElement {
+  public static class Contact implements AsList<Contact>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -163,5 +142,27 @@ public class Organization implements DomainResource {
     @Valid List<ContactPoint> telecom;
 
     @Valid Address address;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @JsonDeserialize(builder = Organization.Entry.EntryBuilder.class)
+  @Schema(name = "OrganizationEntry")
+  public static class Entry extends AbstractEntry<Organization> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Organization resource,
+        @Valid Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
   }
 }

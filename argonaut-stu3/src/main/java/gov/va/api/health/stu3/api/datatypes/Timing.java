@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.elements.Element;
 import gov.va.api.health.stu3.api.elements.Extension;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/STU3/datatypes.html#Timing")
-public class Timing implements Element {
+public class Timing implements AsList<Timing>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 
@@ -78,7 +79,7 @@ public class Timing implements Element {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @ZeroOrOneOf(fields = {"boundsQuantity", "boundsRange", "boundsPeriod"})
-  public static class Repeat implements Element {
+  public static class Repeat implements AsList<Repeat>, Element {
     @Pattern(regexp = Fhir.ID)
     String id;
 

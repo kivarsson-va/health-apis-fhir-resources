@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
@@ -60,42 +58,42 @@ public class SwaggerInsurancePlan {
                             .build())
                     .build()))
         .identifier(
-            List.of(
-                Identifier.builder()
-                    .value("FEP")
-                    .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.28002")
-                    .build()))
+            Identifier.builder()
+                .value("FEP")
+                .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.28002")
+                .build()
+                .asList())
         .type(
-            List.of(
-                CodeableConcept.builder()
-                    .coding(
-                        List.of(
-                            Coding.builder()
-                                .code("CI")
-                                .display("COMMERCIAL")
-                                .system("2.16.840.1.113883.3.8901.3.1.355803.8015")
-                                .build()))
-                    .text("COMMERCIAL")
-                    .build()))
+            CodeableConcept.builder()
+                .coding(
+                    Coding.builder()
+                        .code("CI")
+                        .display("COMMERCIAL")
+                        .system("2.16.840.1.113883.3.8901.3.1.355803.8015")
+                        .build()
+                        .asList())
+                .text("COMMERCIAL")
+                .build()
+                .asList())
         .ownedBy(
             Reference.builder()
                 .reference(
                     "https://sandbox-api.va.gov/services/insurance-fhir/v0/site/500/r4/Organization/I3-ZJURFG76GQN5LW7WP56TXADUFM000000")
                 .build())
         .plan(
-            List.of(
-                InsurancePlan.Plan.builder()
-                    .type(
-                        CodeableConcept.builder()
-                            .coding(
-                                List.of(
-                                    Coding.builder()
-                                        .code("40")
-                                        .display("PREFERRED PROVIDER ORGANIZATION (PPO)")
-                                        .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.8009")
-                                        .build()))
-                            .build())
-                    .build()))
+            InsurancePlan.Plan.builder()
+                .type(
+                    CodeableConcept.builder()
+                        .coding(
+                            Coding.builder()
+                                .code("40")
+                                .display("PREFERRED PROVIDER ORGANIZATION (PPO)")
+                                .system("urn:oid:2.16.840.1.113883.3.8901.3.1.355803.8009")
+                                .build()
+                                .asList())
+                        .build())
+                .build()
+                .asList())
         .build();
   }
 
@@ -109,7 +107,7 @@ public class SwaggerInsurancePlan {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -126,12 +124,12 @@ public class SwaggerInsurancePlan {
                         "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan?_id=I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlXe&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                InsurancePlan.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan/I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlX")
-                    .resource(insurancePlan())
-                    .build()))
+            InsurancePlan.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/insurance-fhir/v0/r4/InsurancePlan/I3-SwwmASPmf4wfRwf8MDEq5HFVr1zZyKlX")
+                .resource(insurancePlan())
+                .build()
+                .asList())
         .build();
   }
 }

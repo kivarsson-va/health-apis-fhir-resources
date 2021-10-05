@@ -20,7 +20,7 @@ public class SampleQuestionnaires {
         .extension(List.of(extension(), extension()))
         .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
         .url("http://hl7.org/fhir/Questionnaire/3141")
-        .identifier(List.of(identifier()))
+        .identifier(identifier().asList())
         .version("3.14")
         .name("Cancer Quality Forum Questionnaire 2012")
         .title("Cancer Quality Forum Questionnaire 2012")
@@ -31,16 +31,16 @@ public class SampleQuestionnaires {
         .description("Sample Questionnaire Description")
         .date("2012-01")
         .publisher("abc")
-        .contact(List.of(contactDetail()))
+        .contact(contactDetail().asList())
         .description("description")
-        .useContext(List.of(usageContext()))
-        .jurisdiction(List.of(codeableConcept()))
+        .useContext(usageContext().asList())
+        .jurisdiction(codeableConcept().asList())
         .purpose("purpose")
         .copyright("copyright")
         .approvalDate("2012-01")
         .lastReviewDate("2012-01")
         .effectivePeriod(period())
-        .code(List.of(coding()))
+        .code(coding().asList())
         .item(
             List.of(
                 Questionnaire.Item.builder()
@@ -50,7 +50,7 @@ public class SampleQuestionnaires {
                         List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
                     .linkId("1")
                     .definition("definition")
-                    .code(List.of(coding()))
+                    .code(coding().asList())
                     .prefix("prefix")
                     .text("text")
                     .type(Questionnaire.QuestionnaireItemType.group)
@@ -61,83 +61,80 @@ public class SampleQuestionnaires {
                     .maxLength(2000)
                     .answerValueSet("answers")
                     .answerOption(
-                        List.of(
-                            Questionnaire.AnswerOption.builder()
-                                .valueString("x")
-                                .initialSelected(false)
-                                .build()))
-                    .initial(List.of(Questionnaire.Initial.builder().valueString("x").build()))
+                        Questionnaire.AnswerOption.builder()
+                            .valueString("x")
+                            .initialSelected(false)
+                            .build()
+                            .asList())
+                    .initial(Questionnaire.Initial.builder().valueString("x").build().asList())
                     .item(
-                        List.of(
-                            Questionnaire.Item.builder()
-                                .linkId("1.1")
-                                .code(List.of(coding()))
-                                .prefix("1")
-                                .type(Questionnaire.QuestionnaireItemType.choice)
-                                .answerValueSet("http://hl7.org/fhir/ValueSet/yesnodontknow")
-                                .item(
-                                    List.of(
-                                        Questionnaire.Item.builder()
-                                            .linkId("1.1.1")
-                                            .code(List.of(coding()))
-                                            .type(Questionnaire.QuestionnaireItemType.group)
-                                            .enableWhen(
-                                                List.of(
-                                                    Questionnaire.EnableWhen.builder()
-                                                        .question("1.1")
-                                                        .operator(
-                                                            Questionnaire.QuestionnaireItemOperator
-                                                                .equals)
-                                                        .answerCoding(coding())
-                                                        .build()))
-                                            .item(
-                                                List.of(
-                                                    Questionnaire.Item.builder()
-                                                        .linkId("1.1.1.1")
-                                                        .code(List.of(coding()))
-                                                        .prefix("1.1")
-                                                        .type(
-                                                            Questionnaire.QuestionnaireItemType
-                                                                .choice)
-                                                        .answerValueSet(
-                                                            "http://hl7.org/fhir/ValueSet/yesnodontknow")
-                                                        .item(
-                                                            List.of(
-                                                                Questionnaire.Item.builder()
-                                                                    .linkId("1.1.1.1.1")
-                                                                    .code(List.of(coding()))
-                                                                    .prefix("1.1.1")
-                                                                    .type(
-                                                                        Questionnaire
-                                                                            .QuestionnaireItemType
-                                                                            .choice)
-                                                                    .answerValueSet(
-                                                                        "http://hl7.org/fhir/ValueSet/yesnodontknow")
-                                                                    .build(),
-                                                                Questionnaire.Item.builder()
-                                                                    .linkId("1.1.1.1.2")
-                                                                    .code(List.of(coding()))
-                                                                    .prefix("1.1.2")
-                                                                    .type(
-                                                                        Questionnaire
-                                                                            .QuestionnaireItemType
-                                                                            .choice)
-                                                                    .answerValueSet(
-                                                                        "http://hl7.org/fhir/ValueSet/yesnodontknow")
-                                                                    .build()))
-                                                        .build(),
-                                                    Questionnaire.Item.builder()
-                                                        .linkId("1.1.1.2")
-                                                        .code(List.of(coding()))
-                                                        .prefix("1.2")
-                                                        .type(
-                                                            Questionnaire.QuestionnaireItemType
-                                                                .choice)
-                                                        .answerValueSet(
-                                                            "http://hl7.org/fhir/ValueSet/yesnodontknow")
-                                                        .build()))
-                                            .build()))
-                                .build()))
+                        Questionnaire.Item.builder()
+                            .linkId("1.1")
+                            .code(coding().asList())
+                            .prefix("1")
+                            .type(Questionnaire.QuestionnaireItemType.choice)
+                            .answerValueSet("http://hl7.org/fhir/ValueSet/yesnodontknow")
+                            .item(
+                                List.of(
+                                    Questionnaire.Item.builder()
+                                        .linkId("1.1.1")
+                                        .code(coding().asList())
+                                        .type(Questionnaire.QuestionnaireItemType.group)
+                                        .enableWhen(
+                                            Questionnaire.EnableWhen.builder()
+                                                .question("1.1")
+                                                .operator(
+                                                    Questionnaire.QuestionnaireItemOperator.equals)
+                                                .answerCoding(coding())
+                                                .build()
+                                                .asList())
+                                        .item(
+                                            List.of(
+                                                Questionnaire.Item.builder()
+                                                    .linkId("1.1.1.1")
+                                                    .code(coding().asList())
+                                                    .prefix("1.1")
+                                                    .type(
+                                                        Questionnaire.QuestionnaireItemType.choice)
+                                                    .answerValueSet(
+                                                        "http://hl7.org/fhir/ValueSet/yesnodontknow")
+                                                    .item(
+                                                        List.of(
+                                                            Questionnaire.Item.builder()
+                                                                .linkId("1.1.1.1.1")
+                                                                .code(coding().asList())
+                                                                .prefix("1.1.1")
+                                                                .type(
+                                                                    Questionnaire
+                                                                        .QuestionnaireItemType
+                                                                        .choice)
+                                                                .answerValueSet(
+                                                                    "http://hl7.org/fhir/ValueSet/yesnodontknow")
+                                                                .build(),
+                                                            Questionnaire.Item.builder()
+                                                                .linkId("1.1.1.1.2")
+                                                                .code(coding().asList())
+                                                                .prefix("1.1.2")
+                                                                .type(
+                                                                    Questionnaire
+                                                                        .QuestionnaireItemType
+                                                                        .choice)
+                                                                .answerValueSet(
+                                                                    "http://hl7.org/fhir/ValueSet/yesnodontknow")
+                                                                .build()))
+                                                    .build(),
+                                                Questionnaire.Item.builder()
+                                                    .linkId("1.1.1.2")
+                                                    .code(coding().asList())
+                                                    .prefix("1.2")
+                                                    .type(
+                                                        Questionnaire.QuestionnaireItemType.choice)
+                                                    .answerValueSet(
+                                                        "http://hl7.org/fhir/ValueSet/yesnodontknow")
+                                                    .build()))
+                                        .build()))
+                            .build()
+                            .asList())
                     .build(),
                 Questionnaire.Item.builder()
                     .id("2")
@@ -146,7 +143,7 @@ public class SampleQuestionnaires {
                         List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
                     .linkId("2")
                     .definition("definition")
-                    .code(List.of(coding()))
+                    .code(coding().asList())
                     .prefix("prefix")
                     .text("text")
                     .type(Questionnaire.QuestionnaireItemType.group)
@@ -157,19 +154,19 @@ public class SampleQuestionnaires {
                     .maxLength(2000)
                     .answerValueSet("answers")
                     .item(
-                        List.of(
-                            Questionnaire.Item.builder()
-                                .linkId("2.1")
-                                .code(List.of(coding()))
-                                .type(Questionnaire.QuestionnaireItemType.group)
-                                .item(
-                                    List.of(
-                                        Questionnaire.Item.builder()
-                                            .linkId("2.1.2")
-                                            .code(List.of(coding()))
-                                            .type(Questionnaire.QuestionnaireItemType.choice)
-                                            .build()))
-                                .build()))
+                        Questionnaire.Item.builder()
+                            .linkId("2.1")
+                            .code(coding().asList())
+                            .type(Questionnaire.QuestionnaireItemType.group)
+                            .item(
+                                Questionnaire.Item.builder()
+                                    .linkId("2.1.2")
+                                    .code(coding().asList())
+                                    .type(Questionnaire.QuestionnaireItemType.choice)
+                                    .build()
+                                    .asList())
+                            .build()
+                            .asList())
                     .build()))
         .build();
   }

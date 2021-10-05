@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.resources;
 
 import static gov.va.api.health.r4.api.RoundTrip.assertRoundTrip;
-import static java.util.Collections.singletonList;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -17,28 +16,28 @@ public class DeviceTest {
         Device.Bundle.builder()
             .type(BundleType.searchset)
             .link(
-                singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url("http://device.com/bundle")
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url("http://device.com/bundle")
+                    .build()
+                    .asList())
             .entry(
-                singletonList(
-                    Device.Entry.builder()
-                        .extension(singletonList(samples.extension()))
-                        .fullUrl("http://device.com")
-                        .id("1234")
-                        .link(
-                            singletonList(
-                                BundleLink.builder()
-                                    .relation(BundleLink.LinkRelation.self)
-                                    .url("http://device.com/entry")
-                                    .build()))
-                        .resource(samples.device())
-                        .search(samples.search())
-                        .request(samples.request())
-                        .response(samples.response())
-                        .build()))
+                Device.Entry.builder()
+                    .extension(samples.extension().asList())
+                    .fullUrl("http://device.com")
+                    .id("1234")
+                    .link(
+                        BundleLink.builder()
+                            .relation(BundleLink.LinkRelation.self)
+                            .url("http://device.com/entry")
+                            .build()
+                            .asList())
+                    .resource(samples.device())
+                    .search(samples.search())
+                    .request(samples.request())
+                    .response(samples.response())
+                    .build()
+                    .asList())
             .build();
     assertRoundTrip(bundle);
   }

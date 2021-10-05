@@ -13,7 +13,6 @@ import gov.va.api.health.dstu2.api.samples.SampleDataTypes;
 import gov.va.api.health.dstu2.api.samples.SampleImmunizations;
 import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.validation.api.ExactlyOneOfExtensionVerifier;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -26,15 +25,15 @@ public class ImmunizationTest {
   public void bundlerCanBuildImmunizationBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://immunization.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://immunization.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://immunization.com/1"))
+                    .build()
+                    .asList())
             .resource(data.immunization())
             .search(data.search())
             .request(data.request())
@@ -43,13 +42,13 @@ public class ImmunizationTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://immunization.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://immunization.com/2"))
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
 

@@ -1,6 +1,7 @@
 package gov.va.api.health.stu3.api.elements;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/STU3/narrative.html")
-public class Narrative implements Element {
+public class Narrative implements AsList<Narrative>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.elements.BackboneElement;
 import gov.va.api.health.dstu2.api.elements.Extension;
+import gov.va.api.health.fhir.api.AsList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +17,7 @@ import lombok.Data;
 @Data
 @Builder
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class BundleLink implements BackboneElement {
+public class BundleLink implements AsList<BundleLink>, BackboneElement {
   @Pattern(regexp = Fhir.ID)
   String id;
 

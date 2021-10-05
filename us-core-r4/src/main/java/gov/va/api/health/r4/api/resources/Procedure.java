@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -52,7 +53,7 @@ import lombok.NoArgsConstructor;
       fields = {"performedDateTime", "performedPeriod"},
       message = "performedDateTime or performedPeriod, but not both.")
 })
-public class Procedure implements Resource {
+public class Procedure implements AsList<Procedure>, Resource {
   // Ancestors
   @NotBlank @Builder.Default String resourceType = "Procedure";
 
@@ -162,7 +163,7 @@ public class Procedure implements Resource {
       example =
           "${r4.procedureBundle:gov.va.api.health.r4.api.swaggerexamples"
               + ".SwaggerProcedure#procedureBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Build a Procedure bundle. */
     @Builder
     public Bundle(
@@ -200,7 +201,7 @@ public class Procedure implements Resource {
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
   @JsonDeserialize(builder = Procedure.Entry.EntryBuilder.class)
   @Schema(name = "ProcedureEntry")
-  public static class Entry extends AbstractEntry<Procedure> {
+  public static class Entry extends AbstractEntry<Procedure> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -221,7 +222,7 @@ public class Procedure implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class FocalDevice implements BackboneElement {
+  public static class FocalDevice implements AsList<FocalDevice>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -239,7 +240,7 @@ public class Procedure implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Performer implements BackboneElement {
+  public static class Performer implements AsList<Performer>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -5,6 +5,7 @@ import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.elements.Element;
 import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 @ZeroOrOneOf(
     fields = {"authorReference", "authorString"},
     message = "Only one author value may be specified")
-public class Annotation implements Element {
+public class Annotation implements AsList<Annotation>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

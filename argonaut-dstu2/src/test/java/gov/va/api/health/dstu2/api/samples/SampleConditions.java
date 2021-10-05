@@ -1,13 +1,11 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.Condition;
 import gov.va.api.health.dstu2.api.resources.Condition.ClinicalStatusCode;
 import gov.va.api.health.dstu2.api.resources.Condition.Evidence;
 import gov.va.api.health.dstu2.api.resources.Condition.Stage;
 import gov.va.api.health.dstu2.api.resources.Condition.VerificationStatusCode;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -23,11 +21,10 @@ public class SampleConditions {
         .implicitRules("https://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .patient(reference())
         .encounter(reference())
         .asserter(reference())
@@ -40,8 +37,8 @@ public class SampleConditions {
         .onsetAge(age())
         .abatementBoolean(true)
         .stage(stage())
-        .evidence(singletonList(evidence()))
-        .bodySite(singletonList(codeableConcept()))
+        .evidence(evidence().asList())
+        .bodySite(codeableConcept().asList())
         .notes("HelloText")
         .build();
   }
@@ -49,20 +46,20 @@ public class SampleConditions {
   public Evidence evidence() {
     return Evidence.builder()
         .id("8888")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .code(codeableConcept())
-        .detail(singletonList(reference()))
+        .detail(reference().asList())
         .build();
   }
 
   public Stage stage() {
     return Stage.builder()
         .id("8888")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .summary(codeableConcept())
-        .assessment(singletonList(reference()))
+        .assessment(reference().asList())
         .build();
   }
 }

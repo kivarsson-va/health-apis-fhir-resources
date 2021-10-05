@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.bundle.AbstractBundle;
 import gov.va.api.health.stu3.api.bundle.AbstractEntry;
@@ -42,7 +43,7 @@ import lombok.NoArgsConstructor;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(
     description = "http://www.fhir.org/guides/argonaut/pd/StructureDefinition-argo-location.html")
-public class Location implements DomainResource {
+public class Location implements AsList<Location>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Location";
 
   @Pattern(regexp = Fhir.ID)
@@ -115,7 +116,7 @@ public class Location implements DomainResource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Location.Bundle.BundleBuilder.class)
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -149,7 +150,7 @@ public class Location implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Location.Entry.EntryBuilder.class)
   @Schema(name = "LocationEntry")
-  public static class Entry extends AbstractEntry<Location> {
+  public static class Entry extends AbstractEntry<Location> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -170,7 +171,7 @@ public class Location implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Position implements BackboneElement {
+  public static class Position implements AsList<Position>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

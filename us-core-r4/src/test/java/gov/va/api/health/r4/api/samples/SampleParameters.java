@@ -1,7 +1,6 @@
 package gov.va.api.health.r4.api.samples;
 
 import gov.va.api.health.r4.api.resources.Parameters;
-import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -16,14 +15,13 @@ public class SampleParameters {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .parameter(
-            List.of(
-                Parameters.Parameter.builder()
-                    .name("Goodnight name")
-                    .valueBoolean(Boolean.TRUE)
-                    .part(
-                        List.of(
-                            Parameters.Parameter.builder().name("code").valueCode("focus").build()))
-                    .build()))
+            Parameters.Parameter.builder()
+                .name("Goodnight name")
+                .valueBoolean(Boolean.TRUE)
+                .part(
+                    Parameters.Parameter.builder().name("code").valueCode("focus").build().asList())
+                .build()
+                .asList())
         .build();
   }
 
@@ -34,11 +32,11 @@ public class SampleParameters {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .parameter(
-            List.of(
-                Parameters.Parameter.builder()
-                    .name("Goodnight name")
-                    .valueBoolean(Boolean.TRUE)
-                    .build()))
+            Parameters.Parameter.builder()
+                .name("Goodnight name")
+                .valueBoolean(Boolean.TRUE)
+                .build()
+                .asList())
         .build();
   }
 
@@ -49,11 +47,11 @@ public class SampleParameters {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .parameter(
-            List.of(
-                Parameters.Parameter.builder()
-                    .name("Goodnight name")
-                    .resource(SamplePatients.get().patient())
-                    .build()))
+            Parameters.Parameter.builder()
+                .name("Goodnight name")
+                .resource(SamplePatients.get().patient())
+                .build()
+                .asList())
         .build();
   }
 
@@ -64,11 +62,11 @@ public class SampleParameters {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .parameter(
-            List.of(
-                Parameters.Parameter.builder()
-                    .name("Goodnight name")
-                    .valueString("Some string")
-                    .build()))
+            Parameters.Parameter.builder()
+                .name("Goodnight name")
+                .valueString("Some string")
+                .build()
+                .asList())
         .build();
   }
 }

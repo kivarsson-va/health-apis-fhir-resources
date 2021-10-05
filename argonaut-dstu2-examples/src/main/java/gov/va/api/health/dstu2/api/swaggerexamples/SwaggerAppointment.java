@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.dstu2.api.bundle.AbstractBundle.BundleType;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.Search;
 import gov.va.api.health.dstu2.api.bundle.AbstractEntry.SearchMode;
@@ -11,6 +9,7 @@ import gov.va.api.health.dstu2.api.datatypes.CodeableConcept;
 import gov.va.api.health.dstu2.api.datatypes.Coding;
 import gov.va.api.health.dstu2.api.elements.Reference;
 import gov.va.api.health.dstu2.api.resources.Appointment;
+import java.util.List;
 
 public class SwaggerAppointment {
   /**
@@ -25,19 +24,19 @@ public class SwaggerAppointment {
         .description("Scheduled Visit")
         .start("2006-06-30T17:00:00Z")
         .participant(
-            asList(
+            List.of(
                 Appointment.Participant.builder()
                     .type(
-                        asList(
-                            CodeableConcept.builder()
-                                .coding(
-                                    asList(
-                                        Coding.builder()
-                                            .system("http://hl7.org/fhir/v3/ParticipationType")
-                                            .code("PART")
-                                            .display("Participation")
-                                            .build()))
-                                .build()))
+                        CodeableConcept.builder()
+                            .coding(
+                                Coding.builder()
+                                    .system("http://hl7.org/fhir/v3/ParticipationType")
+                                    .code("PART")
+                                    .display("Participation")
+                                    .build()
+                                    .asList())
+                            .build()
+                            .asList())
                     .actor(
                         Reference.builder()
                             .reference(
@@ -49,16 +48,16 @@ public class SwaggerAppointment {
                     .build(),
                 Appointment.Participant.builder()
                     .type(
-                        asList(
-                            CodeableConcept.builder()
-                                .coding(
-                                    asList(
-                                        Coding.builder()
-                                            .system("http://hl7.org/fhir/v3/ParticipationType")
-                                            .code("PART")
-                                            .display("Participation")
-                                            .build()))
-                                .build()))
+                        CodeableConcept.builder()
+                            .coding(
+                                Coding.builder()
+                                    .system("http://hl7.org/fhir/v3/ParticipationType")
+                                    .code("PART")
+                                    .display("Participation")
+                                    .build()
+                                    .asList())
+                            .build()
+                            .asList())
                     .actor(
                         Reference.builder()
                             .reference(
@@ -81,7 +80,7 @@ public class SwaggerAppointment {
         .type(BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(LinkRelation.self)
                     .url(
@@ -98,65 +97,13 @@ public class SwaggerAppointment {
                         "https://sandbox-api.va.gov/services/argonaut/v0/Appointment?patient=1017283148V813263&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Appointment.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/argonaut/v0/Appointment/0be173b4-721c-554e-ba7d-966d04633b68")
-                    .resource(
-                        Appointment.builder()
-                            .id("0be173b4-721c-554e-ba7d-966d04633b68")
-                            .status(Appointment.Status.cancelled)
-                            .description("Scheduled Visit")
-                            .start("2006-06-30T17:00:00Z")
-                            .participant(
-                                asList(
-                                    Appointment.Participant.builder()
-                                        .type(
-                                            asList(
-                                                CodeableConcept.builder()
-                                                    .coding(
-                                                        asList(
-                                                            Coding.builder()
-                                                                .system(
-                                                                    "http://hl7.org/fhir/v3/ParticipationType")
-                                                                .code("PART")
-                                                                .display("Participation")
-                                                                .build()))
-                                                    .build()))
-                                        .actor(
-                                            Reference.builder()
-                                                .reference(
-                                                    "https://www.freedomstream.io/Argonaut/api/Patient/185601V825290")
-                                                .display("VETERAN,JOHN Q")
-                                                .build())
-                                        .required(Appointment.Participant.RequiredCode.required)
-                                        .status(Appointment.Participant.ParticipantStatus.accepted)
-                                        .build(),
-                                    Appointment.Participant.builder()
-                                        .type(
-                                            asList(
-                                                CodeableConcept.builder()
-                                                    .coding(
-                                                        asList(
-                                                            Coding.builder()
-                                                                .system(
-                                                                    "http://hl7.org/fhir/v3/ParticipationType")
-                                                                .code("PART")
-                                                                .display("Participation")
-                                                                .build()))
-                                                    .build()))
-                                        .actor(
-                                            Reference.builder()
-                                                .reference(
-                                                    "https://www.freedomstream.io/Argonaut/api/Location/71fed7fc-d060-5a35-bba9-e89fd7cdb4e6")
-                                                .display("ZZZTG SURG POD SCHEULLER COBI")
-                                                .build())
-                                        .required(Appointment.Participant.RequiredCode.required)
-                                        .status(Appointment.Participant.ParticipantStatus.accepted)
-                                        .build()))
-                            .build())
-                    .search(Search.builder().mode(SearchMode.match).build())
-                    .build()))
+            Appointment.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/argonaut/v0/Appointment/0be173b4-721c-554e-ba7d-966d04633b68")
+                .resource(appointment())
+                .search(Search.builder().mode(SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

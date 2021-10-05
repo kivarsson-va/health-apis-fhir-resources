@@ -1,12 +1,9 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.Practitioner;
 import gov.va.api.health.dstu2.api.resources.Practitioner.Gender;
 import gov.va.api.health.dstu2.api.resources.Practitioner.PractitionerRole;
 import gov.va.api.health.dstu2.api.resources.Practitioner.Qualification;
-import java.util.Collections;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -21,35 +18,35 @@ public class SamplePractitioners {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .active(true)
         .name(dataTypes.humanName())
-        .telecom(Collections.singletonList(dataTypes.contactPoint()))
-        .address(Collections.singletonList(dataTypes.address()))
+        .telecom(dataTypes.contactPoint().asList())
+        .address(dataTypes.address().asList())
         .gender(Gender.male)
         .birthDate("2000-10-01")
-        .photo(Collections.singletonList(dataTypes.attachment()))
+        .photo(dataTypes.attachment().asList())
         .practitionerRole(
-            Collections.singletonList(
-                PractitionerRole.builder()
-                    .managingOrganization(dataTypes.reference())
-                    .role(dataTypes.codeableConcept())
-                    .specialty(dataTypes.codeableConceptList())
-                    .period(dataTypes.period())
-                    .location(dataTypes.referenceList())
-                    .healthcareService(dataTypes.referenceList())
-                    .build()))
+            PractitionerRole.builder()
+                .managingOrganization(dataTypes.reference())
+                .role(dataTypes.codeableConcept())
+                .specialty(dataTypes.codeableConceptList())
+                .period(dataTypes.period())
+                .location(dataTypes.referenceList())
+                .healthcareService(dataTypes.referenceList())
+                .build()
+                .asList())
         .qualification(
-            Collections.singletonList(
-                Qualification.builder()
-                    .identifier(Collections.singletonList(dataTypes.identifier()))
-                    .code(dataTypes.codeableConcept())
-                    .period(dataTypes.period())
-                    .issuer(dataTypes.reference())
-                    .build()))
+            Qualification.builder()
+                .identifier(dataTypes.identifier().asList())
+                .code(dataTypes.codeableConcept())
+                .period(dataTypes.period())
+                .issuer(dataTypes.reference())
+                .build()
+                .asList())
         .communication(dataTypes.codeableConceptList())
         .build();
   }

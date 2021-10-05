@@ -1,6 +1,5 @@
 package gov.va.api.health.uscorer4;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
@@ -17,7 +16,6 @@ import gov.va.api.health.r4.api.datatypes.HumanName;
 import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.elements.Extension;
 import gov.va.api.health.r4.api.resources.Patient;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -81,11 +79,11 @@ public class PatientDeidentifierTest {
       return Patient.builder()
           .id("2000163")
           .extension(
-              asList(
+              List.of(
                   Extension.builder()
                       .url("http://hl7.org/fhir/us/core/StructureDefinition/us-core-race")
                       .extension(
-                          asList(
+                          List.of(
                               Extension.builder()
                                   .url("ombCategory")
                                   .valueCoding(
@@ -101,7 +99,7 @@ public class PatientDeidentifierTest {
                   Extension.builder()
                       .url("http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity")
                       .extension(
-                          asList(
+                          List.of(
                               Extension.builder()
                                   .url("ombCategory")
                                   .valueCoding(
@@ -122,17 +120,17 @@ public class PatientDeidentifierTest {
                       .valueCode("M")
                       .build()))
           .identifier(
-              asList(
+              List.of(
                   Identifier.builder()
                       .use(Identifier.IdentifierUse.usual)
                       .type(
                           CodeableConcept.builder()
                               .coding(
-                                  Arrays.asList(
-                                      Coding.builder()
-                                          .system("http://hl7.org/fhir/v2/0203")
-                                          .code("MR")
-                                          .build()))
+                                  Coding.builder()
+                                      .system("http://hl7.org/fhir/v2/0203")
+                                      .code("MR")
+                                      .build()
+                                      .asList())
                               .build())
                       .system("http://va.gov/mpi")
                       .value("2000163")
@@ -142,25 +140,25 @@ public class PatientDeidentifierTest {
                       .type(
                           CodeableConcept.builder()
                               .coding(
-                                  Arrays.asList(
-                                      Coding.builder()
-                                          .system("http://hl7.org/fhir/v2/0203")
-                                          .code("SB")
-                                          .build()))
+                                  Coding.builder()
+                                      .system("http://hl7.org/fhir/v2/0203")
+                                      .code("SB")
+                                      .build()
+                                      .asList())
                               .build())
                       .system("http://hl7.org/fhir/sid/us-ssn")
                       .value("999-61-4803")
                       .build()))
           .name(
-              Arrays.asList(
-                  HumanName.builder()
-                      .use(HumanName.NameUse.usual)
-                      .text("Mr. Aurelio227 Cruickshank494")
-                      .family("Cruickshank494")
-                      .given(asList("Aurelio227"))
-                      .build()))
+              HumanName.builder()
+                  .use(HumanName.NameUse.usual)
+                  .text("Mr. Aurelio227 Cruickshank494")
+                  .family("Cruickshank494")
+                  .given(List.of("Aurelio227"))
+                  .build()
+                  .asList())
           .telecom(
-              asList(
+              List.of(
                   ContactPoint.builder()
                       .system(ContactPoint.ContactPointSystem.phone)
                       .value("5555191065")
@@ -174,22 +172,22 @@ public class PatientDeidentifierTest {
           .birthDate("1970-11-14")
           .deceasedDateTime("2001-03-03T15:08:09Z")
           .address(
-              Arrays.asList(
-                  Address.builder()
-                      .line(asList("909 Rohan Highlands"))
-                      .city("Mesa")
-                      .state("Arizona")
-                      .postalCode("85120")
-                      .build()))
+              Address.builder()
+                  .line(List.of("909 Rohan Highlands"))
+                  .city("Mesa")
+                  .state("Arizona")
+                  .postalCode("85120")
+                  .build()
+                  .asList())
           .maritalStatus(
               CodeableConcept.builder()
                   .coding(
-                      Arrays.asList(
-                          Coding.builder()
-                              .system("http://hl7.org/fhir/R4/v3/NullFlavor/cs.html")
-                              .code("UNK")
-                              .display("unknown")
-                              .build()))
+                      Coding.builder()
+                          .system("http://hl7.org/fhir/R4/v3/NullFlavor/cs.html")
+                          .code("UNK")
+                          .display("unknown")
+                          .build()
+                          .asList())
                   .build())
           .build();
     }

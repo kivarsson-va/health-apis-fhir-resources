@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -47,7 +48,7 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.practitionerRole:gov.va.api.health.r4.api.swaggerexamples"
             + ".SwaggerPractitionerRole#practitionerRole}")
-public class PractitionerRole implements Resource {
+public class PractitionerRole implements AsList<PractitionerRole>, Resource {
   @NotBlank @Builder.Default String resourceType = "PractitionerRole";
 
   @Pattern(regexp = Fhir.ID)
@@ -127,7 +128,7 @@ public class PractitionerRole implements Resource {
       example =
           "${r4.practitionerRoleBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerPractitionerRole#practitionerRoleBundle}")
-  public static final class Bundle extends AbstractBundle<Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -165,7 +166,7 @@ public class PractitionerRole implements Resource {
   @Schema(name = "PractitionerRoleEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = PractitionerRole.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<PractitionerRole> {
+  public static final class Entry extends AbstractEntry<PractitionerRole> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -187,7 +188,8 @@ public class PractitionerRole implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class PractitionerAvailableTime implements BackboneElement {
+  public static class PractitionerAvailableTime
+      implements AsList<PractitionerAvailableTime>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -212,7 +214,8 @@ public class PractitionerRole implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class PractitionerNotAvailable implements BackboneElement {
+  public static class PractitionerNotAvailable
+      implements AsList<PractitionerNotAvailable>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -1,8 +1,7 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Immunization;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -13,8 +12,8 @@ public class SampleImmunizations {
   public Immunization.Education education() {
     return Immunization.Education.builder()
         .id("654")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .documentType("GoodNightType")
         .reference("http://GoodNightType.com")
         .presentationDate("2015-04-15T04:00:00Z")
@@ -29,10 +28,10 @@ public class SampleImmunizations {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .status(Immunization.Status.entered_in_error)
         .statusReason(codeableConcept())
         .vaccineCode(codeableConcept())
@@ -49,25 +48,25 @@ public class SampleImmunizations {
         .site(codeableConcept())
         .route(codeableConcept())
         .doesQuantity(simpleQuantity())
-        .performer(singletonList(performer()))
-        .note(singletonList(annotation()))
-        .reasonCode(singletonList(codeableConcept()))
-        .reasonReference(singletonList(reference()))
+        .performer(performer().asList())
+        .note(annotation().asList())
+        .reasonCode(codeableConcept().asList())
+        .reasonReference(reference().asList())
         .isSubpotent(Boolean.TRUE)
-        .subpotentReason(singletonList(codeableConcept()))
-        .education(singletonList(education()))
-        .programEligibility(singletonList(codeableConcept()))
+        .subpotentReason(codeableConcept().asList())
+        .education(education().asList())
+        .programEligibility(codeableConcept().asList())
         .fundingSource(codeableConcept())
-        .reaction(singletonList(reaction()))
-        .protocolApplied(singletonList(protocolApplied()))
+        .reaction(reaction().asList())
+        .protocolApplied(protocolApplied().asList())
         .build();
   }
 
   public Immunization.Performer performer() {
     return Immunization.Performer.builder()
         .id("987")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .actor(reference())
         .function(codeableConcept())
         .build();
@@ -76,11 +75,11 @@ public class SampleImmunizations {
   public Immunization.ProtocolApplied protocolApplied() {
     return Immunization.ProtocolApplied.builder()
         .id("0")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .series("GoodNightSeries")
         .authority(reference())
-        .targetDisease(singletonList(codeableConcept()))
+        .targetDisease(codeableConcept().asList())
         .seriesDosesPositiveInt(1)
         .doseNumberString("2")
         .build();
@@ -89,8 +88,8 @@ public class SampleImmunizations {
   public Immunization.Reaction reaction() {
     return Immunization.Reaction.builder()
         .id("321")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .date("2015-04-15T04:00:00Z")
         .detail(reference())
         .reported(Boolean.FALSE)

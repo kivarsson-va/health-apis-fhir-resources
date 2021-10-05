@@ -20,6 +20,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ExactlyOneOf;
 import gov.va.api.health.validation.api.ExactlyOneOfs;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
@@ -60,7 +61,7 @@ import lombok.NoArgsConstructor;
     @ZeroOrOneOf(
         fields = {"reasonCodeableConcept", "reasonReference"},
         message = "At most one reason may be specified."))
-public class Procedure implements Resource {
+public class Procedure implements AsList<Procedure>, Resource {
   @NotBlank @Builder.Default String resourceType = "Procedure";
 
   @Pattern(regexp = Fhir.ID)
@@ -132,7 +133,7 @@ public class Procedure implements Resource {
       example =
           "${dstu2.procedureBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerProcedure#procedureBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -166,7 +167,7 @@ public class Procedure implements Resource {
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
   @JsonDeserialize(builder = Procedure.Entry.EntryBuilder.class)
   @Schema(name = "ProcedureEntry")
-  public static class Entry extends AbstractEntry<Procedure> {
+  public static class Entry extends AbstractEntry<Procedure> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -187,7 +188,7 @@ public class Procedure implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class FocalDevice implements BackboneElement {
+  public static class FocalDevice implements AsList<FocalDevice>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -204,7 +205,7 @@ public class Procedure implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-  public static class Performer implements BackboneElement {
+  public static class Performer implements AsList<Performer>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

@@ -4,7 +4,6 @@ import gov.va.api.health.dstu2.api.resources.Location;
 import gov.va.api.health.dstu2.api.resources.Location.Mode;
 import gov.va.api.health.dstu2.api.resources.Location.Position;
 import gov.va.api.health.dstu2.api.resources.Location.Status;
-import java.util.Collections;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -19,7 +18,7 @@ public class SampleLocations {
         .description("Description")
         .mode(Mode.instance)
         .type(dataTypes.codeableConcept())
-        .telecom(Collections.singletonList(dataTypes.contactPoint()))
+        .telecom(dataTypes.contactPoint().asList())
         .address(dataTypes.address())
         .physicalType(dataTypes.codeableConcept())
         .position(Position.builder().latitude(3.0).longitude(2.0).altitude(1.0).build())

@@ -17,6 +17,7 @@ import gov.va.api.health.validation.api.ZeroOrOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -32,17 +33,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(
-  fieldVisibility = JsonAutoDetect.Visibility.ANY,
-  isGetterVisibility = JsonAutoDetect.Visibility.NONE
-)
+    fieldVisibility = JsonAutoDetect.Visibility.ANY,
+    isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
-  description = "https://www.hl7.org/fhir/R4/coverageeligibilityrequest.html",
-  example = "${r4.coverageEligibilityRequest:com.example.Example#example}"
-)
+    description = "https://www.hl7.org/fhir/R4/coverageeligibilityrequest.html",
+    example = "${r4.coverageEligibilityRequest:com.example.Example#example}")
 @ZeroOrOneOf(
-  fields = {"servicedDate", "servicedPeriod"},
-  message = "Only one serviced value may be specified."
-)
+    fields = {"servicedDate", "servicedPeriod"},
+    message = "Only one serviced value may be specified.")
 public class CoverageEligibilityRequest implements Resource {
   @NotBlank @Builder.Default String resourceType = "CoverageEligibilityRequest";
 
@@ -131,14 +129,13 @@ public class CoverageEligibilityRequest implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
+    @Min(1)
     @NotBlank
-    @Pattern(regexp = Fhir.POSITIVE_INT)
-    String sequence;
+    Integer sequence;
 
     @NotNull @Valid Reference information;
 
-    @Pattern(regexp = Fhir.BOOLEAN)
-    String appliesToAll;
+    Boolean appliesToAll;
   }
 
   @Data
@@ -155,8 +152,7 @@ public class CoverageEligibilityRequest implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
-    @Pattern(regexp = Fhir.BOOLEAN)
-    String focal;
+    Boolean focal;
 
     @NotNull @Valid Reference coverage;
 
@@ -178,7 +174,7 @@ public class CoverageEligibilityRequest implements Resource {
 
     @Valid List<Extension> modifierExtension;
 
-    List<@Pattern(regexp = Fhir.POSITIVE_INT) String> supportingInfoSequence;
+    List<@Min(1) Integer> supportingInfoSequence;
 
     @Valid CodeableConcept category;
 
@@ -205,9 +201,8 @@ public class CoverageEligibilityRequest implements Resource {
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @Schema(name = "CoverageEligibilityRequestItemDiagnosis")
     @ZeroOrOneOf(
-      fields = {"diagnosisCodeableConcept", "diagnosisReference"},
-      message = "Only one diagnosis value may be specified."
-    )
+        fields = {"diagnosisCodeableConcept", "diagnosisReference"},
+        message = "Only one diagnosis value may be specified.")
     public static class Diagnosis implements BackboneElement {
       @Pattern(regexp = Fhir.ID)
       String id;

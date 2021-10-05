@@ -11,7 +11,6 @@ import gov.va.api.health.r4.api.resources.Patient.Entry;
 import gov.va.api.health.r4.api.samples.SampleKnownTypes;
 import gov.va.api.health.r4.api.samples.SamplePatients;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -36,15 +35,15 @@ public class PatientTest {
   void bundlerCanBuildPatientBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://patient.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://patient.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("http://patient.com/1")
+                    .build()
+                    .asList())
             .resource(data.patient())
             .search(data.search())
             .request(data.request())
@@ -52,13 +51,13 @@ public class PatientTest {
             .build();
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://patient.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url("http://patient.com/2")
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
     assertRoundTrip(bundle);

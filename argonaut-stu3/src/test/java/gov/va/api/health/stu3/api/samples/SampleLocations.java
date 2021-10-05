@@ -3,7 +3,6 @@ package gov.va.api.health.stu3.api.samples;
 import gov.va.api.health.stu3.api.datatypes.Address;
 import gov.va.api.health.stu3.api.resources.Location;
 import java.math.BigDecimal;
-import java.util.Collections;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -18,7 +17,7 @@ public class SampleLocations {
         .description("Description")
         .mode(Location.Mode.instance)
         .type(dataTypes.codeableConcept())
-        .telecom(Collections.singletonList(dataTypes.contactPoint()))
+        .telecom(dataTypes.contactPoint().asList())
         .address(Address.builder().build())
         .physicalType(dataTypes.codeableConcept())
         .position(

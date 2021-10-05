@@ -5,6 +5,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -55,7 +56,7 @@ import lombok.NoArgsConstructor;
 @ExactlyOneOf(
     fields = {"request", "_request"},
     message = "Exactly one request value must be specified.")
-public class CoverageEligibilityResponse implements Resource {
+public class CoverageEligibilityResponse implements AsList<CoverageEligibilityResponse>, Resource {
   @NotBlank @Builder.Default String resourceType = "CoverageEligibilityResponse";
 
   // Anscestor -- Resource
@@ -148,7 +149,7 @@ public class CoverageEligibilityResponse implements Resource {
         fields = {"usedUnsignedInt", "usedString", "usedMoney"},
         message = "Only one used value may be specified")
   })
-  public static class Benefit implements BackboneElement {
+  public static class Benefit implements AsList<Benefit>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -185,7 +186,7 @@ public class CoverageEligibilityResponse implements Resource {
       example =
           "${r4.coverageEligibilityResponseBundle:gov.va.api.health.r4.api.swaggerexamples"
               + ".SwaggerCoverageEligibilityResponse#coverageEligibilityResponseBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Coverage bundle builder. */
     @Builder
     public Bundle(
@@ -223,7 +224,8 @@ public class CoverageEligibilityResponse implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "CoverageEligibilityResponseError")
-  public static class CoverageEligibilityResponseError implements BackboneElement {
+  public static class CoverageEligibilityResponseError
+      implements AsList<CoverageEligibilityResponseError>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -240,7 +242,8 @@ public class CoverageEligibilityResponse implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = CoverageEligibilityResponse.Entry.EntryBuilder.class)
   @Schema(name = "CoverageEligibilityResponseEntry")
-  public static class Entry extends AbstractEntry<CoverageEligibilityResponse> {
+  public static class Entry extends AbstractEntry<CoverageEligibilityResponse>
+      implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -265,7 +268,7 @@ public class CoverageEligibilityResponse implements Resource {
   @ExactlyOneOf(
       fields = {"coverage", "_coverage"},
       message = "Exactly one coverage value must be specified.")
-  public static class Insurance implements BackboneElement {
+  public static class Insurance implements AsList<Insurance>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -289,7 +292,7 @@ public class CoverageEligibilityResponse implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "Item")
-  public static class Item implements BackboneElement {
+  public static class Item implements AsList<Item>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

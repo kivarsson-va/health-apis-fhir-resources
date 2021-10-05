@@ -26,13 +26,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(
-  fieldVisibility = JsonAutoDetect.Visibility.ANY,
-  isGetterVisibility = JsonAutoDetect.Visibility.NONE
-)
+    fieldVisibility = JsonAutoDetect.Visibility.ANY,
+    isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
-  description = "https://www.hl7.org/fhir/R4/slot.html",
-  example = "${r4.slot:com.example.Example#example}"
-)
+    description = "https://www.hl7.org/fhir/R4/slot.html",
+    example = "${r4.slot:com.example.Example#example}")
 public class Slot {
   @NotBlank @Builder.Default String resourceType = "Slot";
 
@@ -77,8 +75,7 @@ public class Slot {
   @Pattern(regexp = Fhir.INSTANT)
   String end;
 
-  @Pattern(regexp = Fhir.BOOLEAN)
-  String overbooked;
+  Boolean overbooked;
 
   @Pattern(regexp = Fhir.STRING)
   String comment;

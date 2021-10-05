@@ -1,7 +1,5 @@
 package gov.va.api.health.stu3.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.stu3.api.datatypes.ContactPoint;
 import gov.va.api.health.stu3.api.datatypes.Identifier;
 import gov.va.api.health.stu3.api.elements.Meta;
@@ -21,12 +19,12 @@ public class SamplePractitionerRoles {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(Narrative.builder().build())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(Identifier.builder().build()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(Identifier.builder().build().asList())
         .active(true)
-        .telecom(singletonList(ContactPoint.builder().build()))
+        .telecom(ContactPoint.builder().build().asList())
         .build();
   }
 }

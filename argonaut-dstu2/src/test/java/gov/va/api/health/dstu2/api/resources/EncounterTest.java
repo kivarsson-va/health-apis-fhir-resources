@@ -8,7 +8,6 @@ import gov.va.api.health.dstu2.api.bundle.BundleLink.LinkRelation;
 import gov.va.api.health.dstu2.api.resources.Encounter.Bundle;
 import gov.va.api.health.dstu2.api.resources.Encounter.Entry;
 import gov.va.api.health.dstu2.api.samples.SampleEncounters;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class EncounterTest {
@@ -18,15 +17,15 @@ public class EncounterTest {
   public void bundlerCanBuildEncounterBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://encounter.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://encounter.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://encounter.com/1"))
+                    .build()
+                    .asList())
             .resource(data.encounter())
             .search(data.search())
             .request(data.request())
@@ -35,13 +34,13 @@ public class EncounterTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://encounter.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://encounter.com/2"))
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
 

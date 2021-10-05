@@ -22,7 +22,7 @@ public class MixedBundleTest {
   void exception_invalidResourceType() {
     var r = SamplePatients.get().patient().resourceType("NotARealResource");
     var bundle =
-        MixedBundle.builder().entry(List.of(MixedEntry.builder().resource(r).build())).build();
+        MixedBundle.builder().entry(MixedEntry.builder().resource(r).build().asList()).build();
     assertThatExceptionOfType(JsonMappingException.class).isThrownBy(() -> assertRoundTrip(bundle));
   }
 
@@ -30,7 +30,7 @@ public class MixedBundleTest {
   void exception_missingResourceType() {
     Patient pat = SamplePatients.get().patient().resourceType(null);
     MixedBundle bundle =
-        MixedBundle.builder().entry(List.of(MixedEntry.builder().resource(pat).build())).build();
+        MixedBundle.builder().entry(MixedEntry.builder().resource(pat).build().asList()).build();
     assertThatExceptionOfType(JsonMappingException.class).isThrownBy(() -> assertRoundTrip(bundle));
   }
 
@@ -38,7 +38,7 @@ public class MixedBundleTest {
   void exception_wrongPackage() {
     WrongPackage r = WrongPackage.builder().build();
     MixedBundle bundle =
-        MixedBundle.builder().entry(List.of(MixedEntry.builder().resource(r).build())).build();
+        MixedBundle.builder().entry(MixedEntry.builder().resource(r).build().asList()).build();
     assertThatExceptionOfType(JsonMappingException.class).isThrownBy(() -> assertRoundTrip(bundle));
   }
 
@@ -62,21 +62,23 @@ public class MixedBundleTest {
     Patient.Bundle pat =
         Patient.Bundle.builder()
             .entry(
-                List.of(Patient.Entry.builder().resource(SamplePatients.get().patient()).build()))
+                Patient.Entry.builder().resource(SamplePatients.get().patient()).build().asList())
             .build();
     Immunization.Bundle im =
         Immunization.Bundle.builder()
             .entry(
-                List.of(
-                    Immunization.Entry.builder()
-                        .resource(SampleImmunizations.get().immunization())
-                        .build()))
+                Immunization.Entry.builder()
+                    .resource(SampleImmunizations.get().immunization())
+                    .build()
+                    .asList())
             .build();
     Location.Bundle loc =
         Location.Bundle.builder()
             .entry(
-                List.of(
-                    Location.Entry.builder().resource(SampleLocations.get().location()).build()))
+                Location.Entry.builder()
+                    .resource(SampleLocations.get().location())
+                    .build()
+                    .asList())
             .build();
     assertRoundTrip(
         MixedBundle.builder()

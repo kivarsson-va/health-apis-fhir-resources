@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.datatypes.CodeableConcept;
 import gov.va.api.health.dstu2.api.datatypes.Coding;
 import gov.va.api.health.dstu2.api.resources.Observation;
@@ -10,7 +8,7 @@ import gov.va.api.health.dstu2.api.resources.Observation.ObservationReferenceRan
 import gov.va.api.health.dstu2.api.resources.Observation.ObservationRelated;
 import gov.va.api.health.dstu2.api.resources.Observation.Status;
 import gov.va.api.health.dstu2.api.resources.Observation.Type;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -26,11 +24,11 @@ public class SampleObservations {
   private CodeableConcept category() {
     return CodeableConcept.builder()
         .coding(
-            singletonList(
-                Coding.builder()
-                    .system("http://hl7.org/fhir/observation-category")
-                    .code("ok")
-                    .build()))
+            Coding.builder()
+                .system("http://hl7.org/fhir/observation-category")
+                .code("ok")
+                .build()
+                .asList())
         .text("dat category")
         .build();
   }
@@ -38,12 +36,12 @@ public class SampleObservations {
   public ObservationComponent component() {
     return ObservationComponent.builder()
         .id("0000")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .code(codeableConcept())
         .valueCodeableConcept(codeableConcept())
         .dataAbsentReason(codeableConcept())
-        .referenceRange(singletonList(referenceRange()))
+        .referenceRange(referenceRange().asList())
         .build();
   }
 
@@ -54,11 +52,10 @@ public class SampleObservations {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.registered)
         .category(category())
         .code(codeableConcept())
@@ -66,7 +63,7 @@ public class SampleObservations {
         .encounter(reference())
         .effectiveDateTime("2000-01-01T00:00:00-00:00")
         .issued("2000-01-01T00:00:00-00:00")
-        .performer(singletonList(reference()))
+        .performer(reference().asList())
         .valueSampledData(sampledData())
         .dataAbsentReason(codeableConcept())
         .interpretation(codeableConcept())
@@ -75,17 +72,17 @@ public class SampleObservations {
         .method(codeableConcept())
         .specimen(reference())
         .device(reference())
-        .referenceRange(singletonList(referenceRange()))
-        .related(singletonList(related()))
-        .component(singletonList(component()))
+        .referenceRange(referenceRange().asList())
+        .related(related().asList())
+        .component(component().asList())
         .build();
   }
 
   public ObservationReferenceRange referenceRange() {
     return ObservationReferenceRange.builder()
         .id("0000")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .low(simpleQuantity())
         .high(simpleQuantity())
         .meaning(codeableConcept())
@@ -97,8 +94,8 @@ public class SampleObservations {
   public ObservationRelated related() {
     return ObservationRelated.builder()
         .id("0000")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(Type.has_member)
         .target(reference())
         .build();

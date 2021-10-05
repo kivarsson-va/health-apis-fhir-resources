@@ -8,7 +8,6 @@ import gov.va.api.health.dstu2.api.bundle.BundleLink.LinkRelation;
 import gov.va.api.health.dstu2.api.resources.Organization.Bundle;
 import gov.va.api.health.dstu2.api.resources.Organization.Entry;
 import gov.va.api.health.dstu2.api.samples.SampleOrganizations;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class OrganizationTest {
@@ -18,15 +17,15 @@ public class OrganizationTest {
   public void bundlerCanBuildOrganizationBundles() {
     Entry entry =
         Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://organization.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://organization.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://organization.com/1"))
+                    .build()
+                    .asList())
             .resource(data.organization())
             .search(data.search())
             .request(data.request())
@@ -35,13 +34,13 @@ public class OrganizationTest {
 
     Bundle bundle =
         Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(LinkRelation.self)
-                        .url(("http://organization.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(LinkRelation.self)
+                    .url(("http://organization.com/2"))
+                    .build()
+                    .asList())
             .type(BundleType.searchset)
             .build();
 

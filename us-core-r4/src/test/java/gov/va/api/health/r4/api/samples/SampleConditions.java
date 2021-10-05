@@ -1,8 +1,7 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Condition;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -17,15 +16,15 @@ public class SampleConditions {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .clinicalStatus(codeableConcept())
         .verificationStatus(codeableConcept())
-        .category(singletonList(codeableConcept()))
+        .category(codeableConcept().asList())
         .severity(codeableConcept())
-        .bodySite(singletonList(codeableConcept()))
+        .bodySite(codeableConcept().asList())
         .subject(reference())
         .encounter(reference())
         .onsetDateTime("2015-04-15T04:00:00Z")
@@ -33,29 +32,29 @@ public class SampleConditions {
         .recordedDate("2015-04-15T04:00:00Z")
         .recorder(reference())
         .asserter(reference())
-        .stage(singletonList(stage()))
-        .evidence(singletonList(evidence()))
-        .note(singletonList(annotation()))
+        .stage(stage().asList())
+        .evidence(evidence().asList())
+        .note(annotation().asList())
         .build();
   }
 
   public Condition.Evidence evidence() {
     return Condition.Evidence.builder()
         .id("9012")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .code(singletonList(codeableConcept()))
-        .detail(singletonList(reference()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .code(codeableConcept().asList())
+        .detail(reference().asList())
         .build();
   }
 
   public Condition.Stage stage() {
     return Condition.Stage.builder()
         .id("5678")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .summary(codeableConcept())
-        .assessment(singletonList(reference()))
+        .assessment(reference().asList())
         .type(codeableConcept())
         .build();
   }

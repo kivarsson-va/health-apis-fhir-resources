@@ -2,6 +2,7 @@ package gov.va.api.health.r4.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.fhir.api.HasDisplay;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/R4/datatypes.html#CodeableConcept")
-public class CodeableConcept implements Element {
+public class CodeableConcept implements AsList<CodeableConcept>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

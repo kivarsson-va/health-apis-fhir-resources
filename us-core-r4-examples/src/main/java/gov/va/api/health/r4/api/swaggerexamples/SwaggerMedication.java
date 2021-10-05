@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
@@ -24,34 +22,37 @@ public class SwaggerMedication {
             CodeableConcept.builder()
                 .text("Timoptic 5mg/ml solution")
                 .coding(
-                    List.of(
-                        Coding.builder()
-                            .system("http://hl7.org/fhir/sid/ndc")
-                            .code("2501-813-16")
-                            .build()))
+                    Coding.builder()
+                        .system("http://hl7.org/fhir/sid/ndc")
+                        .code("2501-813-16")
+                        .build()
+                        .asList())
                 .build())
         .manufacturer(Reference.builder().id("org5").display("Aton Pharma Inc").build())
         .form(
             CodeableConcept.builder()
                 .text("Opthalmic Solution")
                 .coding(
-                    List.of(
-                        Coding.builder().system("http://snomed.info/sct").code("75359005").build()))
+                    Coding.builder()
+                        .system("http://snomed.info/sct")
+                        .code("75359005")
+                        .build()
+                        .asList())
                 .build())
         .ingredient(
-            asList(
-                Medication.Ingredient.builder()
-                    .itemCodeableConcept(
-                        CodeableConcept.builder()
-                            .text("Timolol Maleate (substance)")
-                            .coding(
-                                List.of(
-                                    Coding.builder()
-                                        .system("http://snomed.info/sct")
-                                        .code("75359005")
-                                        .build()))
-                            .build())
-                    .build()))
+            Medication.Ingredient.builder()
+                .itemCodeableConcept(
+                    CodeableConcept.builder()
+                        .text("Timolol Maleate (substance)")
+                        .coding(
+                            Coding.builder()
+                                .system("http://snomed.info/sct")
+                                .code("75359005")
+                                .build()
+                                .asList())
+                        .build())
+                .build()
+                .asList())
         .batch(Medication.Batch.builder().lotNumber("9494788").expirationDate("2017-05-22").build())
         .build();
   }
@@ -66,7 +67,7 @@ public class SwaggerMedication {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -86,13 +87,13 @@ public class SwaggerMedication {
                             + "_id=I2-U4FPJS3E633MAJQBCAA2KAB5BQ000000&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                Medication.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/Medication/"
-                            + "I2-U4FPJS3E633MAJQBCAA2KAB5BQ000000")
-                    .resource(medication())
-                    .build()))
+            Medication.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/Medication/"
+                        + "I2-U4FPJS3E633MAJQBCAA2KAB5BQ000000")
+                .resource(medication())
+                .build()
+                .asList())
         .build();
   }
 }

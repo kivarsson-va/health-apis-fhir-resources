@@ -4,7 +4,6 @@ import gov.va.api.health.stu3.api.RoundTrip;
 import gov.va.api.health.stu3.api.bundle.AbstractBundle;
 import gov.va.api.health.stu3.api.bundle.BundleLink;
 import gov.va.api.health.stu3.api.samples.SamplePractitionerRoles;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class PractitionerRoleTest {
@@ -14,15 +13,15 @@ public class PractitionerRoleTest {
   public void bundlerCanBuildMedicationBundles() {
     PractitionerRole.Entry entry =
         PractitionerRole.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://practitionerRole.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://practitionerRole.com/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://practitionerRole.com/1"))
+                    .build()
+                    .asList())
             .resource(data.practitionerRole())
             .search(data.search())
             .request(data.request())
@@ -31,13 +30,13 @@ public class PractitionerRoleTest {
 
     PractitionerRole.Bundle bundle =
         PractitionerRole.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://practitionerRole.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://practitionerRole.com/2"))
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
 

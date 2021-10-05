@@ -1,7 +1,5 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.AllergyIntolerance;
 import gov.va.api.health.dstu2.api.resources.AllergyIntolerance.Category;
 import gov.va.api.health.dstu2.api.resources.AllergyIntolerance.Certainty;
@@ -25,10 +23,10 @@ public class SampleAllergyIntolerances {
         .implicitRules("http://HelloRules.com")
         .language("Hello Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .onset("2015-04-15T04:00:00Z")
         .recordedDate("2015-04-15T04:00:00Z")
         .recorder(reference())
@@ -41,18 +39,18 @@ public class SampleAllergyIntolerances {
         .category(Category.food)
         .lastOccurence("2015-04-15T04:00:00Z")
         .note(annotation())
-        .reaction(singletonList(reaction()))
+        .reaction(reaction().asList())
         .build();
   }
 
   public Reaction reaction() {
     return Reaction.builder()
         .id("1111")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .substance(codeableConcept())
         .certainty(Certainty.unlikely)
-        .manifestation(singletonList(codeableConcept()))
+        .manifestation(codeableConcept().asList())
         .description("Test Reaction Description")
         .onset("2015-04-15T04:00:00Z")
         .severity(Severity.severe)

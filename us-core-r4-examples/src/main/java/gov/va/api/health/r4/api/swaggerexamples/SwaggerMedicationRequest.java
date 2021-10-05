@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
 import gov.va.api.health.r4.api.bundle.BundleLink;
@@ -42,36 +40,35 @@ public class SwaggerMedicationRequest {
         ._requester(
             Extension.builder()
                 .extension(
-                    asList(
-                        Extension.builder()
-                            .url("http://hl7.org/fhir/extension-data-absent-reason.html")
-                            .valueCode("unknown")
-                            .build()))
+                    Extension.builder()
+                        .url("http://hl7.org/fhir/extension-data-absent-reason.html")
+                        .valueCode("unknown")
+                        .build()
+                        .asList())
                 .build())
         .reasonCode(
-            asList(
-                CodeableConcept.builder()
-                    .text("Traveller's Diarrhea (disorder)")
-                    .coding(
-                        List.of(
-                            Coding.builder()
-                                .system("http://snomed.info/sct")
-                                .code("11840006")
-                                .display("Traveler's diarrhea")
-                                .build()))
-                    .build()))
-        .note(asList(Annotation.builder().authorString("Patient told to take with food").build()))
+            CodeableConcept.builder()
+                .text("Traveller's Diarrhea (disorder)")
+                .coding(
+                    Coding.builder()
+                        .system("http://snomed.info/sct")
+                        .code("11840006")
+                        .display("Traveler's diarrhea")
+                        .build()
+                        .asList())
+                .build()
+                .asList())
+        .note(Annotation.builder().authorString("Patient told to take with food").build().asList())
         .dosageInstruction(
-            asList(
-                Dosage.builder()
-                    .text("Once per day.")
-                    .timing(
-                        Timing.builder()
-                            .code(
-                                CodeableConcept.builder().text("As directed by physician.").build())
-                            .build())
-                    .route(CodeableConcept.builder().text("As directed by physician.").build())
-                    .build()))
+            Dosage.builder()
+                .text("Once per day.")
+                .timing(
+                    Timing.builder()
+                        .code(CodeableConcept.builder().text("As directed by physician.").build())
+                        .build())
+                .route(CodeableConcept.builder().text("As directed by physician.").build())
+                .build()
+                .asList())
         .substitution(
             MedicationRequest.Substitution.builder()
                 .allowedBoolean(true)
@@ -90,7 +87,7 @@ public class SwaggerMedicationRequest {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
@@ -110,15 +107,14 @@ public class SwaggerMedicationRequest {
                             + "MedicationRequest?patient=32000225&intent=order&page=1&_count=15")
                     .build()))
         .entry(
-            asList(
-                MedicationRequest.Entry.builder()
-                    .fullUrl(
-                        "https://sandbox-api.va.gov/services/fhir/v0/r4/MedicationRequest/"
-                            + "I2-AOV4FXGQLPIXGZPTMTWY7Y7KJ4000000")
-                    .resource(medicationRequest())
-                    .search(
-                        AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
-                    .build()))
+            MedicationRequest.Entry.builder()
+                .fullUrl(
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/MedicationRequest/"
+                        + "I2-AOV4FXGQLPIXGZPTMTWY7Y7KJ4000000")
+                .resource(medicationRequest())
+                .search(AbstractEntry.Search.builder().mode(AbstractEntry.SearchMode.match).build())
+                .build()
+                .asList())
         .build();
   }
 }

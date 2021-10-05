@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
 import gov.va.api.health.r4.api.elements.Extension;
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 @ZeroOrOneOf(
     fields = {"authorReference", "authorString"},
     message = "Only one author field may be specified")
-public class Annotation implements Element {
+public class Annotation implements AsList<Annotation>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

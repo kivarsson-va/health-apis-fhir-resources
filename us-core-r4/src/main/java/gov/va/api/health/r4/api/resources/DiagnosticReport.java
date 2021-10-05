@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -56,7 +57,7 @@ import lombok.NoArgsConstructor;
       fields = {"effectiveDateTime", "effectivePeriod"},
       message = "One of effectiveDateTime | effectivePeriod must be set")
 })
-public class DiagnosticReport implements Resource {
+public class DiagnosticReport implements AsList<DiagnosticReport>, Resource {
   @NotBlank @Builder.Default String resourceType = "DiagnosticReport";
 
   @Pattern(regexp = Fhir.ID)
@@ -172,7 +173,7 @@ public class DiagnosticReport implements Resource {
       example =
           "${r4.diagnosticReportBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerDiagnosticReport#diagnosticReportBundle}")
-  public static final class Bundle extends AbstractBundle<Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -210,7 +211,7 @@ public class DiagnosticReport implements Resource {
   @Schema(name = "DiagnosticReportEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = DiagnosticReport.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<DiagnosticReport> {
+  public static final class Entry extends AbstractEntry<DiagnosticReport> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -232,7 +233,7 @@ public class DiagnosticReport implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Media implements BackboneElement {
+  public static class Media implements AsList<Media>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

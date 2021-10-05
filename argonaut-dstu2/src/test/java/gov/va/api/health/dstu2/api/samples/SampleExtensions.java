@@ -8,7 +8,6 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Reference;
 import gov.va.api.health.dstu2.api.resources.Patient;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.NoArgsConstructor;
@@ -24,8 +23,7 @@ public class SampleExtensions {
             .type(
                 CodeableConcept.builder()
                     .coding(
-                        Collections.singletonList(
-                            Coding.builder().system("http://test-code").code("C0D3").build()))
+                        Coding.builder().system("http://test-code").code("C0D3").build().asList())
                     .build())
             .system("http://test-system")
             .value("123456789")
@@ -164,13 +162,13 @@ public class SampleExtensions {
   }
 
   public List<HumanName> name() {
-    return Collections.singletonList(
-        HumanName.builder()
-            .use(HumanName.NameUse.usual)
-            .text("FOOMAN FOO")
-            .family(Collections.singletonList("FOO"))
-            .given(Collections.singletonList("FOOMAN"))
-            .build());
+    return HumanName.builder()
+        .use(HumanName.NameUse.usual)
+        .text("FOOMAN FOO")
+        .family(List.of("FOO"))
+        .given(List.of("FOOMAN"))
+        .build()
+        .asList();
   }
 
   public List<Extension> noRequiredEthnicityExtension() {

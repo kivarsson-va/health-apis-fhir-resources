@@ -1,10 +1,9 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.Coding;
 import gov.va.api.health.r4.api.resources.DiagnosticReport;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -15,11 +14,11 @@ public class SampleDiagnosticReports {
   private CodeableConcept categorySliceLab() {
     return CodeableConcept.builder()
         .coding(
-            singletonList(
-                Coding.builder()
-                    .system("http://terminology.hl7.org/CodeSystem/v2-0074")
-                    .code("LAB")
-                    .build()))
+            Coding.builder()
+                .system("http://terminology.hl7.org/CodeSystem/v2-0074")
+                .code("LAB")
+                .build()
+                .asList())
         .build();
   }
 
@@ -30,35 +29,35 @@ public class SampleDiagnosticReports {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
-        .basedOn(singletonList(reference()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
+        .basedOn(reference().asList())
         .status(DiagnosticReport.DiagnosticReportStatus.unknown)
-        .category(singletonList(categorySliceLab()))
+        .category(categorySliceLab().asList())
         .code(codeableConcept())
         .subject(reference())
         .encounter(reference())
         .effectiveDateTime("2020-07-20T12:47:00Z")
         .issued("2020-07-20T12:47:00Z")
-        .performer(singletonList(reference()))
-        .resultsInterpreter(singletonList(reference()))
-        .specimen(singletonList(reference()))
-        .result(singletonList(reference()))
-        .imagingStudy(singletonList(reference()))
-        .media(singletonList(media()))
+        .performer(reference().asList())
+        .resultsInterpreter(reference().asList())
+        .specimen(reference().asList())
+        .result(reference().asList())
+        .imagingStudy(reference().asList())
+        .media(media().asList())
         .conclusion("Concluded")
-        .conclusionCode(singletonList(codeableConcept()))
-        .presentedForm(singletonList(attachment()))
+        .conclusionCode(codeableConcept().asList())
+        .presentedForm(attachment().asList())
         .build();
   }
 
   private DiagnosticReport.Media media() {
     return DiagnosticReport.Media.builder()
         .id("123")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .comment("Commented")
         .link(reference())
         .build();

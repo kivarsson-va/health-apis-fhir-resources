@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -47,7 +48,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description =
         "https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-encounter.html")
-public class Encounter implements Resource {
+public class Encounter implements AsList<Encounter>, Resource {
   @NotBlank @Builder.Default String resourceType = "Encounter";
 
   @Pattern(regexp = Fhir.ID)
@@ -152,7 +153,7 @@ public class Encounter implements Resource {
   @JsonAutoDetect(isGetterVisibility = JsonAutoDetect.Visibility.NONE)
   @JsonDeserialize(builder = Encounter.Bundle.BundleBuilder.class)
   @Schema(name = "EncounterBundle")
-  public static class Bundle extends AbstractBundle<Encounter.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Creates a bundle of Entries, each entry being an entry of Encounters. */
     @Builder
     public Bundle(
@@ -185,34 +186,12 @@ public class Encounter implements Resource {
   }
 
   @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-  @JsonDeserialize(builder = Encounter.Entry.EntryBuilder.class)
-  @Schema(name = "EncounterEntry")
-  public static class Entry extends AbstractEntry<Encounter> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Encounter resource,
-        @Valid Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "ClassHistory")
-  public static class ClassHistory implements BackboneElement {
+  public static class ClassHistory implements AsList<ClassHistory>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -233,48 +212,8 @@ public class Encounter implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @Schema(name = "StatusHistory")
-  public static class StatusHistory implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @NotNull Encounter.Status status;
-
-    @NotNull @Valid Period period;
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @Schema(name = "Participant")
-  public static class Participant implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid List<CodeableConcept> type;
-
-    @Valid Period period;
-
-    @Valid Reference individual;
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "Diagnosis")
-  public static class Diagnosis implements BackboneElement {
+  public static class Diagnosis implements AsList<Diagnosis>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -291,12 +230,34 @@ public class Encounter implements Resource {
   }
 
   @Data
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
+  @JsonAutoDetect(isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+  @JsonDeserialize(builder = Encounter.Entry.EntryBuilder.class)
+  @Schema(name = "EncounterEntry")
+  public static class Entry extends AbstractEntry<Encounter> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Encounter resource,
+        @Valid Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
+  }
+
+  @Data
   @Builder
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "Hospitalization")
-  public static class Hospitalization implements BackboneElement {
+  public static class Hospitalization implements AsList<Hospitalization>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -329,7 +290,7 @@ public class Encounter implements Resource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "Location")
-  public static class Location implements BackboneElement {
+  public static class Location implements AsList<Location>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -351,5 +312,45 @@ public class Encounter implements Resource {
       reserved,
       completed
     }
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @Schema(name = "Participant")
+  public static class Participant implements AsList<Participant>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid List<CodeableConcept> type;
+
+    @Valid Period period;
+
+    @Valid Reference individual;
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  @Schema(name = "StatusHistory")
+  public static class StatusHistory implements AsList<StatusHistory>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @NotNull Encounter.Status status;
+
+    @NotNull @Valid Period period;
   }
 }

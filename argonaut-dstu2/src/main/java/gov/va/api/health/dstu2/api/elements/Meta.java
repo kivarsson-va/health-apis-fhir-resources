@@ -3,6 +3,7 @@ package gov.va.api.health.dstu2.api.elements;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.datatypes.Coding;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "http://hl7.org/fhir/DSTU2/resource.html#meta")
-public class Meta implements Element {
+public class Meta implements AsList<Meta>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 

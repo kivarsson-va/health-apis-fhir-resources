@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.stu3.api.Fhir;
 import gov.va.api.health.stu3.api.bundle.AbstractBundle;
 import gov.va.api.health.stu3.api.bundle.AbstractEntry;
@@ -41,7 +42,7 @@ import lombok.NoArgsConstructor;
 @Schema(
     description =
         "http://www.fhir.org/guides/argonaut/pd/StructureDefinition-argo-practitionerrole.html")
-public class PractitionerRole implements DomainResource {
+public class PractitionerRole implements AsList<PractitionerRole>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "PractitionerRole";
 
   @Pattern(regexp = Fhir.ID)
@@ -105,11 +106,35 @@ public class PractitionerRole implements DomainResource {
   }
 
   @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class AvailableTime implements AsList<AvailableTime>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    List<DayOfWeek> daysOfWeek;
+
+    Boolean allDay;
+
+    @Pattern(regexp = Fhir.TIME)
+    String availableStartTime;
+
+    @Pattern(regexp = Fhir.TIME)
+    String availableEndTime;
+  }
+
+  @Data
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = PractitionerRole.Bundle.BundleBuilder.class)
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -142,7 +167,7 @@ public class PractitionerRole implements DomainResource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = PractitionerRole.Entry.EntryBuilder.class)
-  public static class Entry extends AbstractEntry<PractitionerRole> {
+  public static class Entry extends AbstractEntry<PractitionerRole> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -163,7 +188,7 @@ public class PractitionerRole implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class NotAvailable implements BackboneElement {
+  public static class NotAvailable implements AsList<NotAvailable>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -174,29 +199,5 @@ public class PractitionerRole implements DomainResource {
     @NotNull String description;
 
     @Valid Period during;
-  }
-
-  @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class AvailableTime implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    List<DayOfWeek> daysOfWeek;
-
-    Boolean allDay;
-
-    @Pattern(regexp = Fhir.TIME)
-    String availableStartTime;
-
-    @Pattern(regexp = Fhir.TIME)
-    String availableEndTime;
   }
 }

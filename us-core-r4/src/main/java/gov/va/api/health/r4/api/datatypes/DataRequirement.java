@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.datatypes;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.elements.Element;
 import gov.va.api.health.r4.api.elements.Extension;
@@ -29,7 +30,7 @@ import lombok.NoArgsConstructor;
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(description = "https://www.hl7.org/fhir/R4/metadatatypes.html#DataRequirement")
 @ZeroOrOneOf(fields = {"subjectCodeableConcept", "subjectReference"})
-public final class DataRequirement implements Element {
+public final class DataRequirement implements AsList<DataRequirement>, Element {
   @Pattern(regexp = Fhir.ID)
   String id;
 
@@ -70,7 +71,7 @@ public final class DataRequirement implements Element {
       isGetterVisibility = JsonAutoDetect.Visibility.NONE)
   @Schema(name = "CodeFilter")
   @ExactlyOneOf(fields = {"path", "searchParam"})
-  public static final class CodeFilter implements Element {
+  public static final class CodeFilter implements AsList<CodeFilter>, Element {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -98,7 +99,7 @@ public final class DataRequirement implements Element {
   @Schema(name = "DateFilter")
   @ZeroOrOneOf(fields = {"valueDateTime", "valuePeriod", "valueDuration"})
   @ExactlyOneOf(fields = {"path", "searchParam"})
-  public static final class DateFilter implements Element {
+  public static final class DateFilter implements AsList<DateFilter>, Element {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -126,7 +127,7 @@ public final class DataRequirement implements Element {
       fieldVisibility = JsonAutoDetect.Visibility.ANY,
       isGetterVisibility = JsonAutoDetect.Visibility.NONE)
   @Schema(name = "Sort")
-  public static final class Sort implements Element {
+  public static final class Sort implements AsList<Sort>, Element {
     @Pattern(regexp = Fhir.ID)
     String id;
 

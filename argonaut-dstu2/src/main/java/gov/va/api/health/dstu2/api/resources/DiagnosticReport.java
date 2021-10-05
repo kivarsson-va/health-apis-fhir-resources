@@ -21,6 +21,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.validation.api.ExactlyOneOf;
 import gov.va.api.health.validation.api.ZeroOrOneOf;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -55,7 +56,7 @@ import org.apache.commons.lang3.StringUtils;
 @ZeroOrOneOf(
     fields = {"effectiveDateTime", "effectivePeriod"},
     message = "Only one effective value may be specified")
-public class DiagnosticReport implements Resource {
+public class DiagnosticReport implements AsList<DiagnosticReport>, Resource {
   @NotBlank @Builder.Default String resourceType = "DiagnosticReport";
 
   @Pattern(regexp = Fhir.ID)
@@ -149,7 +150,7 @@ public class DiagnosticReport implements Resource {
           "${dstu2.diagnosticReportBundle:"
               + "gov.va.api.health.dstu2.api.swaggerexamples."
               + "SwaggerDiagnosticReport#diagnosticReportBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -183,7 +184,7 @@ public class DiagnosticReport implements Resource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = DiagnosticReport.Entry.EntryBuilder.class)
   @Schema(name = "DiagnosticReportEntry")
-  public static class Entry extends AbstractEntry<DiagnosticReport> {
+  public static class Entry extends AbstractEntry<DiagnosticReport> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -204,7 +205,7 @@ public class DiagnosticReport implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Image implements BackboneElement {
+  public static class Image implements AsList<Image>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

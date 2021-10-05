@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.resources;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
 import gov.va.api.health.r4.api.datatypes.ContactDetail;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Schema(description = "https://www.hl7.org/fhir/R4/terminologycapabilities.html")
-public class TerminologyCapabilities implements Resource {
+public class TerminologyCapabilities implements AsList<TerminologyCapabilities>, Resource {
   @NotBlank @Builder.Default String resourceType = "TerminologyCapabilities";
 
   @Pattern(regexp = Fhir.ID)
@@ -105,7 +106,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Closure implements BackboneElement {
+  public static class Closure implements AsList<Closure>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -120,7 +121,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class CodeSystem implements BackboneElement {
+  public static class CodeSystem implements AsList<CodeSystem>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -140,7 +141,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Expansion implements BackboneElement {
+  public static class Expansion implements AsList<Expansion>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -164,7 +165,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Filter implements BackboneElement {
+  public static class Filter implements AsList<Filter>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -185,7 +186,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Implementation implements BackboneElement {
+  public static class Implementation implements AsList<Implementation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -205,7 +206,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Parameter implements BackboneElement {
+  public static class Parameter implements AsList<Parameter>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -225,7 +226,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Software implements BackboneElement {
+  public static class Software implements AsList<Software>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -245,7 +246,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Translation implements BackboneElement {
+  public static class Translation implements AsList<Translation>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -260,7 +261,7 @@ public class TerminologyCapabilities implements Resource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class ValidateCode implements BackboneElement {
+  public static class ValidateCode implements AsList<ValidateCode>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -277,7 +278,7 @@ public class TerminologyCapabilities implements Resource {
   @JsonAutoDetect(
       fieldVisibility = JsonAutoDetect.Visibility.ANY,
       isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-  public static class Version implements BackboneElement {
+  public static class Version implements AsList<Version>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 

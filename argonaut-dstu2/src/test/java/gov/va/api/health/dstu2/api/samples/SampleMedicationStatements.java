@@ -1,11 +1,8 @@
 package gov.va.api.health.dstu2.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.dstu2.api.resources.MedicationStatement;
 import gov.va.api.health.dstu2.api.resources.MedicationStatement.Dosage;
 import gov.va.api.health.dstu2.api.resources.MedicationStatement.Status;
-import java.util.Arrays;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -22,8 +19,8 @@ public class SampleMedicationStatements {
   private Dosage dosage() {
     return Dosage.builder()
         .id("2222")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .text("Hello Text")
         .timing(timing())
         .asNeededBoolean(true)
@@ -37,7 +34,7 @@ public class SampleMedicationStatements {
   }
 
   private List<Dosage> dosageList() {
-    return singletonList(dosage());
+    return dosage().asList();
   }
 
   public MedicationStatement medicationStatement() {
@@ -47,11 +44,10 @@ public class SampleMedicationStatements {
         .implicitRules("rules")
         .language("murican!")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(resource().asList())
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .patient(reference())
         .informationSource(reference())
         .dateAsserted("2005-01-21T07:57:00.000Z")

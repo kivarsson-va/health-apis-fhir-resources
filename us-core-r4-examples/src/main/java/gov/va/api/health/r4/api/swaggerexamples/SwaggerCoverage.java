@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.swaggerexamples;
 
-import static java.util.Arrays.asList;
-
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.CodeableConcept;
@@ -14,8 +12,7 @@ import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Coverage;
 import gov.va.api.health.r4.api.resources.Coverage.CoverageClass;
 import gov.va.api.health.r4.api.resources.Coverage.Status;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 public class SwaggerCoverage {
   /**
@@ -33,21 +30,21 @@ public class SwaggerCoverage {
                     "<div xmlns=\"http://www.w3.org/1999/xhtml\">A human-readable rendering of the coverage</div>")
                 .build())
         .identifier(
-            Collections.singletonList(
-                Identifier.builder()
-                    .system("http://benefitsinc.com/certificate")
-                    .value("12345")
-                    .build()))
+            Identifier.builder()
+                .system("http://benefitsinc.com/certificate")
+                .value("12345")
+                .build()
+                .asList())
         .status(Status.active)
         .type(
             CodeableConcept.builder()
                 .coding(
-                    Collections.singletonList(
-                        Coding.builder()
-                            .system("http://terminology.hl7.org/CodeSystem/v3-ActCode")
-                            .code("EHCPOL")
-                            .display("extended healthcare")
-                            .build()))
+                    Coding.builder()
+                        .system("http://terminology.hl7.org/CodeSystem/v3-ActCode")
+                        .code("EHCPOL")
+                        .display("extended healthcare")
+                        .build()
+                        .asList())
                 .build())
         .policyHolder(
             Reference.builder().reference("http://benefitsinc.com/FHIR/Organization/CBI35").build())
@@ -56,22 +53,21 @@ public class SwaggerCoverage {
         .dependent("0")
         .relationship(
             CodeableConcept.builder()
-                .coding(Collections.singletonList(Coding.builder().code("self").build()))
+                .coding(Coding.builder().code("self").build().asList())
                 .build())
         .period(Period.builder().start("2011-05-23").end("2012-05-23").build())
-        .payor(Collections.singletonList(Reference.builder().reference("Organization/2").build()))
+        .payor(Reference.builder().reference("Organization/2").build().asList())
         .coverageClass(
-            Arrays.asList(
+            List.of(
                 CoverageClass.builder()
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("group")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("group")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("CB135")
                     .name("Corporate Baker's Inc. Local #35")
@@ -80,12 +76,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("subgroup")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("subgroup")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("123")
                     .name("Trainee Part-time Benefits")
@@ -94,12 +89,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("plan")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("plan")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("B37FC")
                     .name("Full Coverage: Medical, Dental, Pharmacy, Vision, EHC")
@@ -108,12 +102,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("subplan")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("subplan")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("P7")
                     .name("Includes afterlife benefits")
@@ -122,12 +115,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("class")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("class")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("SILVER")
                     .name("Silver: Family Plan spouse only")
@@ -136,12 +128,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("subclass")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("subclass")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("Tier2")
                     .name("Low deductable, max $20 copay")
@@ -150,12 +141,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("sequence")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("sequence")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("9")
                     .build(),
@@ -163,12 +153,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("rxid")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("rxid")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("MDF12345")
                     .build(),
@@ -176,12 +165,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("rxbin")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("rxbin")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("987654")
                     .build(),
@@ -189,12 +177,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("rxgroup")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("rxgroup")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("M35PT")
                     .build(),
@@ -202,12 +189,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("rxpcn")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("rxpcn")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("234516")
                     .build(),
@@ -215,12 +201,11 @@ public class SwaggerCoverage {
                     .type(
                         CodeableConcept.builder()
                             .coding(
-                                Collections.singletonList(
-                                    Coding.builder()
-                                        .system(
-                                            "http://terminology.hl7.org/CodeSystem/coverage-class")
-                                        .code("sequence")
-                                        .build()))
+                                Coding.builder()
+                                    .system("http://terminology.hl7.org/CodeSystem/coverage-class")
+                                    .code("sequence")
+                                    .build()
+                                    .asList())
                             .build())
                     .value("9")
                     .build()))
@@ -237,7 +222,7 @@ public class SwaggerCoverage {
         .type(AbstractBundle.BundleType.searchset)
         .total(1)
         .link(
-            asList(
+            List.of(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.first)
                     .url(
@@ -253,7 +238,7 @@ public class SwaggerCoverage {
                     .url(
                         "https://sandbox-api.va.gov/services/fhir/v0/r4/Coverage?patient=1008679665V880686&page=1&_count=15")
                     .build()))
-        .entry(asList(Coverage.Entry.builder().resource(coverage()).build()))
+        .entry(Coverage.Entry.builder().resource(coverage()).build().asList())
         .build();
   }
 }

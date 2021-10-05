@@ -1,11 +1,10 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Procedure;
 import gov.va.api.health.r4.api.resources.Procedure.FocalDevice;
 import gov.va.api.health.r4.api.resources.Procedure.Performer;
 import gov.va.api.health.r4.api.resources.Procedure.Status;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -16,8 +15,8 @@ public class SampleProcedures {
   public FocalDevice focalDevice() {
     return FocalDevice.builder()
         .id("987")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .action(codeableConcept())
         .manipulated(reference())
         .build();
@@ -26,8 +25,8 @@ public class SampleProcedures {
   public Performer performer() {
     return Performer.builder()
         .id("987")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .actor(reference())
         .function(codeableConcept())
         .onBehalfOf(reference())
@@ -41,14 +40,14 @@ public class SampleProcedures {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
-        .instantiatesCanonical(singletonList(reference()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
+        .instantiatesCanonical(reference().asList())
         .instantiatesUri("http://InstantiateGoodnight.com")
-        .basedOn(singletonList(reference()))
-        .partOf(singletonList(reference()))
+        .basedOn(reference().asList())
+        .partOf(reference().asList())
         .status(Status.completed)
         .statusReason(codeableConcept())
         .category(codeableConcept())
@@ -58,20 +57,20 @@ public class SampleProcedures {
         .performedDateTime("2015-04-15T04:00:00Z")
         .recorder(reference())
         .asserter(reference())
-        .performer(singletonList(performer()))
+        .performer(performer().asList())
         .location(reference())
-        .reasonCode(singletonList(codeableConcept()))
-        .reasonReference(singletonList(reference()))
-        .bodySite(singletonList(codeableConcept()))
+        .reasonCode(codeableConcept().asList())
+        .reasonReference(reference().asList())
+        .bodySite(codeableConcept().asList())
         .outcome(codeableConcept())
-        .report(singletonList(reference()))
-        .complication(singletonList(codeableConcept()))
-        .complicationDetail(singletonList(reference()))
-        .followUp(singletonList(codeableConcept()))
-        .note(singletonList(annotation()))
-        .focalDevice(singletonList(focalDevice()))
-        .usedReference(singletonList(reference()))
-        .usedCode(singletonList(codeableConcept()))
+        .report(reference().asList())
+        .complication(codeableConcept().asList())
+        .complicationDetail(reference().asList())
+        .followUp(codeableConcept().asList())
+        .note(annotation().asList())
+        .focalDevice(focalDevice().asList())
+        .usedReference(reference().asList())
+        .usedCode(codeableConcept().asList())
         .build();
   }
 }

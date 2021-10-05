@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -62,7 +63,7 @@ import lombok.NoArgsConstructor;
       },
       message = "Only one abatement field may be specified")
 })
-public class Condition implements Resource {
+public class Condition implements AsList<Condition>, Resource {
   // Ancestors
   @NotBlank @Builder.Default String resourceType = "Condition";
 
@@ -149,7 +150,7 @@ public class Condition implements Resource {
       example =
           "${r4.conditionBundle:gov.va.api.health."
               + "r4.api.swaggerexamples.SwaggerCondition#conditionBundle}")
-  public static final class Bundle extends AbstractBundle<Entry> {
+  public static final class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -187,7 +188,7 @@ public class Condition implements Resource {
   @Schema(name = "ConditionEntry")
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Condition.Entry.EntryBuilder.class)
-  public static final class Entry extends AbstractEntry<Condition> {
+  public static final class Entry extends AbstractEntry<Condition> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,
@@ -209,7 +210,7 @@ public class Condition implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Evidence implements BackboneElement {
+  public static class Evidence implements AsList<Evidence>, BackboneElement {
     String id;
 
     @Valid List<Extension> extension;
@@ -227,7 +228,7 @@ public class Condition implements Resource {
   @AllArgsConstructor
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Stage implements BackboneElement {
+  public static class Stage implements AsList<Stage>, BackboneElement {
     String id;
 
     @Valid List<Extension> extension;

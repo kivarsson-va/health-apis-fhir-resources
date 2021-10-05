@@ -1,7 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit;
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Accident;
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.AddItem;
@@ -28,7 +26,7 @@ import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Total;
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Type;
 import gov.va.api.health.r4.api.resources.ExplanationOfBenefit.Use;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -46,13 +44,13 @@ public class SampleExplanationOfBenefits {
 
   public AddItem addItem() {
     return AddItem.builder()
-        .itemSequence(singletonList(1))
-        .detailSequence(singletonList(1))
-        .subDetailSequence(singletonList(1))
-        .provider(singletonList(reference()))
+        .itemSequence(List.of(1))
+        .detailSequence(List.of(1))
+        .subDetailSequence(List.of(1))
+        .provider(reference().asList())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .servicedPeriod(period())
         .locationCodeableConcept(codeableConcept())
         .quantity(simpleQuantity())
@@ -60,37 +58,37 @@ public class SampleExplanationOfBenefits {
         .factor(new BigDecimal("10.0"))
         .net(money())
         .bodySite(codeableConcept())
-        .subSite(singletonList(codeableConcept()))
-        .noteNumber(singletonList(1))
-        .adjudication(singletonList(adjudication()))
-        .detail(singletonList(addItemDetail()))
+        .subSite(codeableConcept().asList())
+        .noteNumber(List.of(1))
+        .adjudication(adjudication().asList())
+        .detail(addItemDetail().asList())
         .build();
   }
 
   public AddItemDetail addItemDetail() {
     return AddItemDetail.builder()
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("10.0"))
         .net(money())
-        .noteNumber(singletonList(1))
-        .adjudication(singletonList(adjudication()))
-        .subDetail(singletonList(addItemSubDetail()))
+        .noteNumber(List.of(1))
+        .adjudication(adjudication().asList())
+        .subDetail(addItemSubDetail().asList())
         .build();
   }
 
   public AddItemSubDetail addItemSubDetail() {
     return AddItemSubDetail.builder()
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("10.0"))
         .net(money())
-        .noteNumber(singletonList(1))
-        .adjudication(singletonList(adjudication()))
+        .noteNumber(List.of(1))
+        .adjudication(adjudication().asList())
         .build();
   }
 
@@ -112,7 +110,7 @@ public class SampleExplanationOfBenefits {
         .network(codeableConcept())
         .unit(codeableConcept())
         .term(codeableConcept())
-        .financial(singletonList(financial()))
+        .financial(financial().asList())
         .build();
   }
 
@@ -132,16 +130,16 @@ public class SampleExplanationOfBenefits {
         .revenue(codeableConcept())
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("10.0"))
         .net(money())
-        .udi(singletonList(reference()))
-        .noteNumber(singletonList(1))
-        .adjudication(singletonList(adjudication()))
-        .subDetail(singletonList(itemSubDetail()))
+        .udi(reference().asList())
+        .noteNumber(List.of(1))
+        .adjudication(adjudication().asList())
+        .subDetail(itemSubDetail().asList())
         .build();
   }
 
@@ -149,7 +147,7 @@ public class SampleExplanationOfBenefits {
     return Diagnosis.builder()
         .sequence(1)
         .diagnosisCodeableConcept(codeableConcept())
-        .type(singletonList(codeableConcept()))
+        .type(codeableConcept().asList())
         .onAdmission(codeableConcept())
         .packageCode(codeableConcept())
         .build();
@@ -162,11 +160,10 @@ public class SampleExplanationOfBenefits {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(Arrays.asList(extension(), extension()))
-        .modifierExtension(
-            Arrays.asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.active)
         .type(codeableConcept())
         .subType(codeableConcept())
@@ -180,7 +177,7 @@ public class SampleExplanationOfBenefits {
         .priority(codeableConcept())
         .fundsReserveRequested(codeableConcept())
         .fundsReserve(codeableConcept())
-        .related(singletonList(related()))
+        .related(related().asList())
         .prescription(reference())
         .originalPrescription(reference())
         .payee(payee())
@@ -190,25 +187,25 @@ public class SampleExplanationOfBenefits {
         .claimResponse(reference())
         .outcome(Outcome.complete)
         .disposition("disposition")
-        .preAuthRef(singletonList("preAuthRef"))
-        .preAuthRefPeriod(singletonList(period()))
-        .careTeam(singletonList(careTeam()))
-        .supportingInfo(singletonList(supportingInfo()))
-        .diagnosis(singletonList(diagnosis()))
-        .procedure(singletonList(procedure()))
+        .preAuthRef(List.of("preAuthRef"))
+        .preAuthRefPeriod(period().asList())
+        .careTeam(careTeam().asList())
+        .supportingInfo(supportingInfo().asList())
+        .diagnosis(diagnosis().asList())
+        .procedure(procedure().asList())
         .precedence(1)
-        .insurance(singletonList(insurance()))
+        .insurance(insurance().asList())
         .accident(accident())
-        .item(singletonList(item()))
-        .addItem(singletonList(addItem()))
-        .adjudication(singletonList(adjudication()))
-        .total(singletonList(total()))
+        .item(item().asList())
+        .addItem(addItem().asList())
+        .adjudication(adjudication().asList())
+        .total(total().asList())
         .payment(payment())
         .formCode(codeableConcept())
         .form(attachment())
-        .processNote(singletonList(processNote()))
+        .processNote(processNote().asList())
         .benefitPeriod(period())
-        .benefitBalance(singletonList(benefitBalance()))
+        .benefitBalance(benefitBalance().asList())
         .build();
   }
 
@@ -224,35 +221,35 @@ public class SampleExplanationOfBenefits {
     return Insurance.builder()
         .focal(false)
         .coverage(reference())
-        .preAuthRef(singletonList("preAuthRef"))
+        .preAuthRef(List.of("preAuthRef"))
         .build();
   }
 
   public Item item() {
     return Item.builder()
         .sequence(1)
-        .careTeamSequence(singletonList(1))
-        .diagnosisSequence(singletonList(1))
-        .procedureSequence(singletonList(1))
-        .informationSequence(singletonList(1))
+        .careTeamSequence(List.of(1))
+        .diagnosisSequence(List.of(1))
+        .procedureSequence(List.of(1))
+        .informationSequence(List.of(1))
         .revenue(codeableConcept())
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .servicedPeriod(period())
         .locationReference(reference())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("10.0"))
         .net(money())
-        .udi(singletonList(reference()))
+        .udi(reference().asList())
         .bodySite(codeableConcept())
-        .subSite(singletonList(codeableConcept()))
-        .encounter(singletonList(reference()))
-        .noteNumber(singletonList(1))
-        .adjudication(singletonList(adjudication()))
-        .detail(singletonList(detail()))
+        .subSite(codeableConcept().asList())
+        .encounter(reference().asList())
+        .noteNumber(List.of(1))
+        .adjudication(adjudication().asList())
+        .detail(detail().asList())
         .build();
   }
 
@@ -262,15 +259,15 @@ public class SampleExplanationOfBenefits {
         .revenue(codeableConcept())
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
-        .programCode(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
+        .programCode(codeableConcept().asList())
         .quantity(simpleQuantity())
         .unitPrice(money())
         .factor(new BigDecimal("10.0"))
         .net(money())
-        .udi(singletonList(reference()))
-        .noteNumber(singletonList(1))
-        .adjudication(singletonList(adjudication()))
+        .udi(reference().asList())
+        .noteNumber(List.of(1))
+        .adjudication(adjudication().asList())
         .build();
   }
 
@@ -292,10 +289,10 @@ public class SampleExplanationOfBenefits {
   public Procedure procedure() {
     return Procedure.builder()
         .sequence(1)
-        .type(singletonList(codeableConcept()))
+        .type(codeableConcept().asList())
         .date("2017-01-01T00:00:00.000Z")
         .procedureCodeableConcept(codeableConcept())
-        .udi(singletonList(reference()))
+        .udi(reference().asList())
         .build();
   }
 

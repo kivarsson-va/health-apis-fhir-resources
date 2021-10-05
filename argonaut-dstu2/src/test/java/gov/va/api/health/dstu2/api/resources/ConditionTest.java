@@ -8,7 +8,6 @@ import gov.va.api.health.dstu2.api.resources.Condition.Bundle;
 import gov.va.api.health.dstu2.api.samples.SampleConditions;
 import gov.va.api.health.dstu2.api.samples.SampleKnownTypes;
 import gov.va.api.health.validation.api.ZeroOrOneOfVerifier;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class ConditionTest {
@@ -19,15 +18,15 @@ public class ConditionTest {
   public void bundlerCanBuildConditionBundles() {
     Condition.Entry entry =
         Condition.Entry.builder()
-            .extension(Collections.singletonList(data.extension()))
+            .extension(data.extension().asList())
             .fullUrl("http://condition.com")
             .id("123")
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://condition/1"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://condition/1"))
+                    .build()
+                    .asList())
             .resource(data.condition())
             .search(data.search())
             .request(data.request())
@@ -36,13 +35,13 @@ public class ConditionTest {
 
     Bundle bundle =
         Condition.Bundle.builder()
-            .entry(Collections.singletonList(entry))
+            .entry(entry.asList())
             .link(
-                Collections.singletonList(
-                    BundleLink.builder()
-                        .relation(BundleLink.LinkRelation.self)
-                        .url(("http://condition.com/2"))
-                        .build()))
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(("http://condition.com/2"))
+                    .build()
+                    .asList())
             .type(AbstractBundle.BundleType.searchset)
             .build();
 

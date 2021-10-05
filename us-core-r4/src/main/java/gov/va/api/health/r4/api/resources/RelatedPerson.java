@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import gov.va.api.health.fhir.api.AsList;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.AbstractEntry;
@@ -47,7 +48,7 @@ import lombok.NoArgsConstructor;
     example =
         "${r4.relatedPerson:gov.va.api.health.r4.api.swaggerexamples"
             + ".SwaggerRelatedPerson#relatedPerson}")
-public class RelatedPerson implements DomainResource {
+public class RelatedPerson implements AsList<RelatedPerson>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "RelatedPerson";
 
   @Pattern(regexp = Fhir.ID)
@@ -102,7 +103,7 @@ public class RelatedPerson implements DomainResource {
       example =
           "${r4.relatedPersonBundle:gov.va.api.health.r4.api.swaggerexamples"
               + ".SwaggerRelatedPerson#relatedPersonBundle}")
-  public static class Bundle extends AbstractBundle<RelatedPerson.Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** RelatedPerson bundle builder. */
     @Builder
     public Bundle(
@@ -140,7 +141,7 @@ public class RelatedPerson implements DomainResource {
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @Schema(name = "Communication")
-  public static class Communication implements BackboneElement {
+  public static class Communication implements AsList<Communication>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -159,7 +160,7 @@ public class RelatedPerson implements DomainResource {
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = RelatedPerson.Entry.EntryBuilder.class)
   @Schema(name = "RelatedPersonEntry")
-  public static class Entry extends AbstractEntry<RelatedPerson> {
+  public static class Entry extends AbstractEntry<RelatedPerson> implements AsList<Entry> {
     @Builder
     public Entry(
         @Pattern(regexp = Fhir.ID) String id,

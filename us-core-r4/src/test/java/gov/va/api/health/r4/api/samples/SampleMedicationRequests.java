@@ -1,12 +1,11 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.DataAbsentReason;
 import gov.va.api.health.r4.api.resources.MedicationRequest;
 import gov.va.api.health.r4.api.resources.MedicationRequest.DispenseRequest;
 import gov.va.api.health.r4.api.resources.MedicationRequest.DispenseRequest.InitialFill;
 import gov.va.api.health.r4.api.resources.MedicationRequest.Substitution;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -33,41 +32,41 @@ public class SampleMedicationRequests {
         .implicitRules("http://GoodnightRules.com")
         .language("Goodnight Language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .status(MedicationRequest.Status.active)
         .statusReason(codeableConcept())
         .intent(MedicationRequest.Intent.original_order)
-        .category(singletonList(codeableConcept()))
+        .category(codeableConcept().asList())
         .priority(MedicationRequest.Priority.asap)
         .doNotPerform(true)
         .reportedBoolean(true)
         .medicationCodeableConcept(codeableConcept())
         .subject(reference())
         .encounter(reference())
-        .supportingInformation(singletonList(reference()))
+        .supportingInformation(reference().asList())
         .authoredOn("2015-04-15T04:00:00Z")
         .requester(reference())
         .performer(reference())
         .performerType(codeableConcept())
         .recorder(reference())
-        .reasonCode(singletonList(codeableConcept()))
-        .reasonReference(singletonList(reference()))
-        .instantiatesCanonical(singletonList("canonical"))
-        .instantiatesUri(singletonList("uri"))
-        .basedOn(singletonList(reference()))
+        .reasonCode(codeableConcept().asList())
+        .reasonReference(reference().asList())
+        .instantiatesCanonical(List.of("canonical"))
+        .instantiatesUri(List.of("uri"))
+        .basedOn(reference().asList())
         .groupIdentifier(identifier())
         .courseOfTherapyType(codeableConcept())
-        .insurance(singletonList(reference()))
-        .note(singletonList(annotation()))
-        .dosageInstruction(singletonList(dosage()))
+        .insurance(reference().asList())
+        .note(annotation().asList())
+        .dosageInstruction(dosage().asList())
         .dispenseRequest(dispenseRequest())
         .substitution(substitution())
         .priorPrescription(reference())
-        .detectedIssue(singletonList(reference()))
-        .eventHistory(singletonList(reference()))
+        .detectedIssue(reference().asList())
+        .eventHistory(reference().asList())
         .build();
   }
 

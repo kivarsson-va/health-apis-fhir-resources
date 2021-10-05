@@ -1,8 +1,5 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.DataAbsentReason;
 import gov.va.api.health.r4.api.DataAbsentReason.Reason;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse;
@@ -13,6 +10,7 @@ import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse.Item;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse.Outcome;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse.Purpose;
 import gov.va.api.health.r4.api.resources.CoverageEligibilityResponse.Status;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -35,12 +33,12 @@ public class SampleCoverageEligibilityResponses {
         .implicitRules("https://HelloRules.com")
         .language("Hello language")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(asList(extension(), extension()))
-        .modifierExtension(asList(extension(), extensionWithQuantity(), extensionWithRatio()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(List.of(extension(), extension()))
+        .modifierExtension(List.of(extension(), extensionWithQuantity(), extensionWithRatio()))
+        .identifier(identifier().asList())
         .status(Status.active)
-        .purpose(singletonList(Purpose.benefits))
+        .purpose(List.of(Purpose.benefits))
         .patient(reference())
         .servicedPeriod(period())
         .created("2015-04-15T04:00:00Z")
@@ -49,10 +47,10 @@ public class SampleCoverageEligibilityResponses {
         .outcome(Outcome.complete)
         .disposition("Hello disposition")
         .insurer(reference())
-        .insurance(singletonList(insurance()))
+        .insurance(insurance().asList())
         .preAuthRef("Hello preAuthRef")
         .form(codeableConcept())
-        .error(singletonList(error()))
+        .error(error().asList())
         .build();
   }
 
@@ -71,7 +69,7 @@ public class SampleCoverageEligibilityResponses {
         .coverage(reference())
         .inforce(true)
         .benefitPeriod(period())
-        .item(singletonList(item()))
+        .item(item().asList())
         .build();
   }
 
@@ -83,7 +81,7 @@ public class SampleCoverageEligibilityResponses {
     return Item.builder()
         .category(codeableConcept())
         .productOrService(codeableConcept())
-        .modifier(singletonList(codeableConcept()))
+        .modifier(codeableConcept().asList())
         .provider(reference())
         .excluded(false)
         .name("Hello name")
@@ -91,9 +89,9 @@ public class SampleCoverageEligibilityResponses {
         .network(codeableConcept())
         .unit(codeableConcept())
         .term(codeableConcept())
-        .benefit(singletonList(benefit()))
+        .benefit(benefit().asList())
         .authorizationRequired(true)
-        .authorizationSupporting(singletonList(codeableConcept()))
+        .authorizationSupporting(codeableConcept().asList())
         .authorizationUrl("http://example.com")
         .build();
   }

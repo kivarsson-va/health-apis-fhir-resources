@@ -1,11 +1,10 @@
 package gov.va.api.health.r4.api.samples;
 
-import static java.util.Collections.singletonList;
-
 import gov.va.api.health.r4.api.resources.Device;
 import gov.va.api.health.r4.api.resources.Device.DeviceNameType;
 import gov.va.api.health.r4.api.resources.Device.Status;
 import gov.va.api.health.r4.api.resources.Device.UdiEntryType;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -19,34 +18,34 @@ public class SampleDevices {
         .meta(meta())
         .implicitRules("http://GoodnightRules.com")
         .text(narrative())
-        .contained(singletonList(resource()))
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
-        .identifier(singletonList(identifier()))
+        .contained(List.of(resource()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
+        .identifier(identifier().asList())
         .definition(reference())
         .udiCarrier(deviceIdentifier())
         .status(Status.active)
-        .statusReason(singletonList(codeableConcept()))
+        .statusReason(codeableConcept().asList())
         .distinctIdentifier("Blah")
         .manufacturer("BOSTON SCIENTIFIC")
         .manufactureDate("2015-04-15T04:00:00Z")
         .expirationDate("2045-04-15T04:00:00Z")
         .lotNumber("1")
         .serialNumber("SERIAL-1234")
-        .deviceName(singletonList(deviceName()))
+        .deviceName(deviceName().asList())
         .modelNumber("12345")
         .partNumber("12346")
         .type(codeableConcept())
-        .specialization(singletonList(specialization()))
-        .version(singletonList(version()))
-        .property(singletonList(property()))
+        .specialization(specialization().asList())
+        .version(version().asList())
+        .property(property().asList())
         .patient(reference())
         .owner(reference())
-        .contact(singletonList(contactPoint()))
+        .contact(contactPoint().asList())
         .location(reference())
         .url("http://DeviceIssuer.com")
-        .note(singletonList(annotation()))
-        .safety(singletonList(codeableConcept()))
+        .note(annotation().asList())
+        .safety(codeableConcept().asList())
         .parent(reference())
         .build();
   }
@@ -54,8 +53,8 @@ public class SampleDevices {
   public Device.DeviceIdentifier deviceIdentifier() {
     return Device.DeviceIdentifier.builder()
         .id("999")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .deviceIdentifier("SomeDeviceId")
         .issuer("http://DeviceIssuer.com")
         .jurisdiction("http://DeviceJurisdiction.com")
@@ -69,8 +68,8 @@ public class SampleDevices {
   public Device.DeviceName deviceName() {
     return Device.DeviceName.builder()
         .id("998")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .name("PACEMAKER")
         .type(DeviceNameType.user_friendly_name)
         .build();
@@ -79,19 +78,19 @@ public class SampleDevices {
   public Device.Property property() {
     return Device.Property.builder()
         .id("996")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(codeableConcept())
-        .valueQuantity(singletonList(quantity()))
-        .valueCode(singletonList(codeableConcept()))
+        .valueQuantity(quantity().asList())
+        .valueCode(codeableConcept().asList())
         .build();
   }
 
   public Device.Specialization specialization() {
     return Device.Specialization.builder()
         .id("997")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .systemType(codeableConcept())
         .version("1")
         .build();
@@ -100,8 +99,8 @@ public class SampleDevices {
   public Device.Version version() {
     return Device.Version.builder()
         .id("996")
-        .extension(singletonList(extension()))
-        .modifierExtension(singletonList(extension()))
+        .extension(extension().asList())
+        .modifierExtension(extension().asList())
         .type(codeableConcept())
         .component(identifier())
         .value("1")

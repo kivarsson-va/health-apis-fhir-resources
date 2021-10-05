@@ -22,6 +22,7 @@ import gov.va.api.health.dstu2.api.elements.Extension;
 import gov.va.api.health.dstu2.api.elements.Meta;
 import gov.va.api.health.dstu2.api.elements.Narrative;
 import gov.va.api.health.dstu2.api.elements.Reference;
+import gov.va.api.health.fhir.api.AsList;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import javax.validation.Valid;
@@ -46,7 +47,7 @@ import lombok.NoArgsConstructor;
     example =
         "${dstu2.practitioner:gov.va.api.health.dstu2.api.swaggerexamples"
             + ".SwaggerPractitioner#practitioner}")
-public class Practitioner implements DomainResource {
+public class Practitioner implements AsList<Practitioner>, DomainResource {
   @NotBlank @Builder.Default String resourceType = "Practitioner";
 
   @Pattern(regexp = Fhir.ID)
@@ -102,35 +103,13 @@ public class Practitioner implements DomainResource {
   @NoArgsConstructor
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  @JsonDeserialize(builder = Practitioner.Entry.EntryBuilder.class)
-  @Schema(name = "PractitionerEntry")
-  public static class Entry extends AbstractEntry<Practitioner> {
-    @Builder
-    public Entry(
-        @Pattern(regexp = Fhir.ID) String id,
-        @Valid List<Extension> extension,
-        @Valid List<Extension> modifierExtension,
-        @Valid List<BundleLink> link,
-        @Pattern(regexp = Fhir.URI) String fullUrl,
-        @Valid Practitioner resource,
-        @Valid Search search,
-        @Valid Request request,
-        @Valid Response response) {
-      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
-    }
-  }
-
-  @Data
-  @NoArgsConstructor
-  @EqualsAndHashCode(callSuper = true)
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @JsonDeserialize(builder = Practitioner.Bundle.BundleBuilder.class)
   @Schema(
       name = "Practitioner",
       example =
           "${dstu2.practitionerBundle:gov.va.api.health.dstu2.api.swaggerexamples"
               + ".SwaggerPractitioner#practitionerBundle}")
-  public static class Bundle extends AbstractBundle<Entry> {
+  public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Builder constructor. */
     @Builder
     public Bundle(
@@ -159,25 +138,25 @@ public class Practitioner implements DomainResource {
   }
 
   @Data
-  @Builder
-  @NoArgsConstructor(access = AccessLevel.PRIVATE)
-  @AllArgsConstructor
+  @NoArgsConstructor
+  @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class Qualification implements BackboneElement {
-    @Pattern(regexp = Fhir.ID)
-    String id;
-
-    @Valid List<Extension> extension;
-
-    @Valid List<Extension> modifierExtension;
-
-    @Valid List<Identifier> identifier;
-
-    @Valid @NotNull CodeableConcept code;
-
-    @Valid Period period;
-
-    @Valid Reference issuer;
+  @JsonDeserialize(builder = Practitioner.Entry.EntryBuilder.class)
+  @Schema(name = "PractitionerEntry")
+  public static class Entry extends AbstractEntry<Practitioner> implements AsList<Entry> {
+    @Builder
+    public Entry(
+        @Pattern(regexp = Fhir.ID) String id,
+        @Valid List<Extension> extension,
+        @Valid List<Extension> modifierExtension,
+        @Valid List<BundleLink> link,
+        @Pattern(regexp = Fhir.URI) String fullUrl,
+        @Valid Practitioner resource,
+        @Valid Search search,
+        @Valid Request request,
+        @Valid Response response) {
+      super(id, extension, modifierExtension, link, fullUrl, resource, search, request, response);
+    }
   }
 
   @Data
@@ -185,7 +164,7 @@ public class Practitioner implements DomainResource {
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   @AllArgsConstructor
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  public static class PractitionerRole implements BackboneElement {
+  public static class PractitionerRole implements AsList<PractitionerRole>, BackboneElement {
     @Pattern(regexp = Fhir.ID)
     String id;
 
@@ -204,5 +183,27 @@ public class Practitioner implements DomainResource {
     @Valid List<Reference> location;
 
     @Valid List<Reference> healthcareService;
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor
+  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+  public static class Qualification implements AsList<Qualification>, BackboneElement {
+    @Pattern(regexp = Fhir.ID)
+    String id;
+
+    @Valid List<Extension> extension;
+
+    @Valid List<Extension> modifierExtension;
+
+    @Valid List<Identifier> identifier;
+
+    @Valid @NotNull CodeableConcept code;
+
+    @Valid Period period;
+
+    @Valid Reference issuer;
   }
 }
