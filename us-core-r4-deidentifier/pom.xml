@@ -4,11 +4,11 @@
   <parent>
     <artifactId>api-starter</artifactId>
     <groupId>gov.va.api.health</groupId>
-    <version>8.0.27</version>
+    <version>8.0.28</version>
     <relativePath/>
   </parent>
   <artifactId>us-core-r4-deidentifier</artifactId>
-  <version>8.0.18-SNAPSHOT</version>
+  <version>8.0.18</version>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
