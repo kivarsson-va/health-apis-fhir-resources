@@ -40,7 +40,7 @@ public class SwaggerCondition {
                 .coding(
                     Coding.builder()
                         .system(
-                            "https://build.fhir.org/ig/HL7/US-Core-R4/ValueSet-us-core-condition-category.html")
+                            "https://hl7.org/fhir/us/core/STU4/ValueSet-us-core-condition-category.html")
                         .code("problem-list-item")
                         .build()
                         .asList())

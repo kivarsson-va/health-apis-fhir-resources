@@ -50,7 +50,7 @@ import lombok.NoArgsConstructor;
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
     description =
-        "https://build.fhir.org/ig/HL7/US-Core-R4/StructureDefinition-us-core-medicationrequest.html",
+        "https://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-medicationrequest.html",
     example =
         "${r4.medication:gov.va.api.health."
             + "r4.api.swaggerexamples.SwaggerMedicationRequest#medicationRequest}")
