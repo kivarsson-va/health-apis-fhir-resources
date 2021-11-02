@@ -2,7 +2,6 @@ package gov.va.api.health.fhir.testsupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.google.common.collect.ImmutableMap;
 import gov.va.api.health.sentinel.ExpectedResponse;
 import gov.va.api.health.sentinel.TestClient;
 import java.lang.reflect.Method;
@@ -101,7 +100,7 @@ public final class ResourceVerifier {
       String... parameters) {
     return TestCase.<T>builder()
         .path(apiPath() + path)
-        .headers(ImmutableMap.copyOf(headers))
+        .headers(Map.copyOf(headers))
         .body(requestBody)
         .parameters(parameters)
         .response(response)
@@ -162,7 +161,7 @@ public final class ResourceVerifier {
 
     String path;
 
-    @Builder.Default ImmutableMap<String, String> headers = ImmutableMap.of();
+    @Builder.Default Map<String, String> headers = Map.of();
 
     String body;
 

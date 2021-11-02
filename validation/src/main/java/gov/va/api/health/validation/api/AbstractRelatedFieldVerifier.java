@@ -1,6 +1,6 @@
 package gov.va.api.health.validation.api;
 
-import static com.google.common.base.Preconditions.checkState;
+import static gov.va.api.health.validation.api.Checks.checkState;
 import static java.util.stream.Collectors.toList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

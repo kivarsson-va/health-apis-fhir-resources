@@ -1,6 +1,7 @@
 package gov.va.api.health.validation.api;
 
-import com.google.common.base.Preconditions;
+import static gov.va.api.health.validation.api.Checks.checkState;
+
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -40,8 +41,7 @@ public class ExactlyOneOfExtensionVerifier<T> extends AbstractRelatedFieldVerifi
   public void verify() {
     log.info("Verifying {}", sample.getClass());
     String extensionField = "_" + baseField;
-    Preconditions.checkState(
-        fields().containsAll(List.of(baseField, extensionField)) && fields().size() == 2);
+    checkState(fields().containsAll(List.of(baseField, extensionField)) && fields().size() == 2);
     /* Make sure the sample is valid before we mess it up. */
     assertProblems(0);
     /* Make sure we are valid if no fields are set. */
@@ -52,6 +52,6 @@ public class ExactlyOneOfExtensionVerifier<T> extends AbstractRelatedFieldVerifi
     unsetFields();
     setField(extensionField);
     assertProblems(0);
-    Preconditions.checkState(field(extensionField).getType() == extensionClass);
+    checkState(field(extensionField).getType() == extensionClass);
   }
 }

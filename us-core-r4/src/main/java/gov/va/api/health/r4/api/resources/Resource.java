@@ -9,14 +9,13 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Streams;
 import gov.va.api.health.fhir.api.IsResource;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.bundle.MixedBundle;
 import gov.va.api.health.r4.api.elements.Meta;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 import javax.validation.constraints.Pattern;
 import lombok.SneakyThrows;
 
@@ -52,13 +51,13 @@ public interface Resource extends IsResource {
       }
       // Bundle
       Set<String> entryTypes =
-          Streams.stream((ArrayNode) root.get("entry"))
+          StreamSupport.stream(((ArrayNode) root.get("entry")).spliterator(), false)
               .map(node -> node.get("resource").get("resourceType").asText())
               .collect(toSet());
       if (entryTypes.size() != 1) {
         return mapper.readValue(root.toString(), MixedBundle.class);
       }
-      String highlander = Iterables.getOnlyElement(entryTypes);
+      String highlander = entryTypes.iterator().next();
       if (highlander.equals("Bundle")) {
         return mapper.readValue(root.toString(), MixedBundle.class);
       }

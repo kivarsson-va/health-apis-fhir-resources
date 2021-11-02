@@ -2,7 +2,6 @@ package gov.va.api.health.validation.api;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
@@ -13,9 +12,9 @@ public class ExactlyOneOfExtensionVerifierTest {
 
   @Test
   public void exactlyOneField() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
     Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(
+        Map.of(
             String.class,
             () -> "hello",
             ExactlyOneExtension.class,
@@ -32,9 +31,9 @@ public class ExactlyOneOfExtensionVerifierTest {
 
   @Test
   public void moreThanOneField() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
     Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(
+        Map.of(
             String.class,
             () -> "hello",
             ExactlyOneExtension.class,

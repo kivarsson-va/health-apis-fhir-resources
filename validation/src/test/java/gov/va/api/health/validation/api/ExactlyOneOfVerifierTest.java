@@ -2,7 +2,6 @@ package gov.va.api.health.validation.api;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
@@ -12,9 +11,8 @@ import org.junit.jupiter.api.Test;
 public class ExactlyOneOfVerifierTest {
   @Test
   public void blankPrefixIsAnIllegalArgument() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
-    Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(String.class, () -> "hello", Integer.class, () -> 1);
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
+    Map<Class<?>, Supplier<?>> types = Map.of(String.class, () -> "hello", Integer.class, () -> 1);
     assertThrows(
         IllegalArgumentException.class,
         () -> {
@@ -30,9 +28,8 @@ public class ExactlyOneOfVerifierTest {
 
   @Test
   public void exactlyBoth() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
-    Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(String.class, () -> "hello", Integer.class, () -> 1);
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
+    Map<Class<?>, Supplier<?>> types = Map.of(String.class, () -> "hello", Integer.class, () -> 1);
     assertThrows(
         IllegalStateException.class,
         () -> {
@@ -48,9 +45,8 @@ public class ExactlyOneOfVerifierTest {
 
   @Test
   public void exactlyNeither() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
-    Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(String.class, () -> "hello", Integer.class, () -> 1);
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
+    Map<Class<?>, Supplier<?>> types = Map.of(String.class, () -> "hello", Integer.class, () -> 1);
     assertThrows(
         IllegalStateException.class,
         () -> {
@@ -66,9 +62,8 @@ public class ExactlyOneOfVerifierTest {
 
   @Test
   public void exactlyOneInteger() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
-    Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(String.class, () -> "hello", Integer.class, () -> 1);
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
+    Map<Class<?>, Supplier<?>> types = Map.of(String.class, () -> "hello", Integer.class, () -> 1);
     ExactlyOneOfVerifier.builder()
         .sample(new ExactlyOne(null, 1))
         .fieldPrefix("exactlyOne")
@@ -80,9 +75,8 @@ public class ExactlyOneOfVerifierTest {
 
   @Test
   public void exactlyOneString() {
-    Map<String, Supplier<?>> stringTypes = ImmutableMap.of("", () -> "hello");
-    Map<Class<?>, Supplier<?>> types =
-        ImmutableMap.of(String.class, () -> "hello", Integer.class, () -> 1);
+    Map<String, Supplier<?>> stringTypes = Map.of("", () -> "hello");
+    Map<Class<?>, Supplier<?>> types = Map.of(String.class, () -> "hello", Integer.class, () -> 1);
     ExactlyOneOfVerifier.builder()
         .sample(new ExactlyOne("exactly", null))
         .fieldPrefix("exactlyOne")
