@@ -33,7 +33,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@Schema(description = "http://hl7.org/fhir/DSTU2/conformance.html")
+@Schema(
+    description = "http://hl7.org/fhir/DSTU2/conformance.html",
+    example =
+        "${dstu2.conformance:gov.va.api.health.dstu2.api.swaggerexamples"
+            + ".SwaggerConformance#conformance}")
 public class Conformance implements AsList<Conformance>, Resource {
   @NotBlank @Builder.Default String resourceType = "Conformance";
 

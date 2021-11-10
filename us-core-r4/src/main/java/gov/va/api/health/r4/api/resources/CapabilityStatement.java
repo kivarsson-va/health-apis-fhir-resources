@@ -32,7 +32,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@Schema(description = "https://www.hl7.org/fhir/R4/capabilitystatement.html")
+@Schema(
+    description = "https://www.hl7.org/fhir/R4/capabilitystatement.html",
+    example =
+        "${r4.capabilityStatement:gov.va.api.health.r4.api.swaggerexamples"
+            + ".SwaggerCapabilityStatement#capabilityStatement}")
 public class CapabilityStatement implements AsList<CapabilityStatement>, Resource {
   @NotBlank @Builder.Default String resourceType = "CapabilityStatement";
 
