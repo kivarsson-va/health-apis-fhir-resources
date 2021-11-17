@@ -47,7 +47,7 @@ public class SampleImmunizations {
         .expirationDate("2015-04-15T04:00:00Z")
         .site(codeableConcept())
         .route(codeableConcept())
-        .doesQuantity(simpleQuantity())
+        .doseQuantity(simpleQuantity())
         .performer(performer().asList())
         .note(annotation().asList())
         .reasonCode(codeableConcept().asList())

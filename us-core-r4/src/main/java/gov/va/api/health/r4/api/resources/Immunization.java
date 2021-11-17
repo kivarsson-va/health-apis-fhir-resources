@@ -121,7 +121,7 @@ public class Immunization implements AsList<Immunization>, Resource {
 
   @Valid CodeableConcept route;
 
-  @Valid SimpleQuantity doesQuantity;
+  @Valid SimpleQuantity doseQuantity;
 
   @Valid List<Performer> performer;
 
