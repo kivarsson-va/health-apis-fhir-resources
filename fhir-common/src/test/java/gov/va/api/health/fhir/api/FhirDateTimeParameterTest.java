@@ -11,19 +11,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class FhirDateTimeParameterTest {
-
   @BeforeAll
   static void setDateTime() {
     TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"202102,2021-13-11,2021-02-29,2021-03-32"})
+  @ValueSource(strings = {"202102", "2021-13-11", "2021-02-29", "2021-03-32"})
   public void boundNotComputableForDate(String parameter) {
-    assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> new FhirDateTimeParameter(parameter).lowerBound());
-    assertThatExceptionOfType(IllegalArgumentException.class)
-        .isThrownBy(() -> new FhirDateTimeParameter(parameter).upperBound());
+    assertThatExceptionOfType(FhirDateTimeParameter.InvalidRequest.class)
+        .isThrownBy(() -> new FhirDateTimeParameter(parameter));
+    assertThatExceptionOfType(FhirDateTimeParameter.InvalidRequest.class)
+        .isThrownBy(() -> new FhirDateTimeParameter(parameter));
   }
 
   @Test
@@ -87,7 +86,7 @@ public class FhirDateTimeParameterTest {
     assertThat(new FhirDateTimeParameter("eb2021").isSatisfied(lowerBound, upperBound)).isFalse();
     assertThatExceptionOfType(UnsupportedOperationException.class)
         .isThrownBy(() -> new FhirDateTimeParameter("ap2021").isSatisfied(lowerBound, upperBound));
-    assertThatExceptionOfType(IllegalArgumentException.class)
+    assertThatExceptionOfType(FhirDateTimeParameter.InvalidRequest.class)
         .isThrownBy(() -> new FhirDateTimeParameter("ec2021").isSatisfied(lowerBound, upperBound));
   }
 
@@ -105,7 +104,7 @@ public class FhirDateTimeParameterTest {
   @ParameterizedTest
   @ValueSource(strings = {"", "nope", "1"})
   public void nonValidDateTimeParameterThrowsException(String invalidParameter) {
-    assertThatExceptionOfType(IllegalArgumentException.class)
+    assertThatExceptionOfType(FhirDateTimeParameter.InvalidRequest.class)
         .isThrownBy(() -> new FhirDateTimeParameter(invalidParameter));
   }
 }
