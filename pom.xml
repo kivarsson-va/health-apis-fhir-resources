@@ -4,10 +4,10 @@
   <parent>
     <groupId>gov.va.api.health</groupId>
     <artifactId>health-apis-parent</artifactId>
-    <version>9.0.0</version>
+    <version>9.0.5</version>
   </parent>
   <artifactId>fhir-resources-parent</artifactId>
-  <version>9.0.2-SNAPSHOT</version>
+  <version>9.0.2</version>
   <packaging>pom</packaging>
   <modules>
     <module>fhir-common</module>
