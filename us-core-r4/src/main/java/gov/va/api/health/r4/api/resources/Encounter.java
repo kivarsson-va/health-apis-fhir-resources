@@ -47,8 +47,7 @@ import lombok.NoArgsConstructor;
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
     description = "https://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-encounter.html",
-    example =
-        "${r4.encounter:gov.va.api.health.r4.api.swaggerexamples.SwaggerEncounter#encounter}")
+    example = "${r4.encounter:gov.va.api.health.r4.api.swaggerexamples.SwaggerEncounter#encounter}")
 public class Encounter implements AsList<Encounter>, Resource {
   @NotBlank @Builder.Default String resourceType = "Encounter";
 
