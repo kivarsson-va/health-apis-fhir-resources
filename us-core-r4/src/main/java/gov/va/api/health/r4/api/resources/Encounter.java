@@ -46,7 +46,9 @@ import lombok.NoArgsConstructor;
     fieldVisibility = JsonAutoDetect.Visibility.ANY,
     isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @Schema(
-    description = "https://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-encounter.html")
+    description = "https://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-encounter.html",
+    example =
+        "${r4.encounter:gov.va.api.health.r4.api.swaggerexamples.SwaggerEncounter#encounter}")
 public class Encounter implements AsList<Encounter>, Resource {
   @NotBlank @Builder.Default String resourceType = "Encounter";
 
@@ -151,7 +153,11 @@ public class Encounter implements AsList<Encounter>, Resource {
   @EqualsAndHashCode(callSuper = true)
   @JsonAutoDetect(isGetterVisibility = JsonAutoDetect.Visibility.NONE)
   @JsonDeserialize(builder = Encounter.Bundle.BundleBuilder.class)
-  @Schema(name = "EncounterBundle")
+  @Schema(
+      name = "EncounterBundle",
+      example =
+          "${r4.encounterBundle:gov.va.api.health."
+              + "r4.api.swaggerexamples.SwaggerEncounter#encounterBundle}")
   public static class Bundle extends AbstractBundle<Entry> implements AsList<Bundle> {
     /** Creates a bundle of Entries, each entry being an entry of Encounters. */
     @Builder
