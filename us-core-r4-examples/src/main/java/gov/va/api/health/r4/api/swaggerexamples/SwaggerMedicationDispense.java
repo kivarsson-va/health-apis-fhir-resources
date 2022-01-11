@@ -41,7 +41,7 @@ public class SwaggerMedicationDispense {
         .authorizingPrescription(
             Reference.builder()
                 .reference(
-                    "https://sandbox-api.va.gov/services/fhir/v0/r4/MedicationRequest/3HHWB384V")
+                    "https://sandbox-api.va.gov/services/fhir/v0/r4/MedicationRequest/I2-AOV4FXGQLPIXGZPTMTWY7Y7KJ4000000")
                 .display("RX")
                 .build()
                 .asList())

@@ -108,11 +108,9 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
 
   @Valid SimpleQuantity daysSupply;
 
-  // why was authoredOn @NotNull?
   @Pattern(regexp = Fhir.DATETIME)
   String whenPrepared;
 
-  // whenHandedOver cannot be before whenPrepared
   @Pattern(regexp = Fhir.DATETIME)
   String whenHandedOver;
 
@@ -130,8 +128,6 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
 
   @Valid List<Reference> eventHistory;
 
-  // preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped |
-  // declined | unknown
   public enum Status {
     preparation,
     @JsonProperty("in-progress")
