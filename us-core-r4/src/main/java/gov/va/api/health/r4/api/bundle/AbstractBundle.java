@@ -1,6 +1,7 @@
 package gov.va.api.health.r4.api.bundle;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gov.va.api.health.r4.api.Fhir;
 import gov.va.api.health.r4.api.datatypes.Identifier;
@@ -19,11 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/*
- * The "access" element sets the access level of the constructor, by setting this value to
- * "PROTECTED", the constructor will no longer be public.
-
-@SuppressWarnings("PublicConstructorForAbstractClass")*/
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -54,7 +50,11 @@ public abstract class AbstractBundle<N extends AbstractEntry<?>> implements Reso
   protected Integer total;
 
   @Valid protected List<BundleLink> link;
-  @Valid protected List<N> entry;
+
+  @Valid
+  @JsonInclude(value = JsonInclude.Include.NON_NULL)
+  protected List<N> entry;
+
   @Valid protected Signature signature;
 
   @SuppressWarnings("unused")
