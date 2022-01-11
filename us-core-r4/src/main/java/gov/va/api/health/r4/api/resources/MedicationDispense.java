@@ -81,19 +81,21 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
   // Medication Dispense
   @Valid List<Identifier> identifier;
 
-  @Valid @NotNull Status status; // required
+  @Valid List<Reference> partOf;
+
+  @Valid @NotNull Status status;
 
   @Valid CodeableConcept statusReasonCodeableConcept;
 
   @Valid Reference statusReasonReference;
 
-  @Valid List<CodeableConcept> category;
+  @Valid CodeableConcept category;
 
   @Valid CodeableConcept medicationCodeableConcept;
 
   @Valid Reference medicationReference;
 
-  @Valid @NotNull Reference subject;
+  @Valid Reference subject;
 
   @Valid Reference context;
 
@@ -160,7 +162,7 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
     @Valid List<Extension> modifierExtension;
 
     @Valid CodeableConcept function;
-    @Valid @NotNull Reference actor; // required
+    @Valid @NotNull Reference actor;
   }
 
   @Data
@@ -241,7 +243,7 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
 
     @Valid List<Extension> modifierExtension;
 
-    @NotNull Boolean wasSubstituted; //required
+    @NotNull Boolean wasSubstituted;
 
     @Valid CodeableConcept type;
 

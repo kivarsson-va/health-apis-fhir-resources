@@ -27,7 +27,7 @@ public class SampleMedicationDispenses {
         .identifier(identifier().asList())
         .status(Status.preparation)
         .statusReasonCodeableConcept(codeableConcept())
-        .category(codeableConcept().asList())
+        .category(codeableConcept())
         .medicationCodeableConcept(codeableConcept())
         .subject(reference())
         .context(reference())
