@@ -82,12 +82,15 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
   @Valid List<Identifier> identifier;
 
   @Valid @NotNull Status status; // required
+
   @Valid CodeableConcept statusReasonCodeableConcept;
+
   @Valid Reference statusReasonReference;
 
   @Valid List<CodeableConcept> category;
 
   @Valid CodeableConcept medicationCodeableConcept;
+
   @Valid Reference medicationReference;
 
   @Valid @NotNull Reference subject;
@@ -238,7 +241,7 @@ public class MedicationDispense implements AsList<MedicationDispense>, Resource 
 
     @Valid List<Extension> modifierExtension;
 
-    @NotNull Boolean wasSubstituted;
+    @NotNull Boolean wasSubstituted; //required
 
     @Valid CodeableConcept type;
 
