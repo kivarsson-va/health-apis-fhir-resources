@@ -1,6 +1,7 @@
 package gov.va.api.health.dstu2.api.bundle;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gov.va.api.health.dstu2.api.Fhir;
 import gov.va.api.health.dstu2.api.datatypes.Signature;
@@ -43,7 +44,11 @@ public abstract class AbstractBundle<N extends AbstractEntry<?>> implements Reso
   protected Integer total;
 
   @Valid protected List<BundleLink> link;
-  @Valid protected List<N> entry;
+
+  @Valid
+  @JsonInclude(value = JsonInclude.Include.NON_NULL)
+  protected List<N> entry;
+
   @Valid protected Signature signature;
 
   @SuppressWarnings("unused")
